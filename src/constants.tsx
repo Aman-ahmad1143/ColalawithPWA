@@ -45,5 +45,6 @@ const IMAGES = {
   ellipseStore: '/Ellipse_store_img.png',
   starFilled: '/StarFilled.png',
   storeImg: '/StoreImg.png',
+  maincategory: '/maincategory.png',
 };
 export default IMAGES;

@@ -306,7 +306,7 @@ const Header: React.FC = () => {
       <div className="head_bottom">
         <div className="flex gap-18 xl:text-2xl  text-white font-thin">
           
-          <a href="#"><h3 className="pb-4 active_page" >Home <div className="underline" /></h3></a>
+          <a href="/"><h3 className="pb-4 active_page" >Home <div className="underline" /></h3></a>
           <a href="#"><h3 className="pb-4 " >Feed <div className="underline" /></h3></a>
           <a href="#"><h3 className="pb-4 " >Chat <div className="underline" /></h3></a>
           <a href="#"><h3 className="pb-4 " >Stores <div className="underline" /></h3></a>
