@@ -49,74 +49,86 @@ export const categories = [
 export const flashSalesProducts = [
   {
     id: 1,
-    name: "Samsung Galaxy A24",
-    image: "/DeviceMobileCamera.png",
-    originalPrice: "₦95,000.00",
-    salePrice: "₦85,000.00",
-    discount: "11%",
+    name: "Dell Inspiron Laptop",
+    image: "/top1.png",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
     rating: 4.5,
     reviews: 128,
-    store: "Electronics Central",
+    store: "Sasha Stores",
     timeLeft: "2d 14h 30m"
   },
   {
     id: 2,
-    name: "MacBook Pro M2",
-    image: "/Laptop.png",
-    originalPrice: "₦850,000.00",
-    salePrice: "₦780,000.00",
-    discount: "8%",
+    name: "Dell Inspiron Laptop",
+    image: "/top2.png",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+    
     rating: 4.8,
     reviews: 89,
-    store: "Tech World",
+    store: "Sasha Stores",
     timeLeft: "1d 8h 45m"
   },
   {
     id: 3,
-    name: "Gaming Laptop",
-    image: "/Laptop.png",
-    originalPrice: "₦450,000.00",
-    salePrice: "₦395,000.00",
-    discount: "12%",
+    name: "Dell Inspiron Laptop",
+    image: "/top3.png",
+    originalPrice: "N2,000,000",
+    salePrice: "N2,000,000",
+    
     rating: 4.6,
     reviews: 156,
-    store: "Gaming Hub",
+    store: "Sasha Stores",
     timeLeft: "3d 2h 15m"
   },
   {
     id: 4,
-    name: "Dell Monitor 24\"",
-    image: "/Monitor.png",
-    originalPrice: "₦75,000.00",
-    salePrice: "₦65,000.00",
-    discount: "13%",
+    name: "Dell Inspiron Laptop",
+    image: "/top4.png",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+    
     rating: 4.4,
     reviews: 94,
-    store: "Office Solutions",
+    store: "Sasha Stores",
     timeLeft: "1d 20h 10m"
   },
   {
     id: 5,
-    name: "HP Laptop",
-    image: "/Laptop.png",
-    originalPrice: "₦280,000.00",
-    salePrice: "₦245,000.00",
-    discount: "12%",
+    name: "Dell Inspiron Laptop",
+    image: "/top5.png",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+    
     rating: 4.3,
     reviews: 203,
-    store: "Laptop Store",
+    store: "Sasha Stores",
     timeLeft: "4d 6h 25m"
   },
   {
     id: 6,
-    name: "Gaming Monitor",
-    image: "/Monitor.png",
-    originalPrice: "₦125,000.00",
-    salePrice: "₦105,000.00",
-    discount: "16%",
+    name: "Dell Inspiron Laptop",
+    image: "/top6.png",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
     rating: 4.7,
     reviews: 67,
-    store: "Gaming Central",
+    store: "Sasha Stores",
+    timeLeft: "2d 12h 40m"
+  },
+  {
+    id: 7,
+    name: "Dell Inspiron Laptop",
+    image: "/top6.png",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
+    rating: 4.7,
+    reviews: 67,
+    store: "Sasha Stores",
     timeLeft: "2d 12h 40m"
   }
 ];

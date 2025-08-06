@@ -56,5 +56,9 @@ const IMAGES = {
   video: '/video.png',
   whatsapp: '/whatsapp.png',
   maincategory: '/maincategory.png',
+  sasha: '/sasha.svg',
+  mappin: '/MapPin.svg',
+  shoppingCart: '/shopping-cart.svg',
+
 };
 export default IMAGES;

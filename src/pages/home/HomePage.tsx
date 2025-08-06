@@ -40,14 +40,14 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen max-w-[1280px] mx-auto bg-[#E0E0E0]">
     
 
       {/* Categories Section */}
       <div className="bg-white">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="bg-[#E53E3E] text-white px-4 py-3 rounded-lg flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">Categories</h2>
+            <h2 className="text-sm font-medium">Categories</h2>
             <a href="#" className="font-medium text-sm hover:underline">View All</a>
           </div>
 
@@ -125,49 +125,53 @@ const Home: React.FC = () => {
       {/* Top Selling Products Section */}
       <div className="bg-white">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Top Selling Products</h2>
-            <a href="#" className="text-[#E53E3E] font-medium text-sm hover:underline">View All</a>
+          <div className="bg-[#E53E3E] text-white px-4 py-3 rounded-lg flex items-center justify-between mb-4">
+            <h2 className="text-sm font-medium">Top selling products</h2>
+            <a href="#" className="font-medium text-sm hover:underline">View All</a>
           </div>
-          
-          <div className="overflow-x-auto">
-            <div className="flex space-x-4 pb-4" style={{ minWidth: 'max-content' }}>
+           
+          <div className="overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="flex space-x-4 pb-2" >
               {flashSalesProducts.map((product) => (
-                <div key={product.id} className="flex-shrink-0 w-48 bg-white border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="relative">
-                    <img src={product.image} alt={product.name} className="w-full h-32 object-contain bg-gray-50" />
-                    <div className="absolute top-2 left-2 bg-[#E53E3E] text-white px-2 py-1 rounded text-xs font-bold">
-                      {product.discount}
-                    </div>
-                    <div className="absolute top-2 right-2 bg-black bg-opacity-60 text-white px-2 py-1 rounded-full text-xs">
-                      Sponsored
-                    </div>
-                  </div>
+                <div key={product.id} className="flex-shrink-0 max-w-[200px]  bg-white rounded-lg shadow-md overflow-hidden">
+                  <img src={product.image} alt={product.name} className="w-50 h-29 object-cover" />
+           {/* Store name and rating */}
+                    <div className="flex items-center justify-between mb-2 p-2 bg-[#F2F2F2]  border border-gray-200">
+                      <div className="flex items-center space-x-2">
+                        <img src={IMAGES.sasha} alt="store" className="w-5 h-5 rounded-full" />
+                        <span className="text-red-500 text-[8px] font-medium">{product.store}</span>
+                      </div>
                   
-                  <div className="p-3 space-y-2">
-                    <div className="flex items-center space-x-1 text-xs text-gray-500">
-                      <img src={IMAGES.storeImg} alt="store" className="w-3 h-3 rounded-full" />
-                      <span>{product.store}</span>
-                    </div>
-                    
-                    <h3 className="font-medium text-gray-900 text-sm line-clamp-2">{product.name}</h3>
-                    
-                    <div className="space-y-1">
-                      <div className="text-[#E53E3E] font-bold text-sm">{product.salePrice}</div>
-                      <div className="text-gray-400 line-through text-xs">{product.originalPrice}</div>
-                    </div>
-                    
-                    <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-1">
-                        <div className="flex">{renderStars(product.rating)}</div>
-                        <span className="text-xs text-gray-500">({product.reviews})</span>
+                        <img src='/public/star.svg' alt="star" className="w-2 h-2" />
+                        <span className="text-[8px] text-gray-600">4.5</span>
                       </div>
                     </div>
+                  <div className="p-2">
                     
+                    {/* Product name */}
+                    <h3 className="text-gray-900 font-medium text-base mb-3 text-[10px] leading-tight">{product.name}</h3>
+                    
+                    {/* Price */}
+                    <div className="flex items-center space-x-2 mb-3">
+                      <span className="text-red-500 font-bold text-[12px]">{product.salePrice}</span>
+                      <span className="text-gray-400 line-through text-[8px]">{product.originalPrice}</span>
+                    </div>
+                    
+                    {/* Service badges */}
+                    <div className="flex space-x-2 mb-4">
+                      <img src="/public/frame 268.svg" alt="Free delivery" className="h-6 w-15" />
+                      <img src="/public/frame 269.svg" alt="20% Off in bulk" className="h-6 w-15" />
+                    </div>
+                    
+                    {/* Location and Cart */}
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-[#E53E3E] font-medium">{product.timeLeft}</span>
-                      <button className="bg-[#E53E3E] text-white p-1.5 rounded hover:bg-[#d63333] transition-colors">
-                        <img src={IMAGES.cart} alt="Add to cart" className="w-3 h-3" />
+                      <div className="flex items-center space-x-1">
+                        <img src={IMAGES.mappin} alt="location" className="w-4 h-4" />
+                        <span className="text-gray-500 text-[6px]">Lagos, Nigeria</span>
+                      </div>
+                      <button className="bg-[#FFFFFF] border border-[#CDCDCD] p-2 rounded-2xl  transition-colors">
+                        <img src={IMAGES.shoppingCart} alt="Add to cart" className="w-5 h-5   cursor-pointer " />
                       </button>
                     </div>
                   </div>
@@ -179,11 +183,11 @@ const Home: React.FC = () => {
       </div>
 
       {/* Top Stores Section */}
-      <div className="bg-gray-50">
+       <div className="bg-white">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Top Stores</h2>
-            <a href="#" className="text-[#E53E3E] font-medium text-sm hover:underline">View All</a>
+          <div className="bg-[#E53E3E] text-white px-4 py-3 rounded-lg flex items-center justify-between mb-4">
+            <h2 className="text-sm font-medium">Top  Stores</h2>
+            <a href="#" className="font-medium text-sm hover:underline">View All</a>
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
