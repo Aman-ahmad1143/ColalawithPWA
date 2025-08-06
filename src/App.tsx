@@ -9,10 +9,7 @@ function App() {
     <>
       <Header />
       <main>
-        <div className="container">
-          <h1>Welcome to Colala Mall</h1>
-          <p>Your one-stop shopping destination</p>
-        </div>
+       
       </main>
       
       {/* PWA Badge */}
