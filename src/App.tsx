@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Services from './pages/services/Services';
 import AllServices from './pages/services/Allservices';
 import ServiceDetails from './pages/services/ServiceDetails';
+import Home from './pages/home/HomePage';
 
 
 

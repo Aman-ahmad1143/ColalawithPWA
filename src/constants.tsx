@@ -55,5 +55,6 @@ const IMAGES = {
   servicesDetail3: '/Services_detail_3.png',
   video: '/video.png',
   whatsapp: '/whatsapp.png',
+  maincategory: '/maincategory.png',
 };
 export default IMAGES;
