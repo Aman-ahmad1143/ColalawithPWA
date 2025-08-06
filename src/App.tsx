@@ -2,17 +2,26 @@
 import './App.css'
 import Header from './pages/layout/header';
 import PWABadge from './PWABadge';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Services from './pages/services/Services';
+import AllServices from './pages/services/Allservices';
+
+
+
 
 
 function App() {
   return (
     <>
+
+      <BrowserRouter>
       <Header />
-      <main>
-       
-      </main>
-      
-      {/* PWA Badge */}
+      <Routes>
+        <Route path="/services" element={<Services />} />
+        <Route path="/all-services" element={<AllServices />} />
+        {/* Add other routes here */}
+      </Routes>
+    </BrowserRouter>
       <PWABadge />
     </>
   );
