@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Services from './pages/services/Services';
 import AllServices from './pages/services/Allservices';
 import ServiceDetails from './pages/services/ServiceDetails';
+import Categories from './pages/categories/Categories';
+import PhonesTablets from './pages/categories/PhonesTablets';
 import Home from './pages/home/HomePage';
 
 
@@ -24,6 +26,8 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/all-services" element={<AllServices />} />
         <Route path="/service-details/:id" element={<ServiceDetails />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/phones-tablets" element={<PhonesTablets />} />
         {/* Add other routes here */}
       </Routes>
     </BrowserRouter>
