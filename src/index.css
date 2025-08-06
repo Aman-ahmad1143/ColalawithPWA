@@ -1,4 +1,7 @@
 @import "tailwindcss";
+*{
+  font: Manrope, sans-serif;
+}
 
 .active_page {
   position: relative;
