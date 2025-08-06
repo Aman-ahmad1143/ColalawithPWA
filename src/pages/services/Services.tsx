@@ -16,16 +16,6 @@ const serviceCategories = [
   {
     title: "Fashion Designing",
     listings: 20,
-    image: IMAGES.services1,
-  },
-  {
-    title: "Gardening",
-    listings: 20,
-    image: IMAGES.services2,
-  },
-  {
-    title: "Fashion Designing",
-    listings: 20,
     image: IMAGES.services3,
   },
   {

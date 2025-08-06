@@ -5,6 +5,7 @@ import PWABadge from './PWABadge';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Services from './pages/services/Services';
 import AllServices from './pages/services/Allservices';
+import ServiceDetails from './pages/services/ServiceDetails';
 
 
 
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/services" element={<Services />} />
         <Route path="/all-services" element={<AllServices />} />
+        <Route path="/service-details/:id" element={<ServiceDetails />} />
         {/* Add other routes here */}
       </Routes>
     </BrowserRouter>
