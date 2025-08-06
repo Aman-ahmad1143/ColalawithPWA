@@ -8,6 +8,7 @@ const IMAGES = {
   cart: '/ShoppingCart.png',
   react: '/react.svg',
   dropdown: '/CaretDown.png',
+  dropdownRed: '/Dropdown_red.png',
   funnel: '/Funnel.png',
   phone: '/DeviceMobileCamera.png',
   fashion: '/Dress.png',
