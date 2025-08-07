@@ -12,32 +12,32 @@ const Home: React.FC = () => {
     }));
   };
 
-  const renderStars = (rating: number) => {
-    const stars: React.ReactElement[] = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
+  // const renderStars = (rating: number) => {
+  //   const stars: React.ReactElement[] = [];
+  //   const fullStars = Math.floor(rating);
+  //   const hasHalfStar = rating % 1 !== 0;
 
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(
-        <img key={i} src={IMAGES.starFilled} alt="star" className="w-4 h-4" />
-      );
-    }
+  //   for (let i = 0; i < fullStars; i++) {
+  //     stars.push(
+  //       <img key={i} src={IMAGES.starFilled} alt="star" className="w-4 h-4" />
+  //     );
+  //   }
 
-    if (hasHalfStar) {
-      stars.push(
-        <img key="half" src={IMAGES.star} alt="half-star" className="w-4 h-4" />
-      );
-    }
+  //   if (hasHalfStar) {
+  //     stars.push(
+  //       <img key="half" src={IMAGES.star} alt="half-star" className="w-4 h-4" />
+  //     );
+  //   }
 
-    const remainingStars = 5 - Math.ceil(rating);
-    for (let i = 0; i < remainingStars; i++) {
-      stars.push(
-        <img key={`empty-${i}`} src={IMAGES.star} alt="empty-star" className="w-4 h-4 opacity-30" />
-      );
-    }
+  //   const remainingStars = 5 - Math.ceil(rating);
+  //   for (let i = 0; i < remainingStars; i++) {
+  //     stars.push(
+  //       <img key={`empty-${i}`} src={IMAGES.star} alt="empty-star" className="w-4 h-4 opacity-30" />
+  //     );
+  //   }
 
-    return stars;
-  };
+  //   return stars;
+  // };
 
   return (
     <div className="min-h-screen max-w-[1280px] mx-auto bg-[#E0E0E0]">
@@ -190,106 +190,144 @@ const Home: React.FC = () => {
             <a href="#" className="font-medium text-sm hover:underline">View All</a>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-            {stores.map((store) => (
-              <div key={store.id} className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                <div className="relative h-20 bg-gradient-to-r from-purple-400 to-pink-400">
-                  <img src={store.coverImage} alt="Store cover" className="w-full h-full object-cover" />
-                  <div className="absolute -bottom-6 left-4">
-                    <img src={store.image} alt={store.name} className="w-12 h-12 rounded-full border-2 border-white object-cover" />
-                  </div>
-                </div>
-                
-                <div className="pt-8 pb-4 px-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-gray-900 text-sm">{store.name}</h3>
-                    <div className="flex items-center space-x-1">
-                      <img src={IMAGES.star} alt="rating" className="w-3 h-3" />
-                      <span className="text-xs text-gray-600">4.5</span>
+          <div className="overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            <div className="flex space-x-4 pb-2">
+              {stores.map((store) => (
+                <div key={store.id} className="flex-shrink-0 w-[330px]  bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden">
+                  {/* Cover Image with Avatar */}
+                  <div className="relative h-20 ">
+                    <img src={store.coverImage} alt="Store cover" className="w-full h-full object-cover mb-1" />
+                    {/* Store Avatar positioned over cover */}
+                    <div className="absolute -bottom-8 left-4">
+                      <img src={store.image} alt={store.name} className="w-20 h-20 rounded-full border-3 border-white object-cover shadow-md" />
                     </div>
                   </div>
-                  
-                  <div className="flex items-center space-x-4 text-xs text-gray-500 mb-3">
-                    <div className="flex items-center space-x-1">
-                      <span className="bg-blue-100 text-blue-600 px-2 py-1 rounded-full text-xs">Electronics</span>
-                      <span className="bg-red-100 text-red-600 px-2 py-1 rounded-full text-xs">Retail</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center justify-between text-xs text-gray-500 mb-4">
-                    <div className="flex items-center space-x-3">
-                      <div className="flex items-center space-x-1">
-                        <img src={IMAGES.users} alt="followers" className="w-3 h-3" />
-                        <span>{store.followers}</span>
+
+                  {/* Content */}
+                  <div className="pt-8 pb-4 px-4">
+                    {/* Store Name and Rating positioned above avatar */}
+                    <div className="mb-1">
+                      <div className="flex items-end justify-between -mt-6 ml-20 mb-1">
+                        <h3 className="font-bold text-gray-900 text-[16px]">{store.name}</h3>
+                        <div className="flex items-center space-x-1">
+                          
+                        </div>
                       </div>
-                      <div className="flex items-center space-x-1">
-                        <img src={IMAGES.user} alt="following" className="w-3 h-3" />
-                        <span>{store.following}</span>
+                      
+                      <div className="flex items-end text-right space-x-2 ml-18 mb-4">
+                        <span className="bg-[#0000FF33] text-[#0000FF] px-2 py-1 rounded-lg text-xs font-medium border border-[#0000FF]">{store.badge1}</span>
+                        <span className="bg-[#FF000033] text-[#FF0000] px-1 py-1 rounded-lg text-xs font-medium border border-[#FF0000]">{store.badge2}</span>
+                      <div className="flex items-center   ml-10 space-x-1">
+                          <span className="text-red-500 text-lg">★</span>
+                          <span className="text-sm text-gray-600 font-medium">4.5</span>
+                        </div>
                       </div>
                     </div>
+                    
+                    {/* Bottom Section - Stats and Button in one row */}
+                    <div className="flex items-center justify-between">
+                      {/* Stats Section */}
+                      <div className="flex items-center space-x-6">
+                        <div className="text-center border-r-1 border-[#CDCDCD] pr-5 ">
+                          <div className="flex items-center space-x-1 mb-0.1">
+                            <img src={IMAGES.shop} alt="qty sold" className="w-4 h-6 text-gray-400" />
+                            <span className="text-[8px] text-gray-500">Qty Sold</span>
+                          </div>
+                          <span className="text-[12px] font-bold ml-2 text-gray-900">100</span>
+                        </div>
+                        
+                        <div className="text-center  border-r-1 border-[#CDCDCD] pr-8">
+                          <div className="flex items-center space-x-1 mb-0.1">
+                            <img src={IMAGES.followers} alt="followers" className="w-4 h-6 text-gray-400" />
+                            <span className="text-[8px] text-gray-500">Followers</span>
+                          </div>
+                          <span className="text-[14px] font-bold ml-0.1 text-gray-900">{store.followers}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Action Button */}
+                      <button 
+                        onClick={() => toggleFollow(store.id)}
+                        className={`px-2 py-3 rounded-xl font-medium cursor-pointer text-sm transition-colors ${
+                          followStates[store.id] 
+                            ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' 
+                            : 'bg-[#E53E3E] text-white hover:bg-[#E53E3E]'
+                        }`}
+                      >
+                        {followStates[store.id] ? 'Following' : 'Go to Shop'}
+                      </button>
+                    </div>
                   </div>
-                  
-                  <button 
-                    onClick={() => toggleFollow(store.id)}
-                    className={`w-full py-2 px-4 rounded-lg font-medium text-xs transition-colors ${
-                      followStates[store.id] 
-                        ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' 
-                        : 'bg-[#E53E3E] text-white hover:bg-[#d63333]'
-                    }`}
-                  >
-                    {followStates[store.id] ? 'Following' : 'Go to Shop'}
-                  </button>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       {/* All Products Section */}
-      <div className="bg-white">
+     <div className="bg-white">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">All Products</h2>
-            <a href="#" className="text-[#E53E3E] font-medium text-sm hover:underline">View All</a>
+          <div className="bg-[#E53E3E] text-white px-4 py-3 rounded-lg flex items-center justify-between mb-4">
+            <h2 className="text-sm font-medium">All Products</h2>
+            <a href="#" className="font-medium text-sm hover:underline">View All</a>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8">
             {featuredProducts.map((product) => (
-              <div key={product.id} className="bg-white border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+              <div key={product.id} className="bg-white flex-shrink-0 max-w-[200px]  rounded-lg overflow-hidden  shadow-xl hover:shadow-lg transition-shadow">
                 <div className="relative">
                   <img src={product.image} alt={product.name} className="w-full h-32 object-contain bg-gray-50" />
-                  <div className="absolute top-2 left-2 bg-black bg-opacity-60 text-white px-2 py-1 rounded-full text-xs">
-                    Sponsored
-                  </div>
+                  
                 </div>
                 
-                <div className="p-3 space-y-2">
-                  <div className="flex items-center space-x-1 text-xs text-gray-500">
-                    <img src={IMAGES.storeImg} alt="store" className="w-3 h-3 rounded-full" />
-                    <span>{product.store}</span>
+                 {/* Store name and rating */}
+                    <div className="flex items-center justify-between mb-2 p-2 bg-[#F2F2F2]  border border-gray-200">
+                      <div className="flex items-center space-x-2">
+                        <img src={IMAGES.sasha} alt="store" className="w-5 h-5 rounded-full" />
+                        <span className="text-red-500 text-[8px] font-medium">{product.store}</span>
+                      </div>
+                  
+                      <div className="flex items-center space-x-1">
+                        <img src='/public/star.svg' alt="star" className="w-2 h-2" />
+                        <span className="text-[8px] text-gray-600">4.5</span>
+                      </div>
+                    </div>
+                  <div className="p-2">
+                    
+                    {/* Product name */}
+                    <h3 className="text-gray-900 font-medium text-base mb-2 text-[10px] leading-tight">{product.name}</h3>
+                    
+                    {/* Price */}
+                    <div className="flex items-center space-x-2 mb-2">
+                      <span className="text-red-500 font-bold text-[12px]">{product.salePrice}</span>
+                      <span className="text-gray-400 line-through text-[8px]">{product.originalPrice}</span>
+                    </div>
+                    
+                    {/* Service badges */}
+                    <div className="flex space-x-2 mb-2">
+                      <img src="/public/frame 268.svg" alt="Free delivery" className="h-6 w-15" />
+                      <img src="/public/frame 269.svg" alt="20% Off in bulk" className="h-6 w-15" />
+                    </div>
+                    
+                    {/* Location and Cart */}
+                    <div className="flex items-center justify-between mb-0.5">
+                      <div className="flex items-center space-x-1">
+                        <img src={IMAGES.mappin} alt="location" className="w-4 h-4" />
+                        <span className="text-gray-500 text-[6px]">Lagos, Nigeria</span>
+                      </div>
+                      <button className="bg-[#FFFFFF] border border-[#CDCDCD] p-2 rounded-2xl  transition-colors">
+                        <img src={IMAGES.shoppingCart} alt="Add to cart" className="w-5 h-5   cursor-pointer " />
+                      </button>
+                    </div>
                   </div>
-                  
-                  <h3 className="font-medium text-gray-900 text-sm line-clamp-2">{product.name}</h3>
-                  
-                  <div className="text-[#E53E3E] font-bold text-sm">{product.price}</div>
-                  
-                  <div className="flex items-center space-x-1">
-                    <div className="flex">{renderStars(product.rating)}</div>
-                    <span className="text-xs text-gray-500">({product.reviews})</span>
-                  </div>
-                  
-                  <button className="w-full bg-[#E53E3E] text-white py-2 px-3 rounded-lg hover:bg-[#d63333] transition-colors flex items-center justify-center space-x-1">
-                    <img src={IMAGES.cart} alt="Add to cart" className="w-3 h-3" />
-                    <span className="text-xs">Add to Cart</span>
-                  </button>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

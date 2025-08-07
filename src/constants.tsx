@@ -90,6 +90,8 @@ const IMAGES = {
   vee: '/Vee.png',
   feedPhone: '/FeedPhone.png',
   download: '/Download.png',
+  shop: '/shop.svg',
+  followers: '/followers.svg',
 
 };
 export default IMAGES;
