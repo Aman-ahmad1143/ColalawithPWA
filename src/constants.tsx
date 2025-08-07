@@ -60,6 +60,8 @@ const IMAGES = {
   sasha: '/sasha.svg',
   mappin: '/MapPin.svg',
   shoppingCart: '/shopping-cart.svg',
+  shop: '/shop.svg',
+  followers: '/followers.svg',
 
 };
 export default IMAGES;

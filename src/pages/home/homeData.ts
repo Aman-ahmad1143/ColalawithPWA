@@ -137,130 +137,170 @@ export const stores = [
   {
     id: 1,
     name: "Sasha Stores",
-    followers: "162",
+    followers: "5",
     following: "54",
-    image: "/Avatar_1.png",
-    coverImage: "/Ellipse_store_img.png",
-    isFollowing: false
-  },
+    image: "/store1.svg",
+    coverImage: "/avatar1.svg",
+    isFollowing: false,
+    badge1: "Electronics",
+    badge2: "Phones"
+  },  
   {
     id: 2,
     name: "Sasha Stores",
-    followers: "162",
+    followers: "5",
     following: "54", 
-    image: "/Avatar_1.png",
-    coverImage: "/Ellipse_store_img.png",
-    isFollowing: false
+    image: "/store2.svg",
+    coverImage: "/avatar2.svg",
+    isFollowing: false,
+    badge1: "Wholesales",
+    badge2: "Retail"
+
   },
   {
     id: 3,
     name: "Sasha Stores",
-    followers: "162",
+    followers: "5",
     following: "54",
-    image: "/Avatar_1.png", 
-    coverImage: "/Ellipse_store_img.png",
-    isFollowing: false
+    image: "/store3.svg", 
+    coverImage: "/avatar3.svg",
+    isFollowing: false,
+    badge1: "Wholesales",
+    badge2: "Retail"
   },
   {
     id: 4,
     name: "Sasha Stores",
-    followers: "162",
+    followers: "5",
     following: "54",
-    image: "/Avatar_1.png",
-    coverImage: "/Ellipse_store_img.png", 
-    isFollowing: false
+    image: "/store4.svg",
+    coverImage: "/avatar4.svg",
+    isFollowing: false,
+    badge1: "Wholesales",
+    badge2: "Retail"
   }
+ 
 ];
 
 export const featuredProducts = [
   {
-    id: 1,
-    name: "Gaming Laptop Asus",
-    image: "/Laptop.png",
-    price: "₦450,000.00",
+     id: 1,
+    name: "Dell Inspiron Laptop",
+    image: "/product1.svg",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
     rating: 4.5,
-    reviews: 89,
-    store: "Gaming Central"
+    reviews: 128,
+    store: "Sasha Stores",
+    timeLeft: "2d 14h 30m"
   },
   {
-    id: 2,
-    name: "MacBook Pro",
-    image: "/Laptop.png", 
-    price: "₦850,000.00",
+     id: 2,
+    name: "Dell Inspiron Laptop",
+    image: "/product2.svg",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
     rating: 4.8,
-    reviews: 156,
-    store: "Apple Store"
+    reviews: 129,
+    store: "Sasha Stores",
+    timeLeft: "2d 14h 10m"
   },
   {
     id: 3,
-    name: "Dell XPS Laptop",
-    image: "/Laptop.png",
-    price: "₦380,000.00", 
-    rating: 4.6,
-    reviews: 94,
-    store: "Dell Official"
+    name: "Dell Inspiron Laptop",
+    image: "/product3.svg",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
+    rating: 4.2,
+    reviews: 122,
+    store: "Sasha Stores",
+    timeLeft: "2d 14h 19m"
   },
   {
-    id: 4,
-    name: "HP Pavilion",
-    image: "/Laptop.png",
-    price: "₦280,000.00",
-    rating: 4.4,
-    reviews: 67,
-    store: "HP Store"
-  },
-  {
-    id: 5,
-    name: "Samsung Monitor",
-    image: "/Monitor.png",
-    price: "₦95,000.00",
-    rating: 4.7,
+     id: 4,
+    name: "Dell Inspiron Laptop",
+    image: "/product4.svg",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
+    rating: 4.3,
     reviews: 123,
-    store: "Samsung Official"
+    store: "Sasha Stores",
+    timeLeft: "2d 14h 23m"
   },
   {
-    id: 6,
-    name: "LG UltraWide",
-    image: "/Monitor.png",
-    price: "₦185,000.00",
-    rating: 4.6,
-    reviews: 78,
-    store: "LG Electronics"
+     id: 5,
+    name: "Dell Inspiron Laptop",
+    image: "/product5.svg",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
+    rating: 4.4,
+    reviews: 128,
+    store: "Sasha Stores",
+    timeLeft: "2d 14h 25m"
   },
   {
-    id: 7,
-    name: "ASUS Monitor",
-    image: "/Monitor.png",
-    price: "₦125,000.00",
-    rating: 4.5,
-    reviews: 91,
-    store: "ASUS Store"
+     id: 6,
+    name: "Dell Inspiron Laptop",
+    image: "/product6.svg",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
+    rating: 4.0,
+    reviews: 129,
+    store: "Sasha Stores",
+    timeLeft: "2d 14h 30m"
+  },
+  {
+     id: 7,
+    name: "Dell Inspiron Laptop",
+    image: "/product7.svg",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
+    rating: 4.1,
+    reviews: 131,
+    store: "Sasha Stores",
+    timeLeft: "2d 14h 34m"
   },
   {
     id: 8,
-    name: "Acer Gaming Monitor",
-    image: "/Monitor.png",
-    price: "₦155,000.00",
-    rating: 4.8,
-    reviews: 134,
-    store: "Acer Official"
+    name: "Dell Inspiron Laptop",
+    image: "/product8.svg",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
+    rating: 3.4,
+    reviews: 119,
+    store: "Sasha Stores",
+    timeLeft: "2d 14h 42m"
   },
   {
     id: 9,
-    name: "BenQ Professional",
-    image: "/Monitor.png",
-    price: "₦220,000.00",
-    rating: 4.7,
-    reviews: 56,
-    store: "BenQ Store"
+    name: "Dell Inspiron Laptop",
+    image: "/product9.svg",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
+    rating: 3.5,
+    reviews: 118,
+    store: "Sasha Stores",
+    timeLeft: "2d 14h 33m"
   },
   {
     id: 10,
-    name: "ViewSonic Monitor",
-    image: "/Monitor.png",
-    price: "₦145,000.00",
-    rating: 4.5,
-    reviews: 89,
-    store: "ViewSonic"
+    name: "Dell Inspiron Laptop",
+    image: "/product10.svg",
+    originalPrice: "N3,000,000",
+    salePrice: "N2,000,000",
+
+    rating: 3.6,
+    reviews: 117,
+    store: "Sasha Stores",
+    timeLeft: "2d 14h 50m"
   }
 ];
