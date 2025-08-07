@@ -9,6 +9,7 @@ import ServiceDetails from './pages/services/ServiceDetails';
 import Categories from './pages/categories/Categories';
 import PhonesTablets from './pages/categories/PhonesTablets';
 import Home from './pages/home/HomePage';
+import Feed from './pages/feed/Feed';
 
 
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/service-details/:id" element={<ServiceDetails />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/phones-tablets" element={<PhonesTablets />} />
+        <Route path="/feed" element={<Feed />} />
         {/* Add other routes here */}
       </Routes>
     </BrowserRouter>

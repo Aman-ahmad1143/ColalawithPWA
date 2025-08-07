@@ -11,36 +11,127 @@ const Header: React.FC = () => {
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
   const [showRegistrationPopup, setShowRegistrationPopup] = useState(false);
+  const [showImageSearchPopup, setShowImageSearchPopup] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
 
   useEffect(() => {
     setIsLoggedIn(Cookies.get("isLoggedIn") === "true");
   }, [showLoginPopup]);
+
+  const handleFileUpload = (file: File) => {
+    console.log('File selected:', file);
+    // Add your file upload logic here
+    // For now, just close the popup after file selection
+    setShowImageSearchPopup(false);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragOver(false);
+    const files = e.dataTransfer.files;
+    if (files && files[0]) {
+      handleFileUpload(files[0]);
+    }
+  };
   return (
-    <header className="bg-[#E53E3E] rounded-b-4xl px-5 pb-3  ">
-      <div className="head_top flex px-4 gap-5 items-center xl:justify-evenly  ">
-        <img src={IMAGES.logo} className="xl:w-35 " alt="Colala Mall Logo" />
+    <header className="bg-[#E53E3E] rounded-b-4xl px-5 pb-3">
+      <div className="max-w-[1280px] mx-auto">
+        <div className="head_top flex px-4 gap-5 items-center justify-evenly">
+          <img src={IMAGES.logo} className="w-35" alt="Colala Mall Logo" />
 
-        <div className="inp flex items-center bg-white rounded-xl px-4  shadow w-[417px] h-[60px] xl:w-[600px]  ">
-          <input
-            type="text"
-            placeholder="Search any product, shop or category"
-            className="flex-grow outline-none text-gray-600 placeholder-gray-400 bg-transparent"
-          />
-          <img
-            src={IMAGES.camera}
-            alt="Camera Icon"
-            className="w-5 h-5 ml-3"
-          />
-        </div>
-      
+          <div className="inp flex items-center bg-white rounded-xl px-4 shadow w-[420px] h-[60px] relative">
+            <input
+              type="text"
+              placeholder="Search any product, shop or category"
+              className="flex-grow outline-none text-gray-600 placeholder-gray-400 bg-transparent "
+            />
+            <div className="relative">
+              <img
+                src={IMAGES.camera}
+                alt="Camera Icon"
+                className="w-5 h-5 ml-3 cursor-pointer"
+                onClick={() => setShowImageSearchPopup(!showImageSearchPopup)}
+              />
+              
+              {/* Image Search Dropdown */}
+              {showImageSearchPopup && (
+                <div className="absolute right-[-200px] top-12  w-108 bg-white rounded-4xl shadow-lg z-50 p-6 ">
+                  
 
+                  {/* Title */}
+                  <div className="mb-4">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-1">Search by Image</h3>
+                    <p className="text-xs text-gray-600">Find products by uploading an image</p>
+                  </div>
+
+                  {/* Image upload area */}
+                  <div 
+                    className={`border-2 border-dashed rounded-xl p-6 py-9 text-center cursor-pointer transition-colors ${
+                      isDragOver 
+                        ? 'border-[#E53E3E] bg-red-50' 
+                        : 'border-gray-300 bg-gray-50 hover:bg-gray-100'
+                    }`}
+                    onClick={() => document.getElementById('image-upload-input')?.click()}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                  >
+                    <div className="flex flex-col items-center">
+                      {/* Image icon placeholder */}
+                      <div className="mb-3">
+                        <svg width="40" height="40" viewBox="0 0 80 80" fill="none" className="text-gray-400">
+                          <path d="M66.6667 13.3333H13.3333C9.65139 13.3333 6.66667 16.3181 6.66667 20V60C6.66667 63.6819 9.65139 66.6667 13.3333 66.6667H66.6667C70.3486 66.6667 73.3333 63.6819 73.3333 60V20C73.3333 16.3181 70.3486 13.3333 66.6667 13.3333ZM66.6667 20V44.6667L56.6667 34.6667C55.5621 33.5621 54.1014 32.9514 52.5833 32.9514C51.0653 32.9514 49.6046 33.5621 48.5 34.6667L35 48.1667L28.5 41.6667C27.3954 40.5621 25.9347 39.9514 24.4167 39.9514C22.8986 39.9514 21.4379 40.5621 20.3333 41.6667L13.3333 48.6667V20H66.6667ZM26.6667 33.3333C28.8768 33.3333 30.6667 31.5435 30.6667 29.3333C30.6667 27.1232 28.8768 25.3333 26.6667 25.3333C24.4565 25.3333 22.6667 27.1232 22.6667 29.3333C22.6667 31.5435 24.4565 33.3333 26.6667 33.3333Z" fill="currentColor"/>
+                        </svg>
+                      </div>
+                      
+                      <p className="text-gray-500 text-sm mb-3">Drop image here</p>
+                      
+                      {/* Upload button */}
+                      <button 
+                        className="bg-[#E53E3E] text-white px-7 py-3 rounded-lg text-[10px] font-semibold hover:bg-red-600 transition-colors"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          document.getElementById('image-upload-input')?.click();
+                        }}
+                      >
+                        Upload image
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Hidden file input */}
+                  <input
+                    id="image-upload-input"
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        handleFileUpload(e.target.files[0]);
+                      }
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
       
-      <div className="flex items-center gap-5 xl:gap-8  text-white pr-4">
+      <div className="flex items-center gap-8 text-white pr-4">
         {/* All Categories Dropdown */}
         <div className="relative">
           <button
-            className="bg-white text-black rounded-xl flex items-center gap-2 px-4 py-2 h-[60px] cursor-pointer shadow xl:px-6 xl:py-4"
+            className="bg-white text-black rounded-xl flex items-center gap-2 px-6 py-4 h-[60px] cursor-pointer shadow"
             // onMouseEnter={() => setShowDropdown(true)}
             
             onClick={() => setShowDropdown((prev) => !prev)}
@@ -120,10 +211,10 @@ const Header: React.FC = () => {
                 className="flex items-center gap-2 cursor-pointer"
                 onClick={() => setShowUserDropdown((prev) => !prev)}
               >
-                <img src={IMAGES.user} alt="User Icon" className="w-6 h-6 xl:w-8 xl:h-8" />
+                <img src={IMAGES.user} alt="User Icon" className="w-8 h-8" />
                 <div className="flex flex-col leading-tight ">
-                  <span className="text-xs xl:text-sm">Welcome</span>
-                  <span className="font-semibold xl:text-lg">Sign in/Register</span>
+                  <span className="text-sm">Welcome</span>
+                  <span className="font-semibold text-lg">Sign in/Register</span>
                 </div>
               </div>
               {showUserDropdown && (
@@ -192,10 +283,10 @@ const Header: React.FC = () => {
                 className="flex items-center gap-2 cursor-pointer"
                 onClick={() => setShowUserDropdown((prev) => !prev)}
               >
-                <img src={IMAGES.avatar_1} alt="User Icon" className="w-6 h-6 xl:w-8 xl:h-8" />
+                <img src={IMAGES.avatar_1} alt="User Icon" className="w-8 h-8" />
                 <div className="flex flex-col leading-tight ">
-                  <span className="text-xs xl:text-sm">Qamardeen Abdul Malik</span>
-                  <span className="font-semibold xl:text-lg">Lagos, Nigeria</span>
+                  <span className="text-sm">Qamardeen Abdul Malik</span>
+                  <span className="font-semibold text-lg">Lagos, Nigeria</span>
                 </div>
               </div>
               {showUserDropdown && (
@@ -205,10 +296,10 @@ const Header: React.FC = () => {
                 className="flex items-center gap-2 cursor-pointer"
                 
               >
-                <img src={IMAGES.avatar_1} alt="User Icon" className="w-15 h-15 xl:w-15 xl:h-15" />
+                <img src={IMAGES.avatar_1} alt="User Icon" className="w-15 h-15" />
                 <div className="flex flex-col leading-tight ">
                   <span className="font-semibold text-lg">Qamardeen Abdul Malik</span>
-                  <span className=" xl:text-lg">Lagos, Nigeria</span>
+                  <span className="text-lg">Lagos, Nigeria</span>
                 </div>
               </div>
                   <div className="flex flex-col items-center mb-4">
@@ -302,17 +393,19 @@ const Header: React.FC = () => {
         </div>
       </div>
       </div>
-
+        
       <div className="head_bottom">
-        <div className="flex gap-18 xl:text-2xl  text-white font-thin">
+        <div className="flex gap-18 text-2xl text-white font-thin px-7">
           
           <a href="/"><h3 className="pb-4 active_page" >Home <div className="underline" /></h3></a>
-          <a href="#"><h3 className="pb-4 " >Feed <div className="underline" /></h3></a>
+          <a href="/feed"><h3 className="pb-4 " >Feed <div className="underline" /></h3></a>
           <a href="#"><h3 className="pb-4 " >Chat <div className="underline" /></h3></a>
           <a href="#"><h3 className="pb-4 " >Stores <div className="underline" /></h3></a>
           <a href="#"><h3 className="pb-4 " >Settings <div className="underline" /></h3></a>
         </div>
       </div>
+      </div>
+
     </header>
   );
 };

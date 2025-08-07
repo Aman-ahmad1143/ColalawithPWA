@@ -48,7 +48,7 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="bg-[#E53E3E] text-white px-4 py-3 rounded-lg flex items-center justify-between mb-4">
             <h2 className="text-sm font-medium">Categories</h2>
-            <a href="#" className="font-medium text-sm hover:underline">View All</a>
+            <a href="/categories" className="font-medium text-sm hover:underline">View All</a>
           </div>
 
           <div className="grid grid-cols-5 grid-rows-2 gap-3 h-70 ">

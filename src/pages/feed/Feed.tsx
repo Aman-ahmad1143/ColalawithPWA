@@ -1,0 +1,254 @@
+import React, { useState } from "react";
+import { feedPosts, formatNumber, FeedPost, Comment } from "./feedData";
+import IMAGES from "../../constants";
+
+const Feed: React.FC = () => {
+  const [posts, setPosts] = useState<FeedPost[]>(feedPosts);
+  const [newComment, setNewComment] = useState<{ [key: string]: string }>({});
+  const [showComments, setShowComments] = useState<{ [key: string]: boolean }>({ '1': true }); // Show comments for first post by default
+
+  // Toggle like on a post
+  const handleLike = (postId: string) => {
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          isLiked: !post.isLiked,
+          likes: post.isLiked ? post.likes - 1 : post.likes + 1
+        };
+      }
+      return post;
+    }));
+  };
+
+  // Toggle comments visibility
+  const toggleComments = (postId: string) => {
+    setShowComments(prev => ({
+      ...prev,
+      [postId]: !prev[postId]
+    }));
+  };
+
+  // Handle new comment
+  const handleComment = (postId: string) => {
+    const commentText = newComment[postId];
+    if (!commentText?.trim()) return;
+
+    const newCommentObj: Comment = {
+      id: Date.now().toString(),
+      author: "Current User",
+      avatar: IMAGES.avatar_1,
+      content: commentText,
+      timestamp: "now",
+      likes: 0,
+      replies: 0
+    };
+
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          comments: post.comments + 1,
+          postComments: [...post.postComments, newCommentObj]
+        };
+      }
+      return post;
+    }));
+
+    setNewComment(prev => ({
+      ...prev,
+      [postId]: ""
+    }));
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 py-6">
+      <div className="max-w-7xl mx-auto px-4">
+        
+        
+        <div className="space-y-6">
+          {posts.map((post) => (
+            <div key={post.id} className="flex gap-6">
+              {/* Left Side - Post */}
+              <div className="flex-1 max-w-md">
+                <div className="rounded-2xl    overflow-hidden items-center px-7">
+                  {/* Post Header */}
+                  <div className="flex items-center justify-between p-4 px-0">
+                    <div className="flex items-center space-x-3">
+                      <img 
+                        src={post.avatar} 
+                        alt={post.author}
+                        className="w-10 h-10 rounded-full object-cover"
+                      />
+                      <div>
+                        <h3 className="font-semibold text-gray-900">{post.author}</h3>
+                        <p className="text-sm text-gray-500">Lagos, Nigeria • {post.timestamp}</p>
+                      </div>
+                    </div>
+                    <button className="p-2 px-0 hover:bg-gray-100 rounded-full">
+                      <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                      </svg>
+                    </button>
+                  </div>
+
+                  {/* Post Image */}
+                  <div className="relative">
+                    <img 
+                      src={post.image} 
+                      alt="Post content"
+                      className="w-97 h-97 object-cover"
+                    />
+                  </div>
+
+                  {/* Post Content */}
+                  <div className="py-4 ">
+                    <p className="text-gray-800 bg-[#F0F0F0] text-sm py-[18px] px-[15px] rounded-[10px]">{post.caption}</p>
+
+                    {/* Post Actions */}
+                    <div className="flex items-center justify-between pr-3">
+                      <div className="flex items-center space-x-4">
+                        <button 
+                          onClick={() => handleLike(post.id)}
+                          className="flex items-center space-x-1 text-gray-600 hover:text-red-500 transition-colors"
+                        >
+                          {post.isLiked ? (
+                            <svg className="w-7 h-7 text-red-500 fill-current" viewBox="0 0 24 24">
+                              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                          ) : (
+                            <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                          )}
+                          <span className="text-sm">{formatNumber(post.likes)}</span>
+                        </button>
+
+                        <button 
+                          onClick={() => toggleComments(post.id)}
+                          className="flex items-center space-x-1 text-gray-600 hover:text-blue-500 transition-colors"
+                        >
+                          <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                          </svg>
+                          <span className="text-sm">
+                            {post.comments}
+                          </span>
+                        </button>
+
+                        <button className="flex items-center space-x-1 text-gray-600 hover:text-green-500 transition-colors">
+                          <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                          </svg>
+                          <span className="text-sm">{formatNumber(post.shares)}</span>
+                        </button>
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <button className="bg-[#E53E3E] text-white px-1 py-1 rounded-full text-[10px] hover:bg-red-600 transition-colors">
+                          Follow Store
+                        </button>
+                        <button className="text-gray-600 hover:text-gray-800">
+                          <img src={IMAGES.download} alt="Download" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side - Comments Panel */}
+              {showComments[post.id] && (
+                <div className="flex-1 max-w-md">
+                  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 h-fit">
+                    {/* Comments Header */}
+                    <div className="p-4 border-b border-gray-100">
+                      <h4 className="text-lg font-semibold text-gray-800">Comments</h4>
+                    </div>
+                    
+                    {/* Comments List */}
+                    <div className="p-4 space-y-4 max-h-96 overflow-y-auto">
+                      {post.postComments.map((comment) => (
+                        <div key={comment.id} className="flex space-x-3">
+                          <img 
+                            src={comment.avatar} 
+                            alt={comment.author}
+                            className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                          />
+                          <div className="flex-1">
+                            <div className="flex items-center space-x-2 mb-1">
+                              <h5 className="font-medium text-gray-900 text-sm">{comment.author}</h5>
+                              <span className="text-xs text-gray-500">{comment.timestamp}</span>
+                            </div>
+                            <p className="text-gray-700 text-sm mb-2">{comment.content}</p>
+                            <div className="flex items-center space-x-4 text-xs text-gray-500">
+                              <button className="hover:text-blue-500 transition-colors">
+                                Reply
+                              </button>
+                              <span className="flex items-center space-x-1">
+                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                </svg>
+                                <span>{comment.likes}</span>
+                              </span>
+                              <span>{comment.replies} replies</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Add Comment */}
+                    <div className="p-4 border-t border-gray-100">
+                      <div className="flex space-x-3">
+                        <img 
+                          src={IMAGES.avatar_1} 
+                          alt="Your avatar"
+                          className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                        />
+                        <div className="flex-1 flex space-x-2">
+                          <input
+                            type="text"
+                            placeholder="Type a message"
+                            value={newComment[post.id] || ""}
+                            onChange={(e) => setNewComment(prev => ({
+                              ...prev,
+                              [post.id]: e.target.value
+                            }))}
+                            className="flex-1 bg-gray-100 rounded-full px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            onKeyPress={(e) => {
+                              if (e.key === 'Enter') {
+                                handleComment(post.id);
+                              }
+                            }}
+                          />
+                          <button 
+                            onClick={() => handleComment(post.id)}
+                            className="bg-blue-500 text-white rounded-full p-2 hover:bg-blue-600 transition-colors"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Load More Button */}
+        <div className="text-center mt-8">
+          <button className="bg-[#E53E3E] text-white px-8 py-3 rounded-xl font-semibold hover:bg-red-600 transition-colors">
+            Load More Posts
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Feed;
