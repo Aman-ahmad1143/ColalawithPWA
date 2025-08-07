@@ -33,7 +33,7 @@ const IMAGES = {
   lock: '/lock.png',
   sms: '/sms.png',
   eye: '/eye.png',
-  xcircle: '/XCircle.png',
+  xCircle: '/XCircle.png',
   services1: '/Services (1).png',
   services2: '/Services (2).png',
   services3: '/Services (3).png',
@@ -88,6 +88,8 @@ const IMAGES = {
   top5: '/top5.png',
   top6: '/top6.png',
   vee: '/Vee.png',
+  feedPhone: '/FeedPhone.png',
+  download: '/Download.png',
 
 };
 export default IMAGES;
