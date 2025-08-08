@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import IMAGES from "../../constants";
 import { categoriesData } from "./categoriesData";
 
 const Categories: React.FC = () => {
-  const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
   const navigate = useNavigate();
 
   const handleCategoryClick = (categoryName: string) => {
@@ -25,8 +24,6 @@ const Categories: React.FC = () => {
         <div
           key={category.id}
           className="bg-white rounded-[10px] border border-gray-200 hover:shadow-lg transition-all duration-300 cursor-pointer group"
-          onMouseEnter={() => setHoveredCategory(category.id)}
-          onMouseLeave={() => setHoveredCategory(null)}
           onClick={() => handleCategoryClick(category.name)}
         >
           {/* Main Category Header */}
@@ -93,7 +90,7 @@ const Categories: React.FC = () => {
                       </div>
                       
                       {/* Subcategory Name */}
-                      <div className="text-[10px] text-gray-700 by-[2px] px-2  font-medium mb-1">
+                      <div className="text-[10px] text-gray-700 py-[2px] px-2  font-medium mb-1">
                         {subcategory.name}
                       </div>
                       

@@ -92,6 +92,8 @@ const IMAGES = {
   download: '/Download.png',
   shop: '/shop.svg',
   followers: '/followers.svg',
+  kebab1: '/kebabmenu1.png',
+  heart1: '/heart1.png'
 
 };
 export default IMAGES;

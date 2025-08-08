@@ -23,7 +23,12 @@
  */
 
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import IMAGES from '../../constants';
+import TopSellingProducts from '../home/TopSellingProducts';
+import AllProducts from '../home/AllProducts';
+
+
 import { 
   LocationOption, 
   StoreOption, 
@@ -36,9 +41,15 @@ import {
   prices,
   ratings,
   sortOptions
-} from './phonesTabletsData.ts';
+} from './phonesTabletsData';
 
 const PhonesTablets: React.FC = () => {
+  const navigate = useNavigate();
+  
+  const handleProductClick = (productId: number) => {
+    navigate(`/product/${productId}`);
+  };
+
   /**
    * Component State Management
    * 
@@ -92,7 +103,7 @@ const PhonesTablets: React.FC = () => {
       <div className="relative">
         {/* Dropdown Trigger Button */}
         <button
-          className="bg-[#F5F5F5] rounded-lg px-4 py-3 flex items-center justify-between min-w-[140px] hover:bg-gray-100 transition-colors"
+          className="bg-[#EDEDED] rounded-lg px-4 py-3 flex items-center justify-between min-w-[140px]  transition-colors"
           onClick={() => setIsOpen(!isOpen)}
         >
           <span className="text-[14px] text-gray-700">
@@ -195,11 +206,11 @@ const PhonesTablets: React.FC = () => {
                 <div className="flex items-center justify-between p-4">
                   <h2 className="text-[18px] font-semibold text-black text-center flex-1">Store</h2>
                   <button 
-                    className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                    className="w-8 h-8 flex items-center justify-center rounded-full  hover:bg-gray-200 transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     <img
-                      src={IMAGES.xcircle}
+                      src={IMAGES.xCircle}
                       alt="close"
                       className="w-5 h-5"
                     />
@@ -358,11 +369,11 @@ const PhonesTablets: React.FC = () => {
                 <div className="flex items-center justify-between p-4">
                   <h2 className="text-[18px] font-semibold text-black text-center flex-1">Brand</h2>
                   <button 
-                    className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                    className="w-8 h-8 flex items-center justify-center rounded-full  hover:bg-gray-200 transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     <img
-                      src={IMAGES.xcircle}
+                      src={IMAGES.xCircle}
                       alt="close"
                       className="w-5 h-5"
                     />
@@ -473,11 +484,11 @@ const PhonesTablets: React.FC = () => {
           <div className="flex items-center justify-between p-4">
             <h2 className="text-[18px] font-semibold text-black text-center flex-1">Location</h2>
             <button 
-              className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+              className="w-8 h-8 flex items-center justify-center rounded-full  hover:bg-gray-200 transition-colors"
               onClick={onClose}
             >
               <img
-                src={IMAGES.xcircle}
+                src={IMAGES.xCircle}
                 alt="close"
                 className="w-5 h-5"
               />
@@ -628,11 +639,11 @@ const PhonesTablets: React.FC = () => {
                 <div className="flex items-center justify-between p-4 ">
                   <h2 className="text-[18px] font-semibold text-black text-center flex-1">Location</h2>
                   <button 
-                    className="w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                    className="w-8 h-8 flex items-center justify-center rounded-full  hover:bg-gray-200 transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     <img
-                      src={IMAGES.xcircle}
+                      src={IMAGES. xCircle}
                       alt="close"
                       className="w-5 h-5"
                     />
@@ -770,11 +781,34 @@ const PhonesTablets: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Products Section */}
-      </div>
+<div className="min-h-screen max-w-[1280px] mx-auto bg-[#F9F9F9]">
+      
+      <TopSellingProducts onProductClick={handleProductClick} />
+      
+      <AllProducts onProductClick={handleProductClick} />
     </div>
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+
   );
+
+ 
+    
+  
 };
 
 export default PhonesTablets;
+
+
+
+
+
+

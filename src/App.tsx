@@ -5,9 +5,10 @@ import PWABadge from './PWABadge';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Services from './pages/services/Services';
 import AllServices from './pages/services/Allservices';
-import ServiceDetails from './pages/services/ServiceDetails';
+import  ServiceDetails from './pages/services/ServiceDetails';
 import Categories from './pages/categories/Categories';
 import PhonesTablets from './pages/categories/PhonesTablets';
+import ProductDetail from './pages/categories/ProductDetail';
 import Home from './pages/home/HomePage';
 import Feed from './pages/feed/Feed';
 
@@ -29,8 +30,8 @@ function App() {
         <Route path="/service-details/:id" element={<ServiceDetails />} />
         <Route path="/categories" element={<Categories />} />
         <Route path="/phones-tablets" element={<PhonesTablets />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/feed" element={<Feed />} />
-        {/* Add other routes here */}
       </Routes>
     </BrowserRouter>
       <PWABadge />
