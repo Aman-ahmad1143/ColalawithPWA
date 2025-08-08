@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { feedPosts, formatNumber, FeedPost, Comment } from "./feedData";
 import IMAGES from "../../constants";
 
@@ -6,6 +6,22 @@ const Feed: React.FC = () => {
   const [posts, setPosts] = useState<FeedPost[]>(feedPosts);
   const [newComment, setNewComment] = useState<{ [key: string]: string }>({});
   const [showComments, setShowComments] = useState<{ [key: string]: boolean }>({ '1': true }); // Show comments for first post by default
+  const [dropdownOpen, setDropdownOpen] = useState<{ [key: string]: boolean }>({});
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Handle clicking outside dropdown to close it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen({});
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   // Toggle like on a post
   const handleLike = (postId: string) => {
@@ -27,6 +43,37 @@ const Feed: React.FC = () => {
       ...prev,
       [postId]: !prev[postId]
     }));
+  };
+
+  // Toggle dropdown menu
+  const toggleDropdown = (postId: string) => {
+    setDropdownOpen(prev => ({
+      ...prev,
+      [postId]: !prev[postId]
+    }));
+  };
+
+  // Handle dropdown actions
+  const handleDropdownAction = (action: string, postId: string) => {
+    setDropdownOpen(prev => ({
+      ...prev,
+      [postId]: false
+    }));
+    
+    switch (action) {
+      case 'share':
+        console.log('Share post:', postId);
+        break;
+      case 'follow':
+        console.log('Follow user from post:', postId);
+        break;
+      case 'hide':
+        console.log('Hide post:', postId);
+        break;
+      case 'report':
+        console.log('Report post:', postId);
+        break;
+    }
   };
 
   // Handle new comment
@@ -85,11 +132,61 @@ const Feed: React.FC = () => {
                         <p className="text-sm text-gray-500">Lagos, Nigeria • {post.timestamp}</p>
                       </div>
                     </div>
-                    <button className="p-2 px-0 hover:bg-gray-100 rounded-full">
-                      <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-                      </svg>
-                    </button>
+                    <div className="relative" ref={dropdownRef}>
+                      <button 
+                        onClick={() => toggleDropdown(post.id)}
+                        className="p-2 px-0 hover:bg-gray-100 rounded-full"
+                      >
+                        <svg className="w-6 h-6 text-gray-500" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                      </button>
+                      
+                      {/* Dropdown Menu */}
+                      {dropdownOpen[post.id] && (
+                        <div className="absolute right-0 top-full p-2 mt-1 w-68 bg-[#F9F9F9] rounded-xl shadow-lg border border-gray-100 py-2 z-10">
+                          <button
+                            onClick={() => handleDropdownAction('share', post.id)}
+                            className="w-full flex items-center space-x-3 px-4 py-4 mb-[2px] text-left bg-white rounded-xl hover:bg-gray-50 transition-colors"
+                          >
+                            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                            </svg>
+                            <span className="text-gray-700 text-sm">Share this post</span>
+                          </button>
+                          
+                          <button
+                            onClick={() => handleDropdownAction('follow', post.id)}
+                            className="w-full flex items-center space-x-3 px-4 py-4 mb-[2px] text-left bg-white rounded-xl  hover:bg-gray-50 transition-colors"
+                          >
+                            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            <span className="text-gray-700 text-sm">Follow User</span>
+                          </button>
+                          
+                          <button
+                            onClick={() => handleDropdownAction('hide', post.id)}
+                            className="w-full flex items-center space-x-3 px-4 py-4 mb-[2px] text-left bg-white rounded-xl hover:bg-gray-50 transition-colors"
+                          >
+                            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L3 3m6.878 6.878L21 21" />
+                            </svg>
+                            <span className="text-gray-700 text-sm">Hide Post</span>
+                          </button>
+                          
+                          <button
+                            onClick={() => handleDropdownAction('report', post.id)}
+                            className="w-full flex items-center space-x-3 px-4 py-4 mb-[2px] text-left bg-white rounded-xl hover:bg-gray-50 transition-colors"
+                          >
+                            <svg className="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.664-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                            </svg>
+                            <span className="text-red-500 text-sm">Report Post</span>
+                          </button>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {/* Post Image */}
@@ -106,7 +203,7 @@ const Feed: React.FC = () => {
                     <p className="text-gray-800 bg-[#F0F0F0] text-sm py-[18px] px-[15px] rounded-[10px]">{post.caption}</p>
 
                     {/* Post Actions */}
-                    <div className="flex items-center justify-between pr-3">
+                    <div className="flex items-center justify-between pt-2 pr-3">
                       <div className="flex items-center space-x-4">
                         <button 
                           onClick={() => handleLike(post.id)}
@@ -145,7 +242,7 @@ const Feed: React.FC = () => {
                       </div>
 
                       <div className="flex items-center space-x-2">
-                        <button className="bg-[#E53E3E] text-white px-1 py-1 rounded-full text-[10px] hover:bg-red-600 transition-colors">
+                        <button className="bg-[#E53E3E] text-white px-1 py-1 rounded-lg text-[10px] hover:bg-red-600 transition-colors">
                           Follow Store
                         </button>
                         <button className="text-gray-600 hover:text-gray-800">
@@ -159,7 +256,7 @@ const Feed: React.FC = () => {
 
               {/* Right Side - Comments Panel */}
               {showComments[post.id] && (
-                <div className="flex-1 max-w-md">
+                <div className="flex-1 max-w-2xl">
                   <div className="bg-white rounded-2xl shadow-sm border border-gray-100 h-fit">
                     {/* Comments Header */}
                     <div className="p-4 border-b border-gray-100">
@@ -226,7 +323,7 @@ const Feed: React.FC = () => {
                             onClick={() => handleComment(post.id)}
                             className="bg-blue-500 text-white rounded-full p-2 hover:bg-blue-600 transition-colors"
                           >
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg className="w-4 h-4 rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                             </svg>
                           </button>
