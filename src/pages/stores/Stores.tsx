@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { storesData, Store, locationOptions, categoryOptions, reviewOptions, formatRating } from "./storesData";
 import IMAGES from "../../constants";
 
@@ -152,9 +153,12 @@ const Stores: React.FC = () => {
                 </div>
 
                 {/* Go to Shop Button */}
-                <button className="w-full bg-[#E53E3E] text-white text-[8px] py-2.5 rounded-xl font-[400] hover:bg-red-600 transition-colors">
+                <Link
+                  to={`/stores/${store.id}`}
+                  className="block w-full bg-[#E53E3E] text-white text-[8px] py-2.5 rounded-xl font-[400] hover:bg-red-600 transition-colors text-center"
+                >
                   Go to Shop
-                </button>
+                </Link>
               </div>
             </div>
           ))}

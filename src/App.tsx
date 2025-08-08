@@ -12,6 +12,7 @@ import Home from './pages/home/HomePage';
 import Feed from './pages/feed/Feed';
 import Chat from './pages/chat/Chat';
 import Stores from './pages/stores/Stores';
+import StoreDetail from './pages/stores/StoreDetail';
 import Settings from './pages/settings/Settings';
 
 
@@ -35,6 +36,7 @@ function App() {
         <Route path="/feed" element={<Feed />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/stores" element={<Stores />} />
+        <Route path="/stores/:id" element={<StoreDetail />} />
         <Route path="/settings" element={<Settings />} />
         {/* Add other routes here */}
       </Routes>
