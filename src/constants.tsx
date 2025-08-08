@@ -92,6 +92,15 @@ const IMAGES = {
   download: '/Download.png',
   shop: '/shop.svg',
   followers: '/followers.svg',
+  scentVilla: '/ScentVilla.png',
+  lovina: '/Lovina.png',
+  caremal: '/Caremal.png',
+  coverSasha: '/coverSasha.png',
+  coverVee: '/coverVee.png',
+  coverCaremal: '/coverCaremal.png',
+  coverAdam: '/coverAdam.png',
+  coverScent: '/coverScent.png',
+  coverLovina: '/coverLovina.png',
 
 };
 export default IMAGES;

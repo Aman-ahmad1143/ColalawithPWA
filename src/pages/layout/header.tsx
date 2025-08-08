@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
+import { Link, useLocation } from "react-router-dom";
 // import LoginPopup from "../User/LoginPopup";
 import LoginPopup from "../../pages//user/LoginPopup";
 import RegistrationPopup from "../../pages//user/RegistrationPopup";
@@ -14,10 +15,22 @@ const Header: React.FC = () => {
   const [showImageSearchPopup, setShowImageSearchPopup] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     setIsLoggedIn(Cookies.get("isLoggedIn") === "true");
   }, [showLoginPopup]);
+
+  // Get active page based on current location
+  const getActivePage = () => {
+    const path = location.pathname;
+    if (path === "/" || path === "/home") return "home";
+    if (path === "/feed") return "feed";
+    if (path === "/chat") return "chat";
+    if (path === "/stores") return "stores";
+    if (path === "/settings") return "settings";
+    return "";
+  };
 
   const handleFileUpload = (file: File) => {
     console.log('File selected:', file);
@@ -397,11 +410,31 @@ const Header: React.FC = () => {
       <div className="head_bottom">
         <div className="flex gap-18 text-2xl text-white font-thin px-7">
           
-          <a href="/"><h3 className="pb-4 active_page" >Home <div className="underline" /></h3></a>
-          <a href="/feed"><h3 className="pb-4 " >Feed <div className="underline" /></h3></a>
-          <a href="#"><h3 className="pb-4 " >Chat <div className="underline" /></h3></a>
-          <a href="#"><h3 className="pb-4 " >Stores <div className="underline" /></h3></a>
-          <a href="#"><h3 className="pb-4 " >Settings <div className="underline" /></h3></a>
+          <Link to="/">
+            <h3 className={`pb-4 ${getActivePage() === "home" ? "active_page" : ""}`}>
+              Home <div className="underline" />
+            </h3>
+          </Link>
+          <Link to="/feed">
+            <h3 className={`pb-4 ${getActivePage() === "feed" ? "active_page" : ""}`}>
+              Feed <div className="underline" />
+            </h3>
+          </Link>
+          <Link to="/chat">
+            <h3 className={`pb-4 ${getActivePage() === "chat" ? "active_page" : ""}`}>
+              Chat <div className="underline" />
+            </h3>
+          </Link>
+          <Link to="/stores">
+            <h3 className={`pb-4 ${getActivePage() === "stores" ? "active_page" : ""}`}>
+              Stores <div className="underline" />
+            </h3>
+          </Link>
+          <Link to="/settings">
+            <h3 className={`pb-4 ${getActivePage() === "settings" ? "active_page" : ""}`}>
+              Settings <div className="underline" />
+            </h3>
+          </Link>
         </div>
       </div>
       </div>
