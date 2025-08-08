@@ -93,7 +93,16 @@ const IMAGES = {
   shop: '/shop.svg',
   followers: '/followers.svg',
   kebab1: '/kebabmenu1.png',
-  heart1: '/heart1.png'
+  heart1: '/heart1.png',
+  scentVilla: '/ScentVilla.png',
+  lovina: '/Lovina.png',
+  caremal: '/Caremal.png',
+  coverSasha: '/coverSasha.png',
+  coverVee: '/coverVee.png',
+  coverCaremal: '/coverCaremal.png',
+  coverAdam: '/coverAdam.png',
+  coverScent: '/coverScent.png',
+  coverLovina: '/coverLovina.png',
 
 };
 export default IMAGES;
