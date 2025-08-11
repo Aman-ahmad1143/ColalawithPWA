@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import { feedPosts, formatNumber, FeedPost, Comment } from "./feedData";
+import { feedPosts, formatNumber, FeedPost, Comment, Reply } from "./feedData";
 import IMAGES from "../../constants";
 
 const Feed: React.FC = () => {
   const [posts, setPosts] = useState<FeedPost[]>(feedPosts);
   const [newComment, setNewComment] = useState<{ [key: string]: string }>({});
+  const [newReply, setNewReply] = useState<{ [key: string]: string }>({});
   const [showComments, setShowComments] = useState<{ [key: string]: boolean }>({ '1': true }); // Show comments for first post by default
+  const [showReplies, setShowReplies] = useState<{ [key: string]: boolean }>({});
+  const [replyingTo, setReplyingTo] = useState<{ [key: string]: boolean }>({});
   const [dropdownOpen, setDropdownOpen] = useState<{ [key: string]: boolean }>({});
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -88,7 +91,7 @@ const Feed: React.FC = () => {
       content: commentText,
       timestamp: "now",
       likes: 0,
-      replies: 0
+      replies: []
     };
 
     setPosts(posts.map(post => {
@@ -105,6 +108,64 @@ const Feed: React.FC = () => {
     setNewComment(prev => ({
       ...prev,
       [postId]: ""
+    }));
+  };
+
+  // Toggle showing replies for a comment
+  const toggleReplies = (commentId: string) => {
+    setShowReplies(prev => ({
+      ...prev,
+      [commentId]: !prev[commentId]
+    }));
+  };
+
+  // Toggle reply input for a comment
+  const toggleReplyInput = (commentId: string) => {
+    setReplyingTo(prev => ({
+      ...prev,
+      [commentId]: !prev[commentId]
+    }));
+  };
+
+  // Handle new reply
+  const handleReply = (postId: string, commentId: string) => {
+    const replyText = newReply[commentId];
+    if (!replyText?.trim()) return;
+
+    const newReplyObj: Reply = {
+      id: Date.now().toString(),
+      author: "Current User",
+      avatar: IMAGES.avatar_1,
+      content: replyText,
+      timestamp: "now",
+      likes: 0
+    };
+
+    setPosts(posts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          postComments: post.postComments.map(comment => {
+            if (comment.id === commentId) {
+              return {
+                ...comment,
+                replies: [...comment.replies, newReplyObj]
+              };
+            }
+            return comment;
+          })
+        };
+      }
+      return post;
+    }));
+
+    setNewReply(prev => ({
+      ...prev,
+      [commentId]: ""
+    }));
+    setReplyingTo(prev => ({
+      ...prev,
+      [commentId]: false
     }));
   };
 
@@ -256,8 +317,8 @@ const Feed: React.FC = () => {
 
               {/* Right Side - Comments Panel */}
               {showComments[post.id] && (
-                <div className="flex-1 max-w-2xl">
-                  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 h-fit">
+                <div className="flex-1 max-w-2xl ">
+                  <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 h-fit">
                     {/* Comments Header */}
                     <div className="p-4 border-b border-gray-100">
                       <h4 className="text-lg font-semibold text-gray-800">Comments</h4>
@@ -266,29 +327,107 @@ const Feed: React.FC = () => {
                     {/* Comments List */}
                     <div className="p-4 space-y-4 max-h-96 overflow-y-auto">
                       {post.postComments.map((comment) => (
-                        <div key={comment.id} className="flex space-x-3">
-                          <img 
-                            src={comment.avatar} 
-                            alt={comment.author}
-                            className="w-8 h-8 rounded-full object-cover flex-shrink-0"
-                          />
-                          <div className="flex-1">
-                            <div className="flex items-center space-x-2 mb-1">
-                              <h5 className="font-medium text-gray-900 text-sm">{comment.author}</h5>
-                              <span className="text-xs text-gray-500">{comment.timestamp}</span>
-                            </div>
-                            <p className="text-gray-700 text-sm mb-2">{comment.content}</p>
-                            <div className="flex items-center space-x-4 text-xs text-gray-500">
-                              <button className="hover:text-blue-500 transition-colors">
-                                Reply
-                              </button>
-                              <span className="flex items-center space-x-1">
-                                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                </svg>
-                                <span>{comment.likes}</span>
-                              </span>
-                              <span>{comment.replies} replies</span>
+                        <div key={comment.id} className="space-y-2">
+                          <div className="flex space-x-3">
+                            <img 
+                              src={comment.avatar} 
+                              alt={comment.author}
+                              className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                            />
+                            <div className="flex-1">
+                              <div className="flex items-center space-x-2 mb-1">
+                                <h5 className="font-medium text-gray-900 text-sm">{comment.author}</h5>
+                                <span className="text-xs text-gray-500">{comment.timestamp}</span>
+                              </div>
+                              <p className="text-gray-700 text-sm mb-2">{comment.content}</p>
+                              <div className="flex items-center space-x-4 text-xs text-gray-500">
+                                <button 
+                                  onClick={() => toggleReplyInput(comment.id)}
+                                  className="hover:text-blue-500 transition-colors"
+                                >
+                                  Reply
+                                </button>
+                                <span className="flex items-center space-x-1">
+                                  <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                  </svg>
+                                  <span>{comment.likes}</span>
+                                </span>
+                                {comment.replies.length > 0 && (
+                                  <button
+                                    onClick={() => toggleReplies(comment.id)}
+                                    className="hover:text-blue-500 transition-colors"
+                                  >
+                                    {showReplies[comment.id] ? 'Hide' : 'Show'} {comment.replies.length} replies
+                                  </button>
+                                )}
+                              </div>
+
+                              {/* Reply Input */}
+                              {replyingTo[comment.id] && (
+                                <div className="mt-3 flex space-x-2">
+                                  <img 
+                                    src={IMAGES.avatar_1} 
+                                    alt="Your avatar"
+                                    className="w-6 h-6 rounded-full object-cover flex-shrink-0"
+                                  />
+                                  <div className="flex-1 flex space-x-2">
+                                    <input
+                                      type="text"
+                                      placeholder="Write a reply..."
+                                      value={newReply[comment.id] || ""}
+                                      onChange={(e) => setNewReply(prev => ({
+                                        ...prev,
+                                        [comment.id]: e.target.value
+                                      }))}
+                                      className="flex-1 bg-gray-100 rounded-full px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                      onKeyPress={(e) => {
+                                        if (e.key === 'Enter') {
+                                          handleReply(post.id, comment.id);
+                                        }
+                                      }}
+                                    />
+                                    <button 
+                                      onClick={() => handleReply(post.id, comment.id)}
+                                      className="bg-blue-500 text-white rounded-full p-1 hover:bg-blue-600 transition-colors"
+                                    >
+                                      <svg className="w-3 h-3 rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* Replies */}
+                              {showReplies[comment.id] && comment.replies.length > 0 && (
+                                <div className="mt-3 ml-4 space-y-2 border-l-2 border-gray-100 pl-3">
+                                  {comment.replies.map((reply) => (
+                                    <div key={reply.id} className="flex space-x-2">
+                                      <img 
+                                        src={reply.avatar} 
+                                        alt={reply.author}
+                                        className="w-6 h-6 rounded-full object-cover flex-shrink-0"
+                                      />
+                                      <div className="flex-1">
+                                        <div className="flex items-center space-x-2 mb-1">
+                                          <h6 className="font-medium text-gray-900 text-xs">{reply.author}</h6>
+                                          <span className="text-xs text-gray-500">{reply.timestamp}</span>
+                                        </div>
+                                        <p className="text-gray-700 text-xs mb-1">{reply.content}</p>
+                                        <div className="flex items-center space-x-2 text-xs text-gray-500">
+                                          <span className="flex items-center space-x-1">
+                                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                            </svg>
+                                            <span>{reply.likes}</span>
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
                             </div>
                           </div>
                         </div>
