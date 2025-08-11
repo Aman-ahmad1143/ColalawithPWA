@@ -1,6 +1,15 @@
 import IMAGES from "../../constants";
 
 // Interface definitions for Feed data structure
+export interface Reply {
+  id: string;
+  author: string;
+  avatar: string;
+  content: string;
+  timestamp: string;
+  likes: number;
+}
+
 export interface Comment {
   id: string;
   author: string;
@@ -8,7 +17,7 @@ export interface Comment {
   content: string;
   timestamp: string;
   likes: number;
-  replies: number;
+  replies: Reply[];
 }
 
 export interface FeedPost {
@@ -46,7 +55,32 @@ export const feedPosts: FeedPost[] = [
         content: "The product looks really nice, do you deliver nationwide ?",
         timestamp: "1h",
         likes: 30,
-        replies: 23
+        replies: [
+          {
+            id: "r1",
+            author: "Sashaa Stones",
+            avatar: IMAGES.sasha,
+            content: "Yes, we deliver nationwide. Shipping is free for orders over $100!",
+            timestamp: "45m",
+            likes: 15
+          },
+          {
+            id: "r2", 
+            author: "John Doe",
+            avatar: IMAGES.vee,
+            content: "That's great! How long does delivery usually take?",
+            timestamp: "30m",
+            likes: 8
+          },
+          {
+            id: "r3",
+            author: "Adam Chris",
+            avatar: IMAGES.adam,
+            content: "@Sashaa Stones Perfect! I'll place my order today.",
+            timestamp: "25m",
+            likes: 5
+          }
+        ]
       },
       {
         id: "c2", 
@@ -55,7 +89,7 @@ export const feedPosts: FeedPost[] = [
         content: "The product looks really nice, do you deliver nationwide ?",
         timestamp: "1h",
         likes: 30,
-        replies: 23
+        replies: []
       },
       {
         id: "c3",
@@ -64,7 +98,7 @@ export const feedPosts: FeedPost[] = [
         content: "The product looks really nice, do you deliver nationwide ?",
         timestamp: "1h",
         likes: 30,
-        replies: 24
+        replies: []
       },
       {
         id: "c4",
@@ -73,7 +107,7 @@ export const feedPosts: FeedPost[] = [
         content: "Thanks you all for positive responses",
         timestamp: "30m",
         likes: 0,
-        replies: 0
+        replies: []
       }
     ]
   },
@@ -96,7 +130,7 @@ export const feedPosts: FeedPost[] = [
         content: "Amazing deal! Is this still available?",
         timestamp: "2h",
         likes: 15,
-        replies: 5
+        replies: []
       },
       {
         id: "c6",
@@ -105,7 +139,7 @@ export const feedPosts: FeedPost[] = [
         content: "I'm interested in purchasing this",
         timestamp: "1h",
         likes: 8,
-        replies: 2
+        replies: []
       }
     ]
   },
@@ -128,7 +162,7 @@ export const feedPosts: FeedPost[] = [
         content: "What's the price range?",
         timestamp: "3h",
         likes: 20,
-        replies: 10
+        replies: []
       },
       {
         id: "c8",
@@ -137,7 +171,7 @@ export const feedPosts: FeedPost[] = [
         content: "Do you have warranty on these phones?",
         timestamp: "2h",
         likes: 25,
-        replies: 15
+        replies: []
       }
     ]
   }

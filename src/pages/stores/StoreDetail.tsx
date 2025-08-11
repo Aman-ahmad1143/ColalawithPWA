@@ -1,80 +1,256 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { storesData, formatRating } from "./storesData";
 import IMAGES from "../../constants";
+import ProductCard from "../../components/ProductCard";
 
-// Sample product data for the store
-const sampleProducts = [
-  {
-    id: "1",
-    name: "Dell Inspiron Laptop",
-    price: "₦2,000,000",
-    originalPrice: "₦2,500,000",
-    image: "/Laptop.png",
-    rating: 4.8,
-    isSponsored: true,
-  },
-  {
-    id: "2", 
-    name: "Dell Inspiron Laptop",
-    price: "₦2,000,000",
-    originalPrice: "₦2,500,000",
-    image: "/Laptop.png",
-    rating: 4.5,
-    isSponsored: false,
-  },
-  {
-    id: "3",
-    name: "Dell Inspiron Laptop", 
-    price: "₦2,000,000",
-    originalPrice: "₦2,500,000",
-    image: "/Laptop.png",
-    rating: 4.8,
-    isSponsored: false,
-  },
-  {
-    id: "4",
-    name: "Dell Inspiron Laptop",
-    price: "₦2,000,000", 
-    originalPrice: "₦2,500,000",
-    image: "/Laptop.png",
-    rating: 4.5,
-    isSponsored: false,
-  },
-  {
-    id: "5",
-    name: "Dell Inspiron Laptop",
-    price: "₦2,000,000",
-    originalPrice: "₦2,500,000", 
-    image: "/Laptop.png",
-    rating: 4.8,
-    isSponsored: false,
-  },
-  {
-    id: "6",
-    name: "Dell Inspiron Laptop",
-    price: "₦2,000,000",
-    originalPrice: "₦2,500,000",
-    image: "/Laptop.png", 
-    rating: 4.5,
-    isSponsored: false,
-  },
-];
+// Generate services based on store data
+const generateStoreServices = (services: string[], storeName: string, categories: string[]) => {
+  return services.map((service, index) => {
+    // Determine service image and pricing based on service type and category
+    let serviceImage = "/top1.png";
+    let basePrice = 5000;
+    let serviceName = service;
+    
+    // Customize based on service name
+    if (service.includes("Delivery") || service.includes("delivery")) {
+      serviceImage = "/top2.png";
+      basePrice = 2000;
+    } else if (service.includes("Support") || service.includes("support")) {
+      serviceImage = "/top3.png";
+      basePrice = 1500;
+    } else if (service.includes("Design") || service.includes("design") || service.includes("Styling")) {
+      serviceImage = "/top4.png";
+      basePrice = 15000;
+    } else if (service.includes("Installation") || service.includes("Assembly")) {
+      serviceImage = "/top5.png";
+      basePrice = 8000;
+    } else if (service.includes("Training") || service.includes("Coaching")) {
+      serviceImage = "/top6.png";
+      basePrice = 10000;
+    }
+    
+    // Add category-based pricing adjustments
+    if (categories.includes("Beauty") || categories.includes("Fashion")) {
+      basePrice = basePrice * 1.2;
+    } else if (categories.includes("Electronics") || categories.includes("Gaming")) {
+      basePrice = basePrice * 1.5;
+    } else if (categories.includes("Home") || categories.includes("Furniture")) {
+      basePrice = basePrice * 1.3;
+    }
+    
+    const originalPrice = Math.round(basePrice * 1.3);
+    
+    return {
+      id: index + 1000, // Offset to avoid conflicts with products
+      name: serviceName,
+      salePrice: `₦${basePrice.toLocaleString()}`,
+      originalPrice: `₦${originalPrice.toLocaleString()}`,
+      image: serviceImage,
+      store: storeName,
+    };
+  });
+};
+
+// Generate sample products based on store category
+const generateStoreProducts = (storeId: string, storeName: string, categories: string[]) => {
+  const baseProducts = [
+    {
+      id: 1,
+      name: "Dell Inspiron Laptop",
+      salePrice: "₦2,000,000",
+      originalPrice: "₦2,500,000",
+      image: "/top1.png",
+    },
+    {
+      id: 2,
+      name: "Samsung Galaxy Phone",
+      salePrice: "₦800,000",
+      originalPrice: "₦1,000,000",
+      image: "/top2.png",
+    },
+    {
+      id: 3,
+      name: "HP Printer",
+      salePrice: "₦150,000",
+      originalPrice: "₦200,000",
+      image: "/top3.png",
+    },
+    {
+      id: 4,
+      name: "iPhone 14 Pro",
+      salePrice: "₦1,200,000",
+      originalPrice: "₦1,500,000",
+      image: "/top4.png",
+    },
+    {
+      id: 5,
+      name: "MacBook Pro",
+      salePrice: "₦2,800,000",
+      originalPrice: "₦3,200,000",
+      image: "/top5.png",
+    },
+    {
+      id: 6,
+      name: "Gaming Console",
+      salePrice: "₦600,000",
+      originalPrice: "₦750,000",
+      image: "/top6.png",
+    },
+  ];
+
+  // Customize products based on categories
+  if (categories.includes("Beauty") || categories.includes("Fragrances")) {
+    return [
+      { ...baseProducts[0], name: "Luxury Perfume Set", salePrice: "₦45,000", originalPrice: "₦60,000" },
+      { ...baseProducts[1], name: "Skincare Bundle", salePrice: "₦25,000", originalPrice: "₦35,000" },
+      { ...baseProducts[2], name: "Makeup Kit", salePrice: "₦15,000", originalPrice: "₦20,000" },
+      { ...baseProducts[3], name: "Anti-Aging Cream", salePrice: "₦12,000", originalPrice: "₦18,000" },
+      { ...baseProducts[4], name: "Hair Care Set", salePrice: "₦8,000", originalPrice: "₦12,000" },
+      { ...baseProducts[5], name: "Body Lotion", salePrice: "₦6,000", originalPrice: "₦9,000" },
+    ].map(product => ({ ...product, store: storeName }));
+  }
+
+  if (categories.includes("Fashion") || categories.includes("Clothing") || categories.includes("Accessories")) {
+    return [
+      { ...baseProducts[0], name: "Designer Dress", salePrice: "₦35,000", originalPrice: "₦50,000" },
+      { ...baseProducts[1], name: "Casual Shirt", salePrice: "₦8,000", originalPrice: "₦12,000" },
+      { ...baseProducts[2], name: "Leather Shoes", salePrice: "₦25,000", originalPrice: "₦35,000" },
+      { ...baseProducts[3], name: "Handbag", salePrice: "₦18,000", originalPrice: "₦25,000" },
+      { ...baseProducts[4], name: "Jeans", salePrice: "₦12,000", originalPrice: "₦18,000" },
+      { ...baseProducts[5], name: "Accessories Set", salePrice: "₦15,000", originalPrice: "₦20,000" },
+    ].map(product => ({ ...product, store: storeName }));
+  }
+
+  if (categories.includes("Grocery") || categories.includes("Food")) {
+    return [
+      { ...baseProducts[0], name: "Organic Rice 10kg", salePrice: "₦8,000", originalPrice: "₦10,000" },
+      { ...baseProducts[1], name: "Fresh Vegetables", salePrice: "₦3,500", originalPrice: "₦4,500" },
+      { ...baseProducts[2], name: "Dairy Products", salePrice: "₦2,500", originalPrice: "₦3,200" },
+      { ...baseProducts[3], name: "Meat Package", salePrice: "₦15,000", originalPrice: "₦18,000" },
+      { ...baseProducts[4], name: "Fruits Basket", salePrice: "₦5,000", originalPrice: "₦6,500" },
+      { ...baseProducts[5], name: "Spices Set", salePrice: "₦4,000", originalPrice: "₦5,500" },
+    ].map(product => ({ ...product, store: storeName }));
+  }
+
+  if (categories.includes("Home") || categories.includes("Furniture")) {
+    return [
+      { ...baseProducts[0], name: "Sofa Set", salePrice: "₦250,000", originalPrice: "₦320,000" },
+      { ...baseProducts[1], name: "Dining Table", salePrice: "₦80,000", originalPrice: "₦120,000" },
+      { ...baseProducts[2], name: "Bed Frame", salePrice: "₦65,000", originalPrice: "₦85,000" },
+      { ...baseProducts[3], name: "Wardrobe", salePrice: "₦90,000", originalPrice: "₦130,000" },
+      { ...baseProducts[4], name: "Office Chair", salePrice: "₦35,000", originalPrice: "₦45,000" },
+      { ...baseProducts[5], name: "Coffee Table", salePrice: "₦25,000", originalPrice: "₦35,000" },
+    ].map(product => ({ ...product, store: storeName }));
+  }
+
+  if (categories.includes("Sports") || categories.includes("Fitness")) {
+    return [
+      { ...baseProducts[0], name: "Treadmill", salePrice: "₦180,000", originalPrice: "₦250,000" },
+      { ...baseProducts[1], name: "Dumbbells Set", salePrice: "₦25,000", originalPrice: "₦35,000" },
+      { ...baseProducts[2], name: "Football", salePrice: "₦8,000", originalPrice: "₦12,000" },
+      { ...baseProducts[3], name: "Basketball", salePrice: "₦6,000", originalPrice: "₦9,000" },
+      { ...baseProducts[4], name: "Yoga Mat", salePrice: "₦5,000", originalPrice: "₦8,000" },
+      { ...baseProducts[5], name: "Tennis Racket", salePrice: "₦15,000", originalPrice: "₦22,000" },
+    ].map(product => ({ ...product, store: storeName }));
+  }
+
+  // Default to electronics products
+  return baseProducts.map(product => ({ ...product, store: storeName }));
+};
+
+// Helper function to get category colors
+const getCategoryColor = (category: string) => {
+  const colorMap: Record<string, string> = {
+    'Electronics': 'bg-[#0000FF33] text-[#0000FF] border-[#0000FF]',
+    'Phones': 'bg-[#FF000033] text-[#FF0000] border-[#FF0000]',
+    'Computing': 'bg-[#00FFFF33] text-[#00FFFF] border-[#00FFFF]',
+    'Fashion': 'bg-[#FF69B433] text-[#FF69B4] border-[#FF69B4]',
+    'Clothing': 'bg-[#FF69B433] text-[#FF69B4] border-[#FF69B4]',
+    'Accessories': 'bg-[#DDA0DD33] text-[#DDA0DD] border-[#DDA0DD]',
+    'Beauty': 'bg-[#FFB6C133] text-[#FFB6C1] border-[#FFB6C1]',
+    'Fragrances': 'bg-[#E6E6FA33] text-[#E6E6FA] border-[#E6E6FA]',
+    'Grocery': 'bg-[#32CD3233] text-[#32CD32] border-[#32CD32]',
+    'Food': 'bg-[#FFA50033] text-[#FFA500] border-[#FFA500]',
+    'Home': 'bg-[#DEB88733] text-[#DEB887] border-[#DEB887]',
+    'Furniture': 'bg-[#8B451333] text-[#8B4513] border-[#8B4513]',
+    'Sports': 'bg-[#00800033] text-[#008000] border-[#008000]',
+    'Fitness': 'bg-[#FF634733] text-[#FF6347] border-[#FF6347]',
+    'Gaming': 'bg-[#80008033] text-[#800080] border-[#800080]',
+  };
+  return colorMap[category] || 'bg-gray-200 text-gray-700 border-gray-400';
+};
 
 const StoreDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("products");
   const [searchQuery, setSearchQuery] = useState("");
+  const [showFilter, setShowFilter] = useState(false);
+  const [filters, setFilters] = useState({
+    category: "",
+    brand: "",
+    location: ""
+  });
 
   // Find the store by ID
-  const store = storesData.find(s => s.id === id);
+  const store = storesData.find((s) => s.id === id);
+  
+  // Generate products based on store data
+  const storeProducts = store ? generateStoreProducts(store.id, store.name, store.categories) : [];
+  
+  // Generate services based on store data
+  const storeServices = store ? generateStoreServices(store.services, store.name, store.categories) : [];
+
+  // Handle back navigation
+  const handleBack = () => {
+    // Try to go back in history, fallback to stores page
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate('/stores');
+    }
+  };
+
+  // Handle add to cart
+  const handleAddToCart = (productId: number) => {
+    console.log(`Added product ${productId} to cart from ${store?.name}`);
+    // Add your cart logic here
+  };
+
+  // Handle filter changes
+  const handleFilterChange = (filterType: string, value: string) => {
+    setFilters(prev => ({
+      ...prev,
+      [filterType]: value
+    }));
+  };
+
+  // Clear all filters
+  const handleClearFilters = () => {
+    setFilters({
+      category: "",
+      brand: "",
+      location: ""
+    });
+  };
+
+  // Apply filters (you can add filtering logic here)
+  const handleApplyFilters = () => {
+    console.log("Applying filters:", filters);
+    setShowFilter(false);
+  };
 
   if (!store) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Store Not Found</h2>
-          <p className="text-gray-600">The store you're looking for doesn't exist.</p>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            Store Not Found
+          </h2>
+          <p className="text-gray-600">
+            The store you're looking for doesn't exist.
+          </p>
         </div>
       </div>
     );
@@ -82,11 +258,10 @@ const StoreDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-[1280px] mx-auto">
-        
+      <div className="max-w-[1080px] mx-auto pt-6">
         {/* Breadcrumb */}
         <div className="px-4 py-4">
-          <div className="flex items-center text-sm text-gray-500">
+          <div className="flex items-center text-[25px] text-gray-500 mb-2">
             <span>Stores</span>
             <span className="mx-2">/</span>
             <span className="text-gray-900 font-medium">{store.name}</span>
@@ -95,189 +270,288 @@ const StoreDetail: React.FC = () => {
 
         <div className="flex gap-6 px-4">
           {/* Left Side - Store Info */}
-          <div className="w-80 flex-shrink-0">
-            
+          <div className="max-w-108 ">
             {/* Store Header Card */}
-            <div className="bg-white rounded-2xl overflow-hidden mb-6">
+            <div className=" rounded-[20px] overflow-hidden mb-6">
               {/* Store Cover Image */}
-              <div className="relative h-48">
-                <img 
-                  src={store.image} 
+              <div className="relative ">
+                <img
+                  src={store.image}
                   alt={store.name}
-                  className="w-full h-full object-cover"
+                  className="w-[430px] h-[145px] rounded-[20px] object-cover"
                 />
                 {/* Back Button */}
-                <button className="absolute top-4 left-4 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors">
-                  <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <button 
+                  onClick={handleBack}
+                  className="absolute top-4 left-4  w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors"
+                >
+                  <svg
+                    className="w-5 h-5 text-gray-700"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
                   </svg>
                 </button>
                 {/* Share Button */}
                 <button className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors">
-                  <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                  <svg
+                    className="w-5 h-5 text-gray-700"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"
+                    />
                   </svg>
                 </button>
               </div>
 
               {/* Store Info */}
-              <div className="p-6">
-                {/* Store Avatar and Basic Info */}
-                <div className="flex items-start gap-4 mb-4">
-                  <img 
-                    src={store.avatar} 
-                    alt={store.name}
-                    className="w-16 h-16 rounded-full object-cover border-4 border-white -mt-8"
-                  />
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h1 className="text-xl font-bold text-gray-900">{store.name}</h1>
-                      <div className="w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
-                        <svg className="w-2 h-2 text-white" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
-                      </div>
+              <div className="  pt-2">
+                {/* Store Avatar and Follow Button Row */}
+                <div className="flex items-start justify-between mb-4">
+                  {/* Left side: Avatar and Status */}
+                  <div className="flex items-start space-x-2">
+                    {/* Store Avatar */}
+                    <div className="relative -mt-10">
+                      <img
+                        src={store.avatar}
+                        alt={store.name}
+                        className="w-16 h-16 rounded-full object-cover border-4 border-white"
+                      />
                     </div>
-                    
                     {/* Status */}
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-sm text-green-600">Open Now - 07:00AM</span>
-                      <span className="text-sm text-gray-500">08:00PM</span>
+                    <div className="flex items-center gap-1">
+                      <div className={`w-2 h-2 rounded-full ${store.isOpen ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                      <span className={`text-[10px] ${store.isOpen ? 'text-green-600' : 'text-red-600'}`}>
+                        {store.isOpen ? `Open Now - ${store.openTime} - ${store.closeTime}` : 'Closed'}
+                      </span>
                     </div>
-                    
-                    {/* Contact Info */}
-                    <div className="space-y-1 text-sm text-gray-600 mb-4">
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                        </svg>
-                        <span>sashastores@gmail.com</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                        </svg>
-                        <span>07012545789</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                        <span>{store.location}</span>
-                        <button className="text-blue-600 text-xs underline">View Store Addresses</button>
-                      </div>
-                    </div>
+                  </div>
 
-                    {/* Categories */}
-                    <div className="flex gap-2 mb-4">
-                      {store.categories.map((category, index) => (
-                        <span
-                          key={index}
-                          className={`px-2 py-1 text-xs rounded-full ${
-                            category === "Electronics"
-                              ? "bg-blue-100 text-blue-600"
-                              : "bg-red-100 text-red-600"
-                          }`}
-                        >
-                          {category}
-                        </span>
-                      ))}
-                    </div>
+                  {/* Follow Button (Right side) */}
+                  <button className="bg-[#E53E3E] text-white px-8 py-2 rounded-[10px] text-[10px] font-medium hover:bg-red-600 transition-colors">
+                    Follow
+                  </button>
+                </div>
 
-                    {/* Follow Button */}
-                    <button className="w-full bg-red-500 text-white py-2 rounded-lg font-medium hover:bg-red-600 transition-colors">
-                      Follow
+                {/* Store Name and Verification */}
+                <div className="flex items-center gap-2 mb-2">
+                  <h1 className="text-[16px] font-medium text-gray-900">
+                    {store.name}
+                  </h1>
+                  <div className=" rounded-full flex items-center justify-center">
+                    {store.isVerified && <img src={IMAGES.verification} alt="Verified" className="w-6 h-6" />}
+                  </div>
+                </div>
+
+                {/* Contact Info */}
+                <div className="space-y-1 text-sm text-gray-600 mb-4">
+                  <div className="flex items-center gap-2">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1}
+                        d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                    <span className="text-[12px] font-medium">
+                      {store.email}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                    <span className="text-[12px] font-medium">{store.phone}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1}
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1}
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                    </svg>
+                    <span className="text-[12px] font-medium">
+                      {store.location}{" "}
+                    </span>
+                    <button className="text-[#E53E3E] text-xs font-medium underline">
+                      View Store Addresses
                     </button>
                   </div>
-                </div>
-
-                {/* Stats */}
-                <div className="flex justify-between items-center p-4 bg-gray-50 rounded-lg mb-4">
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      <span className="text-lg font-bold text-gray-900">100</span>
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                      </svg>
-                      <span className="text-lg font-bold text-gray-900">500</span>
-                    </div>
-                  </div>
-                  <div className="text-center">
-                    <div className="flex items-center justify-center gap-1">
-                      <img src={IMAGES.starFilled} alt="Star" className="w-4 h-4" />
-                      <span className="text-lg font-bold text-gray-900">{formatRating(store.rating)}</span>
-                    </div>
+                  <div className="mb-4 flex items-center gap-2">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                    <span className="text-sm text-gray-600">Category </span>
+                    {store.categories.map((category, index) => (
+                      <span
+                        key={index}
+                        className={`px-2 py-1 text-[10px] rounded-[5px] ml-2 border-[0.5px] ${getCategoryColor(category)}`}
+                      >
+                        {category}
+                      </span>
+                    ))}
                   </div>
                 </div>
 
-                {/* New on this coming morning */}
-                <div className="bg-red-500 text-white p-3 rounded-lg text-center mb-4">
-                  <p className="text-sm font-medium">New on this coming morning</p>
+                {/* Stats Container */}
+                <div className="bg-white rounded-[20px] shadow-xl flex justify-between items-center px-6 py-4 relative  z-10">
+                  {/* Qty Sold */}
+                  <div className="flex items-center gap-2">
+                    <img src={IMAGES.Shop} alt="Shop" className="w-6 h-6" />
+                    <div>
+                      <p className="text-[6px] text-gray-500">Qty Sold</p>
+                      <p className="text-sm font-normal text-gray-900">{store.qtySold}</p>
+                    </div>
+                  </div>
+
+                  {/* Followers */}
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={IMAGES.profile}
+                      alt="Profile"
+                      className="w-6 h-6"
+                    />
+                    <div>
+                      <p className="text-[6px] text-gray-500">Followers</p>
+                      <p className="text-sm font-normal text-gray-900">{store.followers}</p>
+                    </div>
+                  </div>
+
+                  {/* Ratings */}
+                  <div className="flex items-center gap-2">
+                    <img
+                      src={IMAGES.starBlack}
+                      alt="Star"
+                      className="w-6 h-6"
+                    />
+                    <div>
+                      <p className="text-[6px] text-gray-500">Ratings</p>
+                      <p className="text-sm font-normal text-gray-900">
+                        {formatRating(store.rating)}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Announcement Bar */}
+                <div className="bg-[#E53E3E] text-white rounded-b-[20px]  py-2 -mt-4 z-0 shadow-md">
+                  <div className="flex items-center pt-2 px-4 gap-2">
+                    <img
+                      src={IMAGES.megaphone}
+                      alt="Megaphone"
+                      className="w-5 h-5"
+                    />
+                    <p className="text-[10px] font-normal">
+                      {store.announcement}
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-
+            {/* Social Links */}
+            <div className="flex gap-1 border border-[#CDCDCD] p-1 rounded-[10px] mb-4 bg-white">
+              <button className=" rounded-lg flex items-center justify-center">
+                <img src={IMAGES.whatsappIcon} className="w-[43px] h-[43px]" alt="" />
+              </button>
+              <button className=" rounded-lg flex items-center justify-center">
+                <img src={IMAGES.instagram} className="w-[43px] h-[43px]" alt="" />
+              </button>
+              <button className=" rounded-lg flex items-center justify-center">
+                <img src={IMAGES.x} className="w-[43px] h-[43px]" alt="" />
+              </button>
+              <button className=" rounded-lg flex items-center justify-center">
+                <img src={IMAGES.facebook} className="w-[43px] h-[43px]" alt="" />
+              </button>
+            </div>
             {/* Promotional Banner */}
-            <div className="bg-gradient-to-r from-red-500 to-red-600 rounded-2xl p-6 text-white mb-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-bold mb-1">Shop with ease on</h3>
-                  <h2 className="text-xl font-bold mb-2">Sasha Stores</h2>
-                  <p className="text-sm opacity-90 mb-3">
-                    Experience a variety of choices for your retail or wholesale products
+            <div className="bg-[#921313] rounded-2xl px-5 py-3 text-white mb-6 relative overflow-hidden">
+              <div className="flex  justify-between relative z-10">
+                <div className="flex-1">
+                  <h3 className="text-white text-[20px] font-semibold ">Shop with ease on</h3>
+                  <h2 className="text-white text-[30px] font-bold italic mb-3" style={{ fontFamily: 'cursive' }}>{store.name}</h2>
+                  <p className="text-white text-[10px] opacity-90 mb-4 max-w-xs">
+                    {store.description}
                   </p>
-                  <button className="bg-white text-red-500 px-4 py-2 rounded-lg font-medium text-sm hover:bg-gray-100 transition-colors">
+                  <button className="bg-white text-red-500 px-6 py-2 rounded-xl font-medium text-sm hover:bg-gray-100 transition-colors">
                     Shop Now
                   </button>
                 </div>
-                <div className="ml-4">
-                  <img src="/shopping-bag.png" alt="Shopping" className="w-20 h-20 opacity-80" />
+                <div className="flex-shrink-0 ">
+                  <img
+                    src={IMAGES.grosry}
+                    alt="Shopping bag with groceries"
+                    className="w-42 h-42 object-contain"
+                  />
                 </div>
               </div>
+              {/* Background decoration circles */}
+              <div className="absolute bottom-0 left-0 w-[267px] h-[199px] bg-[#F22C2C] rounded-full translate-y-22 -translate-x-14"></div>
+              <div className="absolute top-0 left-0 w-[267px] h-[199px] bg-[#F22C2C] rounded-full -translate-y-41 -translate-x-28"></div>
             </div>
 
-            {/* Social Links */}
-            <div className="flex gap-3 mb-4">
-              <button className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
-                </svg>
-              </button>
-              <button className="w-10 h-10 bg-pink-500 rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.347-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.748-1.378 0 0-.599 2.282-.744 2.84-.282 1.084-1.064 2.456-1.549 3.235C9.584 23.815 10.77 24.001 12.017 24.001c6.624 0 11.99-5.367 11.99-11.987C24.007 5.367 18.641.001 12.017.001z"/>
-                </svg>
-              </button>
-              <button className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                </svg>
-              </button>
-              <button className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-              </button>
-            </div>
+            
 
             {/* Action Buttons */}
-            <div className="space-y-3">
-              <button className="w-full bg-red-500 text-white py-3 rounded-lg font-medium hover:bg-red-600 transition-colors">
+            <div className="space-y-2">
+              <a href={`tel:${store.phone}`} className="w-full bg-[#E53E3E] text-white py-3 rounded-[15px] text-xs hover:bg-red-600 transition-colors block text-center">
                 Call
-              </button>
-              <button className="w-full bg-black text-white py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors">
+              </a>
+              <a href={`mailto:${store.email}`} className="w-full bg-black text-white py-3 rounded-[15px] text-xs hover:bg-gray-800 transition-colors block text-center">
                 Chat
-              </button>
-              <button className="w-full bg-green-500 text-white py-3 rounded-lg font-medium hover:bg-green-600 transition-colors">
+              </a>
+              <button className="w-full bg-[#008000] text-white py-3 rounded-[15px] text-xs hover:bg-green-600 transition-colors">
                 Leave a store review
               </button>
             </div>
@@ -286,35 +560,45 @@ const StoreDetail: React.FC = () => {
           {/* Right Side - Products */}
           <div className="flex-1">
             {/* Tabs and Search */}
-            <div className="bg-white rounded-2xl p-6 mb-6">
+            <div className=" rounded-2xl p-6 px-2 mb-6">
               {/* Tabs */}
               <div className="flex gap-6 mb-6">
                 <button
                   onClick={() => setActiveTab("products")}
-                  className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+                  className={`px-10 py-4 rounded-lg font-[400] text-[10px] transition-colors ${
                     activeTab === "products"
                       ? "bg-red-500 text-white"
-                      : "text-gray-600 hover:text-gray-900"
+                      : "text-gray-600 bg-white hover:text-gray-900"
                   }`}
                 >
                   Products
                 </button>
                 <button
+                  onClick={() => setActiveTab("services")}
+                  className={`px-10 py-4 rounded-lg font-[400] text-[10px] transition-colors ${
+                    activeTab === "services"
+                      ? "bg-red-500 text-white"
+                      : "text-gray-600 bg-white hover:text-gray-900"
+                  }`}
+                >
+                  Services
+                </button>
+                <button
                   onClick={() => setActiveTab("socialFeed")}
-                  className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+                  className={`px-10 py-4 rounded-lg font-[400] text-[10px] transition-colors ${
                     activeTab === "socialFeed"
                       ? "bg-red-500 text-white"
-                      : "text-gray-600 hover:text-gray-900"
+                      : "text-gray-600 bg-white hover:text-gray-900"
                   }`}
                 >
                   Social Feed
                 </button>
                 <button
                   onClick={() => setActiveTab("reviews")}
-                  className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+                  className={`px-10 py-4 rounded-lg font-[400] text-[10px] transition-colors ${
                     activeTab === "reviews"
                       ? "bg-red-500 text-white"
-                      : "text-gray-600 hover:text-gray-900"
+                      : "text-gray-600 bg-white hover:text-gray-900"
                   }`}
                 >
                   Reviews
@@ -322,81 +606,144 @@ const StoreDetail: React.FC = () => {
               </div>
 
               {/* Search Bar */}
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search store products"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-gray-100 border-0 rounded-xl px-4 py-3 pr-12 text-sm focus:outline-none focus:ring-2 focus:ring-red-500"
-                />
-                <button className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-gray-200 rounded-lg flex items-center justify-center">
-                  <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                  </svg>
+              <div className="flex gap-3 relative">
+                <div className="flex-1 relative">
+                  <input
+                    type="text"
+                    placeholder={`Search store ${activeTab === "services" ? "services" : "products"}`}
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full  border border-[#AFAFAF]  rounded-xl p-5 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
+                  />
+                </div>
+                <button 
+                  onClick={() => setShowFilter(true)}
+                  className=" border border-[#AFAFAF] hover:bg-gray-200 transition-colors rounded-xl px-[30px] py-[18px] flex items-center justify-center"
+                >
+                  <img src={IMAGES.funnel} alt="Filter" className="w-6 h-6" />
                 </button>
+
+                {/* Filter Dropdown - positioned beneath the filter button */}
+                {showFilter && (
+                  <>
+                    {/* Backdrop to close modal when clicking outside */}
+                    <div 
+                      className="fixed inset-0 z-40" 
+                      onClick={() => setShowFilter(false)}
+                    />
+                    {/* Filter dropdown */}
+                    <div className="absolute top-full -right-5 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50" style={{ width: '430px', height: '260px' }}>
+                      <div className="p-4 h-full flex flex-col">
+                        {/* Category Dropdown */}
+                        <div className="mb-4">
+                          <select
+                            value={filters.category}
+                            onChange={(e) => handleFilterChange("category", e.target.value)}
+                            className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
+                          >
+                            <option value="">Category</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Fashion">Fashion</option>
+                            <option value="Beauty">Beauty</option>
+                            <option value="Home">Home</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Grocery">Grocery</option>
+                          </select>
+                        </div>
+
+                        {/* Brand Dropdown */}
+                        <div className="mb-4">
+                          <select
+                            value={filters.brand}
+                            onChange={(e) => handleFilterChange("brand", e.target.value)}
+                            className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
+                          >
+                            <option value="">Brand</option>
+                            <option value="Samsung">Samsung</option>
+                            <option value="Apple">Apple</option>
+                            <option value="Dell">Dell</option>
+                            <option value="HP">HP</option>
+                            <option value="Nike">Nike</option>
+                            <option value="Adidas">Adidas</option>
+                          </select>
+                        </div>
+
+                        {/* Location Dropdown */}
+                        <div className="mb-6 flex-1">
+                          <select
+                            value={filters.location}
+                            onChange={(e) => handleFilterChange("location", e.target.value)}
+                            className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
+                          >
+                            <option value="">Location</option>
+                            <option value="Lagos">Lagos</option>
+                            <option value="Abuja">Abuja</option>
+                            <option value="Port Harcourt">Port Harcourt</option>
+                            <option value="Kano">Kano</option>
+                            <option value="Ibadan">Ibadan</option>
+                          </select>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="flex gap-3 mt-auto">
+                          <button
+                            onClick={handleClearFilters}
+                            className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg text-sm font-medium hover:bg-gray-300 transition-colors"
+                          >
+                            Clear
+                          </button>
+                          <button
+                            onClick={handleApplyFilters}
+                            className="flex-1 bg-[#E53E3E] text-white py-3 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors"
+                          >
+                            Apply
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 
-            {/* Products Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {sampleProducts.map((product) => (
-                <div key={product.id} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                  {/* Product Image */}
-                  <div className="relative">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-48 object-cover"
-                    />
-                    {product.isSponsored && (
-                      <div className="absolute top-2 left-2">
-                        <span className="bg-yellow-400 text-black text-xs px-2 py-1 rounded-full font-medium">
-                          Sponsored
-                        </span>
-                      </div>
-                    )}
-                    {/* Store Badge */}
-                    <div className="absolute top-2 right-2 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1">
-                      <img src={store.avatar} alt={store.name} className="w-4 h-4 rounded-full" />
-                      <span className="text-white text-xs">{store.name}</span>
-                    </div>
-                    {/* Rating */}
-                    <div className="absolute bottom-2 left-2 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1 flex items-center gap-1">
-                      <img src={IMAGES.starFilled} alt="Star" className="w-3 h-3" />
-                      <span className="text-white text-xs">{formatRating(product.rating)}</span>
-                    </div>
-                  </div>
+            {/* Content based on active tab */}
+            {activeTab === "products" && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {storeProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onAddToCart={handleAddToCart}
+                  />
+                ))}
+              </div>
+            )}
 
-                  {/* Product Info */}
-                  <div className="p-4">
-                    <h3 className="font-medium text-gray-900 mb-2 line-clamp-2">{product.name}</h3>
-                    
-                    {/* Price */}
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="text-lg font-bold text-gray-900">{product.price}</span>
-                      <span className="text-sm text-gray-500 line-through">{product.originalPrice}</span>
-                    </div>
+            {activeTab === "services" && (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {storeServices.map((service) => (
+                  <ProductCard
+                    key={service.id}
+                    product={service}
+                    onAddToCart={handleAddToCart}
+                  />
+                ))}
+              </div>
+            )}
 
-                    {/* Rating Bar */}
-                    <div className="flex gap-1 mb-3">
-                      <div className="flex-1 bg-yellow-400 h-1 rounded"></div>
-                      <div className="flex-1 bg-yellow-400 h-1 rounded"></div>
-                      <div className="flex-1 bg-yellow-400 h-1 rounded"></div>
-                      <div className="flex-1 bg-yellow-400 h-1 rounded"></div>
-                      <div className="flex-1 bg-gray-200 h-1 rounded"></div>
-                    </div>
+            {activeTab === "socialFeed" && (
+              <div className="bg-white rounded-2xl p-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Social Feed</h3>
+                <p className="text-gray-600">Social feed content coming soon...</p>
+              </div>
+            )}
 
-                    {/* Add to Cart Button */}
-                    <button className="w-full flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200 py-2 rounded-lg transition-colors">
-                      <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293A1 1 0 006 16v2a1 1 0 001 1h11M16 20a2 2 0 100-4 2 2 0 000 4zM8 20a2 2 0 100-4 2 2 0 000 4z" />
-                      </svg>
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {activeTab === "reviews" && (
+              <div className="bg-white rounded-2xl p-6">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">Customer Reviews</h3>
+                <p className="text-gray-600">Reviews content coming soon...</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
