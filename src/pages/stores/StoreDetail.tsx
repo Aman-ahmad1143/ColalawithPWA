@@ -4,6 +4,62 @@ import { storesData, formatRating } from "./storesData";
 import IMAGES from "../../constants";
 import ProductCard from "../../components/ProductCard";
 
+// Social Feed Post Interface
+interface SocialFeedPost {
+  id: string;
+  author: string;
+  avatar: string;
+  timestamp: string;
+  caption: string;
+  image: string;
+  likes: number;
+  comments: number;
+  shares: number;
+  isLiked: boolean;
+}
+
+// Generate social feed posts for store
+const generateStoreSocialFeed = (storeName: string, storeAvatar: string): SocialFeedPost[] => {
+  return [
+    {
+      id: "1",
+      author: storeName,
+      avatar: storeAvatar,
+      timestamp: "30 min ago",
+      caption: "Get this phone at a cheap price for a limited period",
+      image: IMAGES.feedPhone || "/top1.png",
+      likes: 500,
+      comments: 26,
+      shares: 26,
+      isLiked: false,
+    },
+    {
+      id: "2", 
+      author: storeName,
+      avatar: storeAvatar,
+      timestamp: "2h ago",
+      caption: "New arrivals in store! Check out our latest collection of premium products with amazing deals.",
+      image: IMAGES.feedPhone || "/top2.png",
+      likes: 320,
+      comments: 18,
+      shares: 12,
+      isLiked: false,
+    },
+    {
+      id: "3",
+      author: storeName,
+      avatar: storeAvatar,
+      timestamp: "1 day ago",
+      caption: "Special weekend offer! Limited time only. Don't miss out on these incredible discounts.",
+      image: IMAGES.feedPhone || "/top3.png", 
+      likes: 780,
+      comments: 45,
+      shares: 32,
+      isLiked: true,
+    },
+  ];
+};
+
 // Generate services based on store data
 const generateStoreServices = (services: string[], storeName: string, categories: string[]) => {
   return services.map((service, index) => {
@@ -192,6 +248,7 @@ const StoreDetail: React.FC = () => {
     brand: "",
     location: ""
   });
+  const [socialPosts, setSocialPosts] = useState<SocialFeedPost[]>([]);
 
   // Find the store by ID
   const store = storesData.find((s) => s.id === id);
@@ -201,6 +258,30 @@ const StoreDetail: React.FC = () => {
   
   // Generate services based on store data
   const storeServices = store ? generateStoreServices(store.services, store.name, store.categories) : [];
+
+  // Generate social feed posts
+  const storeSocialPosts = store ? generateStoreSocialFeed(store.name, store.avatar) : [];
+
+  // Initialize social posts
+  React.useEffect(() => {
+    if (store) {
+      setSocialPosts(storeSocialPosts);
+    }
+  }, [store]);
+
+  // Handle social post like
+  const handleSocialLike = (postId: string) => {
+    setSocialPosts(socialPosts.map(post => {
+      if (post.id === postId) {
+        return {
+          ...post,
+          isLiked: !post.isLiked,
+          likes: post.isLiked ? post.likes - 1 : post.likes + 1
+        };
+      }
+      return post;
+    }));
+  };
 
   // Handle back navigation
   const handleBack = () => {
@@ -732,9 +813,85 @@ const StoreDetail: React.FC = () => {
             )}
 
             {activeTab === "socialFeed" && (
-              <div className="bg-white rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Social Feed</h3>
-                <p className="text-gray-600">Social feed content coming soon...</p>
+              <div className="space-y-6">
+                {socialPosts.map((post) => (
+                  <div key={post.id} className=" rounded-2xl overflow-hidden">
+                    {/* Post Header */}
+                    <div className="flex items-center justify-between p-4">
+                      <div className="flex items-center space-x-3">
+                        <img 
+                          src={post.avatar} 
+                          alt={post.author}
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                        <div>
+                          <h3 className="font-semibold text-gray-900">{post.author}</h3>
+                          <p className="text-sm text-gray-500">Lagos, Nigeria • {post.timestamp}</p>
+                        </div>
+                      </div>
+                      <button className="p-2 hover:bg-gray-100 rounded-full">
+                        <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
+                        </svg>
+                      </button>
+                    </div>
+
+                    {/* Post Caption */}
+                    <div className="px-4 pb-3">
+                      <p className="text-gray-800">{post.caption}</p>
+                    </div>
+
+                    {/* Post Image */}
+                    <div className="relative">
+                      <img 
+                        src={post.image} 
+                        alt="Post"
+                        className="w-146 h-98 rounded-t-[30px] rounded-b-[10px] object-cover"
+                      />
+                    </div>
+
+                    {/* Post Actions */}
+                    <div className="p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-4">
+                          <button 
+                            onClick={() => handleSocialLike(post.id)}
+                            className="flex items-center space-x-2"
+                          >
+                            <svg 
+                              className={`w-6 h-6 ${post.isLiked ? 'text-red-500 fill-current' : 'text-gray-600'}`} 
+                              fill="none" 
+                              stroke="currentColor" 
+                              viewBox="0 0 24 24"
+                            >
+                              <path 
+                                strokeLinecap="round" 
+                                strokeLinejoin="round" 
+                                strokeWidth={2} 
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
+                              />
+                            </svg>
+                            <span className="text-sm font-medium">{post.likes}</span>
+                          </button>
+                          
+                          <button className="flex items-center space-x-2">
+                            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                            <span className="text-sm font-medium">{post.comments}</span>
+                          </button>
+
+                          <button className="flex items-center space-x-2">
+                            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                            </svg>
+                            <span className="text-sm font-medium">{post.shares}</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
 
