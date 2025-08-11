@@ -3,6 +3,9 @@
   font: Manrope, sans-serif;
 }
 
+.root{
+  background-color: #F9F9F9;
+}
 .active_page {
   position: relative;
     color: white;

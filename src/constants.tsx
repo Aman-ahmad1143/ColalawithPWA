@@ -112,7 +112,17 @@ const IMAGES = {
   facebook: '/facebook.svg',
   whatsapp1: '/whatsapp.svg',
   twitter: '/twitter.svg',
-  instagram: '/instagram.svg'
+  instagram: '/instagram.svg',
+  verification: '/verification.png',
+  Shop: '/shop.png',
+  profile: '/profile.png',
+  starBlack: '/starBlack.png',
+  megaphone: '/Megaphone.png',
+  x: '/X.png',
+  
+  
+  whatsappIcon: '/whats_app.png',
+  grosry: '/grosry.png',
 
 };
 export default IMAGES;
