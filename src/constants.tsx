@@ -103,6 +103,16 @@ const IMAGES = {
   coverAdam: '/coverAdam.png',
   coverScent: '/coverScent.png',
   coverLovina: '/coverLovina.png',
+  star1: '/Star.svg',
+
+  cartwithprice1: '/ShoppingCartSimple.svg',
+  reveal1: '/reveal1.svg',
+  reveal2: '/reveal2.svg',
+  reveal3: '/reveal3.svg',
+  facebook: '/facebook.svg',
+  whatsapp1: '/whatsapp.svg',
+  twitter: '/twitter.svg',
+  instagram: '/instagram.svg'
 
 };
 export default IMAGES;

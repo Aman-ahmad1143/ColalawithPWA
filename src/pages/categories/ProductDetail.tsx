@@ -29,11 +29,16 @@ const getProductById = (id: string) => {
         camera: "HD webcam"
       },
       store: {
-        name: "Sasha Stores",
-        image: "/StoreImg.png",
-        rating: 4.5,
-        followers: 100,
-        products: 5
+       
+    name: "Sasha Stores",
+    followers: "5",
+    following: "54",
+    image: "/store1.svg",
+    coverImage: "/avatar1.svg",
+    isFollowing: false,
+    badge1: "Electronics",
+    badge2: "Phones"
+    
       }
     },
     {
@@ -59,11 +64,15 @@ const getProductById = (id: string) => {
         camera: "720p webcam"
       },
       store: {
-        name: "Sasha Stores",
-        image: "/StoreImg.png",
-        rating: 4.5,
-        followers: 100,
-        products: 5
+       
+    name: "Sasha Stores",
+    followers: "5",
+    following: "54",
+    image: "/store1.svg",
+    coverImage: "/avatar1.svg",
+    isFollowing: false,
+    badge1: "Electronics",
+    badge2: "Phones"
       }
     },
     {
@@ -89,11 +98,15 @@ const getProductById = (id: string) => {
         camera: "VGA webcam"
       },
       store: {
-        name: "Sasha Stores",
-        image: "/StoreImg.png",
-        rating: 4.5,
-        followers: 100,
-        products: 5
+       
+    name: "Sasha Stores",
+    followers: "5",
+    following: "54",
+    image: "/store1.svg",
+    coverImage: "/avatar1.svg",
+    isFollowing: false,
+    badge1: "Electronics",
+    badge2: "Phones"
       }
     },
     {
@@ -119,11 +132,15 @@ const getProductById = (id: string) => {
         camera: "1080p webcam"
       },
       store: {
-        name: "Sasha Stores",
-        image: "/StoreImg.png",
-        rating: 4.5,
-        followers: 100,
-        products: 5
+        
+    name: "Sasha Stores",
+    followers: "5",
+    following: "54",
+    image: "/store1.svg",
+    coverImage: "/avatar1.svg",
+    isFollowing: false,
+    badge1: "Electronics",
+    badge2: "Phones"
       }
     },
     {
@@ -149,11 +166,15 @@ const getProductById = (id: string) => {
         camera: "HD IR webcam"
       },
       store: {
-        name: "Sasha Stores",
-        image: "/StoreImg.png",
-        rating: 4.5,
-        followers: 100,
-        products: 5
+       
+    name: "Sasha Stores",
+    followers: "5",
+    following: "54",
+    image: "/store1.svg",
+    coverImage: "/avatar1.svg",
+    isFollowing: false,
+    badge1: "Electronics",
+    badge2: "Phones"
       }
     },
     {
@@ -179,11 +200,15 @@ const getProductById = (id: string) => {
         camera: "720p webcam"
       },
       store: {
-        name: "Sasha Stores",
-        image: "/StoreImg.png",
-        rating: 4.5,
-        followers: 100,
-        products: 5
+        
+    name: "Sasha Stores",
+    followers: "5",
+    following: "54",
+    image: "/store1.svg",
+    coverImage: "/avatar1.svg",
+    isFollowing: false,
+    badge1: "Electronics",
+    badge2: "Phones"
       }
     },
     {
@@ -209,11 +234,15 @@ const getProductById = (id: string) => {
         camera: "720p webcam"
       },
       store: {
-        name: "Sasha Stores",
-        image: "/StoreImg.png",
-        rating: 4.5,
-        followers: 100,
-        products: 5
+        
+    name: "Sasha Stores",
+    followers: "5",
+    following: "54",
+    image: "/store1.svg",
+    coverImage: "/avatar1.svg",
+    isFollowing: false,
+    badge1: "Electronics",
+    badge2: "Phones"
       }
     },
     // AllProducts (IDs 7-16, offset by 6 as per the click handler)
@@ -240,11 +269,15 @@ const getProductById = (id: string) => {
         camera: "1080p webcam"
       },
       store: {
-        name: "Sasha Stores",
-        image: "/StoreImg.png",
-        rating: 4.5,
-        followers: 100,
-        products: 5
+       
+    name: "Sasha Stores",
+    followers: "5",
+    following: "54",
+    image: "/store1.svg",
+    coverImage: "/avatar1.svg",
+    isFollowing: false,
+    badge1: "Electronics",
+    badge2: "Phones"
       }
     },
     {
@@ -270,11 +303,15 @@ const getProductById = (id: string) => {
         camera: "1080p IR webcam"
       },
       store: {
-        name: "Sasha Stores",
-        image: "/StoreImg.png",
-        rating: 4.5,
-        followers: 100,
-        products: 5
+        
+    name: "Sasha Stores",
+    followers: "5",
+    following: "54",
+    image: "/store1.svg",
+    coverImage: "/avatar1.svg",
+    isFollowing: false,
+    badge1: "Electronics",
+    badge2: "Phones"
       }
     },
     {
@@ -300,11 +337,15 @@ const getProductById = (id: string) => {
         camera: "720p webcam"
       },
       store: {
-        name: "Sasha Stores",
-        image: "/StoreImg.png",
-        rating: 4.5,
-        followers: 100,
-        products: 5
+       
+    name: "Sasha Stores",
+    followers: "5",
+    following: "54",
+    image: "/store1.svg",
+    coverImage: "/avatar1.svg",
+    isFollowing: false,
+    badge1: "Electronics",
+    badge2: "Phones"
       }
     },
     {
@@ -331,10 +372,13 @@ const getProductById = (id: string) => {
       },
       store: {
         name: "Sasha Stores",
-        image: "/StoreImg.png",
-        rating: 4.5,
-        followers: 100,
-        products: 5
+        followers: "5",
+        following: "54",
+        image: "/store1.svg",
+        coverImage: "/avatar1.svg",
+        isFollowing: false,
+        badge1: "Electronics",
+        badge2: "Phones"
       }
     }
   ];
@@ -348,43 +392,44 @@ const ProductDetail: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const incrementQuantity = () => setQuantity(prev => prev + 1);
   const decrementQuantity = () => setQuantity(prev => prev > 1 ? prev - 1 : 1);
+  const toggleFollow = () => setIsFollowing(prev => !prev);
+
+
+
+
+
+
+
+
+
+
 
   return (
     <div className="bg-[#F9F9F9] min-h-screen">
-      
-      
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 py-6">
+      <div className="max-w-7xl mx-auto px-2 py-4">
         {/* Product Details Header */}
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl text-[#000000] font-bold">Product Details</h1>
+          <h1 className="text-2xl text-[#000000] font-bold">Product Details</h1>
           <div className="flex items-center space-x-2">
             <button className="p-2">
-              <img src={IMAGES.kebab1} alt="more" className="w-8 h-8" />
+              <img src={IMAGES.kebab1} alt="more" className="w-6 h-6" />
             </button>
             <button className="p-2">
-              <img src={IMAGES.heart1} alt="wishlist" className="w-8 h-8" />
+              <img src={IMAGES.heart1} alt="wishlist" className="w-6 h-6" />
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-0.1">
           {/* Product Images */}
-          <div className="space-y-4">
-            {/* Main Image */}
-            <div className="aspect-square bg-white rounded-lg p-4">
-              <img
-                src={product.images[selectedImage]}
-                alt={product.name}
-                className="w-full h-full object-cover rounded-lg"
-              />
-            </div>
-            
-            {/* Thumbnail Images */}
-            <div className="flex space-x-2">
+          <div className="flex gap-3">
+            {/* Thumbnail Images - Vertical Layout */}
+            <div className="flex flex-col space-y-2">
               {product.images.map((image, index) => (
                 <button
                   key={index}
@@ -401,237 +446,427 @@ const ProductDetail: React.FC = () => {
                 </button>
               ))}
             </div>
+            
+            {/* Main Image */}
+            <div className="flex-1 aspect-square rounded-lg p-1">
+              <img
+                src={product.images[selectedImage]}
+                alt={product.name}
+                className="w-full h-[450px] object-cover rounded-lg"
+              />
+            </div>
           </div>
 
           {/* Product Info */}
-          <div className="space-y-6">
+          <div className="space-y-6 ">
+            {/* Product Name and Rating */}
             <div>
-              <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
-              <div className="flex items-center space-x-2 mb-4">
+              <h2 className="text-[20px] font-bold mb-0.1 text-black">{product.name}</h2>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <div className="flex items-center">
+                    
+                    
+                  </div>
+                </div>
                 <div className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <img
-                      key={i}
-                      src={i < Math.floor(product.rating) ? IMAGES.starFilled : IMAGES.star}
-                      alt="star"
-                      className="w-4 h-4"
-                    />
-                  ))}
-                  <span className="ml-2 text-sm text-gray-600">{product.rating}</span>
+                  <img src={IMAGES.star1} alt="star" className="w-5 h-5" />
+                  <span className="ml-2 text-[16px] font-medium">{product.rating}</span>
                 </div>
               </div>
             </div>
 
             {/* Price */}
-            <div className="space-y-2">
-              <div className="text-3xl font-bold text-red-600">{product.salePrice}</div>
-              <div className="text-lg text-gray-500 line-through">{product.originalPrice}</div>
-            </div>
+            <div className="border-b border-[#00000080] pb-4 -mt-1 mb-1">
+              <div className="text-[18px] font-bold text-[#E53E3E] mb-1">{product.salePrice} <span className="text-[10px] text-[#00000080] line-through">{product.originalPrice}</span></div>
+               </div>
 
             {/* Description */}
-            <div>
-              <h3 className="font-semibold mb-2">Description</h3>
-              <p className="text-gray-600">{product.description}</p>
+            <div className="border-b border-[#00000080] pb-4">
+              <h3 className="text-gray-500 text-[12px]font-medium mb-1">Description</h3>
+              <p className="text-black text-[12px] leading-relaxed">{product.description}</p>
             </div>
 
-            {/* Quantity and Actions */}
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold mb-2">Subtotal</h3>
-                <div className="text-2xl font-bold text-red-600">{product.salePrice}</div>
+            {/* Subtotal and Quantity */}
+            <div className="border-b border-[#00000080]  pb-8">
+              <div className="mb-4">
+                <h3 className="text-gray-500 text-[10px] font-medium mb-2">Subtotal</h3>
+                <div className="text-[14px] font-bold text-[#E53E3E]">{product.salePrice}</div>
               </div>
               
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center justify-between">
+                {/* Add to Cart Button */}
+                <button className="flex items-center justify-center w-12 h-12 -mt-20 ml-94 rounded-lg">
+                  <img src={IMAGES.cartwithprice1} alt="cart" className="w-10 h-10" />
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                    2
+                  </span>
+                </button>
+
                 {/* Quantity Selector */}
-                <div className="flex items-center border rounded-lg">
+                <div className="flex items-center  mr-4">
                   <button
                     onClick={decrementQuantity}
-                    className="px-3 py-2 hover:bg-gray-100"
+                    className="w-12 h-12 bg-[#E53E3E] text-white rounded-lg -mt-20  flex items-center justify-center text-xl font-bold"
                   >
-                    -
+                    −
                   </button>
-                  <span className="px-4 py-2 bg-red-600 text-white">{quantity}</span>
+                  <span className="mx-4 -mt-20 text-[24px] text-[#E53E3E]   font-bold min-w-[40px] text-center">{quantity}</span>
                   <button
                     onClick={incrementQuantity}
-                    className="px-3 py-2 hover:bg-gray-100 bg-red-600 text-white"
+                    className="w-12 h-12 bg-[#E53E3E] -mt-20 text-white   rounded-lg flex items-center justify-center text-xl font-bold"
                   >
                     +
                   </button>
                 </div>
               </div>
-
-              {/* Action Buttons */}
-              <div className="space-y-3">
-                <div className="flex items-center space-x-4">
-                  <button className="flex items-center space-x-2 px-4 py-2 border rounded-lg hover:bg-gray-50">
-                    <img src={IMAGES.services6} alt="whatsapp" className="w-5 h-5" />
-                  </button>
-                  <button className="flex items-center space-x-2 px-4 py-2 border rounded-lg hover:bg-gray-50">
-                    <img src={IMAGES.phoneIcon} alt="call" className="w-5 h-5" />
-                  </button>
-                  <button className="flex items-center space-x-2 px-4 py-2 border rounded-lg hover:bg-gray-50">
-                    <img src={IMAGES.sms} alt="message" className="w-5 h-5" />
-                  </button>
-                </div>
-                
-                <button className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800">
-                  Reveal Phone Number
-                </button>
-                
-                <button className="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700">
-                  Checkout
-                </button>
-              </div>
             </div>
-          </div>
-        </div>
 
-        {/* Tabs Section */}
-        <div className="bg-white rounded-lg p-6 mb-8">
-          <div className="flex space-x-8 border-b mb-6">
-            <button
-              onClick={() => setActiveTab('description')}
-              className={`pb-2 font-semibold ${
-                activeTab === 'description'
-                  ? 'text-red-600 border-b-2 border-red-600'
-                  : 'text-gray-600'
-              }`}
-            >
-              Description
-            </button>
-            <button
-              onClick={() => setActiveTab('reviews')}
-              className={`pb-2 font-semibold ${
-                activeTab === 'reviews'
-                  ? 'text-red-600 border-b-2 border-red-600'
-                  : 'text-gray-600'
-              }`}
-            >
-              Reviews
-            </button>
-          </div>
-
-          {activeTab === 'description' && (
-            <div>
-              <h3 className="font-semibold mb-4">Description</h3>
-              <p className="text-gray-600 mb-6">{product.description}</p>
+            {/* Action Buttons */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-center mr-10 space-x-4">
+                <button className="flex items-center justify-center w-20 h-16   rounded-[16px] hover:bg-gray-50">
+                  <img src={IMAGES.reveal1} alt="whatsapp" className="w-60 h-30" />
+                </button>
+                <button className="flex items-center justify-center w-20 h-12   rounded-[16px] hover:bg-gray-50">
+                  <img src={IMAGES.reveal2} alt="call" className="w-12 h-12" />
+                </button>
+                <button className="flex items-center justify-center w-17 h-12 rounded-[16px] hover:bg-gray-50">
+                  <img src={IMAGES.reveal3} alt="message" className="w-12 h-12" />
+                </button><span> <button className="w-[360px] h-[50px] bg-[#000000] text-white py-4 rounded-[16px] font-md text-[12px] hover:bg-gray-800">
+                Reveal Phone Number
+              </button></span>
+              </div>
               
-              <h3 className="font-semibold mb-4">Other Details</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between py-2 border-b">
-                      <span className="text-gray-600">Brand</span>
-                      <span className="font-medium">{product.specifications.brand}</span>
-                    </div>
-                    <div className="flex justify-between py-2 border-b">
-                      <span className="text-gray-600">Model</span>
-                      <span className="font-medium">{product.specifications.model}</span>
-                    </div>
-                    <div className="flex justify-between py-2 border-b">
-                      <span className="text-gray-600">Color</span>
-                      <span className="font-medium">{product.specifications.color}</span>
-                    </div>
-                    <div className="flex justify-between py-2 border-b">
-                      <span className="text-gray-600">Storage</span>
-                      <span className="font-medium">{product.specifications.storage}</span>
-                    </div>
-                    <div className="flex justify-between py-2 border-b">
-                      <span className="text-gray-600">Resolution</span>
-                      <span className="font-medium">{product.specifications.resolution}</span>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <div className="space-y-2">
-                    <div className="flex justify-between py-2 border-b">
-                      <span className="text-gray-600">Display</span>
-                      <span className="font-medium">{product.specifications.display}</span>
-                    </div>
-                    <div className="flex justify-between py-2 border-b">
-                      <span className="text-gray-600">Screen size</span>
-                      <span className="font-medium">{product.specifications.screenSize}</span>
-                    </div>
-                    <div className="flex justify-between py-2 border-b">
-                      <span className="text-gray-600">Battery</span>
-                      <span className="font-medium">{product.specifications.battery}</span>
-                    </div>
-                    <div className="flex justify-between py-2 border-b">
-                      <span className="text-gray-600">Sim</span>
-                      <span className="font-medium">{product.specifications.sim}</span>
-                    </div>
-                    <div className="flex justify-between py-2 border-b">
-                      <span className="text-gray-600">Camera</span>
-                      <span className="font-medium">{product.specifications.camera}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             
+              
+              <button className="w-full bg-[#E53E3E] text-white py-4 rounded-[16px] font-semibold text-[12px] ">
+                Checkout
+              </button>
             </div>
-          )}
-
-          {activeTab === 'reviews' && (
-            <div>
-              <h3 className="font-semibold mb-4">Customer Reviews</h3>
-              <div className="text-center py-8">
-                <p className="text-gray-500">No reviews yet. Be the first to review this product!</p>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
 
-        {/* Store Details */}
-        <div className="bg-white rounded-lg p-6">
-          <h3 className="font-semibold mb-4">Store Details</h3>
-          <div className="flex items-start space-x-4">
-            <img
-              src={product.store.image}
-              alt={product.store.name}
-              className="w-20 h-20 rounded-lg object-cover"
-            />
-            <div className="flex-1">
-              <h4 className="font-semibold text-lg">{product.store.name}</h4>
-              <div className="flex items-center space-x-4 mt-2">
-                <div className="flex items-center space-x-1">
-                  {[...Array(5)].map((_, i) => (
-                    <img
-                      key={i}
-                      src={i < Math.floor(product.store.rating) ? IMAGES.starFilled : IMAGES.star}
-                      alt="star"
-                      className="w-4 h-4"
-                    />
-                  ))}
-                  <span className="text-sm text-gray-600">{product.store.rating}</span>
-                </div>
-              </div>
-              <div className="flex items-center space-x-4 mt-2">
-                <div className="flex items-center space-x-1">
-                  <img src={IMAGES.followers} alt="followers" className="w-4 h-4" />
-                  <span className="text-sm text-gray-600">{product.store.followers}</span>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <img src={IMAGES.ranking} alt="products" className="w-4 h-4" />
-                  <span className="text-sm text-gray-600">{product.store.products}</span>
-                </div>
-              </div>
-              <div className="flex items-center space-x-2 mt-4">
-                <button className="p-2 border rounded-lg hover:bg-gray-50">
-                  <img src={IMAGES.services6} alt="whatsapp" className="w-5 h-5" />
-                </button>
-                <button className="p-2 border rounded-lg hover:bg-gray-50">
-                  <img src={IMAGES.services1} alt="instagram" className="w-5 h-5" />
-                </button>
-                <button className="p-2 border rounded-lg hover:bg-gray-50">
-                  <img src={IMAGES.services3} alt="twitter" className="w-5 h-5" />
-                </button>
-                <button className="p-2 border rounded-lg hover:bg-gray-50">
-                  <img src={IMAGES.services2} alt="facebook" className="w-5 h-5" />
-                </button>
-              </div>
+        {/* Tabs and Store Details Section - Side by Side */}
+        <div className="grid grid-cols-1  lg:grid-cols-2 gap-6 mb-4 -mt-8">
+          {/* Tabs Section */}
+          <div className=" rounded-lg p-6">
+            <div className="flex space-x-0 mb-6">
+              <button
+                onClick={() => setActiveTab('description')}
+                className={`px-14 py-4 font-md rounded-2xl ${
+                  activeTab === 'description'
+                    ? 'bg-[#E53E3E] text-white'
+                    : 'bg-white text-gray-500 border border-gray-200'
+                }`}
+              >
+                Description
+              </button>
+              <button
+                onClick={() => setActiveTab('reviews')}
+                className={`px-14 py-4 font-md rounded-2xl ml-4 ${
+                  activeTab === 'reviews'
+                    ? 'bg-[#E53E3E] text-white'
+                    : 'bg-white text-gray-500 border border-gray-200'
+                }`}
+              >
+                Reviews
+              </button>
             </div>
-            <button className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700">
-              Visit Shop
-            </button>
+
+            {activeTab === 'description' && (
+              <div>
+                <h3 className="font-md mb-4">Description</h3>
+                <p className="text-[#000000] border-b border-[#00000080] p-4 text-[14px] mb-6">{product.description}</p>
+
+                <h3 className="font-md mb-1">Other Details</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between py-1">
+                    <span className="text-gray-600">Brand</span>
+                    <span className="font-medium">{product.specifications.brand}</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-gray-600">Model</span>
+                    <span className="font-medium">{product.specifications.model}</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-gray-600">Color</span>
+                    <span className="font-medium">{product.specifications.color}</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-gray-600">Storage</span>
+                    <span className="font-medium">{product.specifications.storage}</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-gray-600">Resolution</span>
+                    <span className="font-medium">{product.specifications.resolution}</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-gray-600">Display</span>
+                    <span className="font-medium">{product.specifications.display}</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-gray-600">Screen size</span>
+                    <span className="font-medium">{product.specifications.screenSize}</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-gray-600">Battery</span>
+                    <span className="font-medium">{product.specifications.battery}</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-gray-600">Sim</span>
+                    <span className="font-medium">{product.specifications.sim}</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b">
+                    <span className="text-gray-600">Camera</span>
+                    <span className="font-medium">{product.specifications.camera}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === 'reviews' && (
+              <div className="bg-white rounded-lg p-4">
+                {/* Stars Rating Display */}
+                <div className="flex justify-center mb-4">
+                  <div className="flex space-x-1">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <span key={star} className={`text-2xl ${star <= 4 ? 'text-red-500' : 'text-gray-300'}`}>
+                        ★
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Rating Summary */}
+                <div className="flex justify-between items-center border-b border-gray-300 p-2 mb-10 text-sm">
+                  <span className="text-red-500  font-extrabold">4 Stars</span>
+                  <span className="text-red-500 font-medium">3 Reviews</span>
+                </div>
+
+                {/* Reviews List */}
+                <div className="space-y-4">
+                  {/* Review 1 */}
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <div className="flex items-start space-x-3 mb-3">
+                      <img src={IMAGES.user} alt="Adam Sandler" className="w-10 h-10 rounded-full" />
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-medium text-sm">Adam Sandler</h4>
+                          <span className="text-xs text-gray-500">07-16-2025 8:55AM</span>
+                        </div>
+                        <div className="flex mb-2">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <span key={star} className="text-red-500 text-sm">★</span>
+                          ))}
+                        </div>
+                        <p className="text-sm text-gray-700 mb-3">
+                          Really great product. I enjoyed using it for a long time
+                        </p>
+                        <div className="flex justify-between items-center">
+                          <div className="flex items-center space-x-1">
+                            <span className="text-sm">👍</span>
+                            <span className="text-sm text-gray-600">0</span>
+                          </div>
+                          <button className="text-sm text-gray-500">▷</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Review 2 */}
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <div className="flex items-start space-x-3 mb-3">
+                      <img src={IMAGES.avatar_1} alt="Adam Sandler" className="w-10 h-10 rounded-full" />
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-medium text-sm">Adam Sandler</h4>
+                          <span className="text-xs text-gray-500">07-16-2025 8:55AM</span>
+                        </div>
+                        <div className="flex mb-2">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <span key={star} className="text-red-500 text-sm">★</span>
+                          ))}
+                        </div>
+                        <p className="text-sm text-gray-700 mb-3">
+                          Really great product. I enjoyed using it for a long time
+                        </p>
+                        <div className="flex justify-between items-center mb-3">
+                          <div className="flex items-center space-x-1">
+                            <span className="text-sm">👍</span>
+                            <span className="text-sm text-gray-600">1</span>
+                          </div>
+                          <button className="text-sm text-gray-500">▷</button>
+                        </div>
+
+                        {/* Store Reply */}
+                        <div className="ml-4 bg-white p-3 rounded-lg border-l-2 border-blue-500">
+                          <div className="flex items-start space-x-2">
+                            <img src={IMAGES.storeImg} alt="Sasha Stores" className="w-8 h-8 rounded-full" />
+                            <div>
+                              <div className="flex items-center space-x-2 mb-1">
+                                <h5 className="font-medium text-sm">Sasha Stores</h5>
+                                <span className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded">Store</span>
+                                <span className="text-xs text-gray-500">07-16-2025 9:55AM</span>
+                              </div>
+                              <p className="text-sm text-gray-700">Thanks for the review</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Review 3 */}
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    <div className="flex items-start space-x-3 mb-3">
+                      <img src={IMAGES.users} alt="Chris Pine" className="w-10 h-10 rounded-full" />
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start mb-2">
+                          <h4 className="font-medium text-sm">Chris Pine</h4>
+                          <span className="text-xs text-gray-500">07-16-2025 8:55AM</span>
+                        </div>
+                        <div className="flex mb-2">
+                          {[1, 2, 3, 4, 5].map((star) => (
+                            <span key={star} className="text-red-500 text-sm">★</span>
+                          ))}
+                        </div>
+
+                        {/* Product Images in Review */}
+                        <div className="flex space-x-2 mb-3">
+                          <img src="/top1.png" alt="review image" className="w-12 h-12 rounded object-cover" />
+                          <img src="/top2.png" alt="review image" className="w-12 h-12 rounded object-cover" />
+                          <img src="/top3.png" alt="review image" className="w-12 h-12 rounded object-cover" />
+                        </div>
+
+                        <p className="text-sm text-gray-700 mb-3">
+                          Really great product. I enjoyed using it for a long time
+                        </p>
+                        <div className="flex justify-between items-center mb-3">
+                          <div className="flex items-center space-x-1">
+                            <span className="text-sm">👍</span>
+                            <span className="text-sm text-gray-600">1</span>
+                          </div>
+                          <button className="text-sm text-gray-500">▷</button>
+                        </div>
+
+                        {/* Store Reply */}
+                        <div className="ml-4 bg-white p-3 rounded-lg border-l-2 border-blue-500">
+                          <div className="flex items-start space-x-2">
+                            <img src={IMAGES.storeImg} alt="Sasha Stores" className="w-8 h-8 rounded-full" />
+                            <div>
+                              <div className="flex items-center space-x-2 mb-1">
+                                <h5 className="font-medium text-sm">Sasha Stores</h5>
+                                <span className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded">Store</span>
+                                <span className="text-xs text-gray-500">07-16-2025 9:55AM</span>
+                              </div>
+                              <p className="text-sm text-gray-700">Thanks for the review</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Store Details */}
+          <div className=" rounded-2xl h-[440px]  p-6">
+            <h3 className="font-semibold mb-4">Store Details</h3>
+            <div className="space-y-4">
+              {/* Store Card */}
+              <div className=" rounded-lg border h-[380px] border-gray-200 shadow-2xl overflow-hidden">
+                {/* Cover Image with Avatar */}
+                <div className="relative h-30">
+                  <img src={product.store.coverImage} alt="Store cover" className="w-full h-full object-cover" />
+                  {/* Store Avatar positioned over cover */}
+                  <div className="absolute -bottom-8 left-4">
+                    <img src={product.store.image} alt={product.store.name} className="w-18 h-18 rounded-full border-4 border-white object-cover shadow-md" />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="pt-10 pb-4 px-4">
+                  {/* Store Name and Rating */}
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="flex items-end justify-between font-semibold -mt-14 ml-20 mb-1">{product.store.name}</h3>
+                    <div className="flex items-center space-x-1">
+                      <span className="text-red-500 text-lg">★</span>
+                      <span className="text-sm text-gray-600 font-medium">4.5</span>
+                    </div>
+                  </div>
+                  
+                  {/* Badges */}
+                  <div className="flex items-center space-x-2 ml-18 -mt-8 mb-3">
+                    <span className="bg-blue-100 text-blue-600 px-2 py-1 rounded-lg text-xs font-medium border  border-blue-300">{product.store.badge1}</span>
+                    <span className="bg-red-100 text-red-600 px-2 py-1 rounded-lg text-xs font-medium border border-red-300">{product.store.badge2}</span>
+                  </div>
+                  
+                  {/* Location */}
+                  <div className="flex items-center space-x-1 mb-4">
+                    <img src={IMAGES.mappin} alt="location" className="w-4 h-4" />
+                    <span className="text-sm text-gray-600">Ikeja Lagos</span>
+                  </div>
+              
+                  {/* Social Media Icons */}
+              <div className="flex items-center mb-6 border rounded-lg border-[#CDCDCD] p-1 space-x-3">
+                <button className="w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-50">
+                  <img src={IMAGES.whatsapp1} alt="whatsapp" className="w-10 h-10" />
+                </button>
+                <button className="w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-50">
+                  <img src={IMAGES.instagram} alt="instagram" className="w-10 h-10" />
+                </button>
+                <button className="w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-50">
+                  <img src={IMAGES.twitter} alt="twitter" className="w-10 h-10" />
+                </button>
+                <button className="w-10 h-10 rounded-lg flex items-center justify-center hover:bg-gray-50">
+                  <img src={IMAGES.facebook} alt="facebook" className="w-10 h-10" />
+                </button>
+              </div>
+    {/* Store Stats and Visit Button */}
+
+<div className="flex items-center justify-between">
+                    {/* Stats Section */}
+                    <div className="flex items-center space-x-6">
+                      <div className="text-center border-r border-[#CDCDCD] pr-5">
+                        <div className="flex items-center space-x-1 mb-1">
+                          <img src={IMAGES.shop} alt="qty sold" className="w-4 h-4 text-gray-400" />
+                          <span className="text-[8px] text-gray-500">Qty Sold</span>
+                        </div>
+                        <span className="text-[12px] font-bold ml-2 text-gray-900">100</span>
+                      </div>
+                      
+                      <div className="text-center border-r border-[#CDCDCD] pr-8">
+                        <div className="flex items-center space-x-1 mb-1">
+                          <img src={IMAGES.followers} alt="followers" className="w-4 h-4 text-gray-400" />
+                          <span className="text-[8px] text-gray-500">Followers</span>
+                        </div>
+                        <span className="text-[14px] font-bold ml-1 text-gray-900">{product.store.followers}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Action Button */}
+                    <button 
+                      onClick={toggleFollow}
+                      className={`px-10 py-3 rounded-xl font-medium cursor-pointer text-sm transition-colors ${
+                        isFollowing 
+                          ? 'bg-gray-200 text-gray-700 hover:bg-gray-300' 
+                          : 'bg-[#E53E3E] text-white hover:bg-[#E53E3E]'
+                      }`}
+                    >
+                      {isFollowing ? 'Following' : 'Go to Shop'}
+                    </button>
+
+                </div>
+              </div>
+              
+            
+              
+            </div>
+              
+            </div>
           </div>
         </div>
       </div>
