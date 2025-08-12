@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 // import LoginPopup from "../User/LoginPopup";
 import LoginPopup from "../../pages//user/LoginPopup";
 import RegistrationPopup from "../../pages//user/RegistrationPopup";
@@ -15,7 +15,9 @@ const Header: React.FC = () => {
   const [showImageSearchPopup, setShowImageSearchPopup] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsLoggedIn(Cookies.get("isLoggedIn") === "true");
@@ -35,8 +37,25 @@ const Header: React.FC = () => {
   const handleFileUpload = (file: File) => {
     console.log('File selected:', file);
     // Add your file upload logic here
-    // For now, just close the popup after file selection
+    // For now, just close the popup and navigate to search with image
     setShowImageSearchPopup(false);
+    
+    // Create a URL for the uploaded image to use in search
+    const imageUrl = URL.createObjectURL(file);
+    
+    // Navigate to search page with image search parameter
+    navigate(`/search?type=image&imageUrl=${encodeURIComponent(imageUrl)}`);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    }
+  };
+
+  const handleSearchInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -63,12 +82,15 @@ const Header: React.FC = () => {
         <div className="head_top flex px-4 gap-5 items-center justify-evenly">
           <img src={IMAGES.logo} className="w-35" alt="Colala Mall Logo" />
 
-          <div className="inp flex items-center bg-white rounded-xl px-4 shadow w-[420px] h-[60px] relative">
+          <form onSubmit={handleSearchSubmit} className="inp flex items-center bg-white rounded-xl px-4 shadow w-[420px] h-[60px] relative">
             <input
               type="text"
               placeholder="Search any product, shop or category"
+              value={searchQuery}
+              onChange={handleSearchInputChange}
               className="flex-grow outline-none text-gray-600 placeholder-gray-400 bg-transparent "
             />
+            <button type="submit" className="hidden">Search</button>
             <div className="relative">
               <img
                 src={IMAGES.camera}
@@ -138,7 +160,7 @@ const Header: React.FC = () => {
                 </div>
               )}
             </div>
-          </div>
+          </form>
       
       <div className="flex items-center gap-8 text-white pr-4">
         {/* All Categories Dropdown */}

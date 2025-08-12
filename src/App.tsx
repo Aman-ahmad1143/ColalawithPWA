@@ -15,6 +15,7 @@ import Chat from './pages/chat/Chat';
 import Stores from './pages/stores/Stores';
 import StoreDetail from './pages/stores/StoreDetail';
 import Settings from './pages/settings/Settings';
+import SearchPage from './pages/SearchPage';
 
 
 
@@ -29,6 +30,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/search" element={<SearchPage />} />
         <Route path="/services" element={<Services />} />
         <Route path="/all-services" element={<AllServices />} />
         <Route path="/service-details/:id" element={<ServiceDetails />} />
