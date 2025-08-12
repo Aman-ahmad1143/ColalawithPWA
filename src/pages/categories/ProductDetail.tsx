@@ -2,6 +2,56 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import IMAGES from '../../constants';
 
+// Store Reviews Dataset
+const storeReviews = [
+  {
+    id: "1",
+    author: "Adam Sandler",
+    avatar: IMAGES.user,
+    timestamp: "07-16-25/05:33AM",
+    rating: 5,
+    text: "Really great product, i enjoyed using it for a long time",
+    replyCount: 0,
+    replies: []
+  },
+  {
+    id: "2",
+    author: "Adam Sandler",
+    avatar: IMAGES.avatar_1,
+    timestamp: "07-16-25/05:33AM",
+    rating: 5,
+    text: "Really great product, i enjoyed using it for a long time",
+    replyCount: 1,
+    replies: [
+      {
+        id: "r1",
+        author: "Sasha Stores",
+        avatar: IMAGES.storeImg,
+        timestamp: "07-16-25/05:33AM",
+        text: "Thanks for the review"
+      }
+    ]
+  },
+  {
+    id: "3",
+    author: "Chris Pine",
+    avatar: IMAGES.users,
+    timestamp: "07-16-25/05:33AM",
+    rating: 5,
+    text: "Really great product, i enjoyed using it for a long time",
+    replyCount: 1,
+    replies: [
+      {
+        id: "r2",
+        author: "Sasha Stores",
+        avatar: IMAGES.storeImg,
+        timestamp: "07-16-25/05:33AM",
+        text: "Thanks for the review"
+      }
+    ]
+  }
+];
+
 // Sample product data - this should come from API based on the product ID
 const getProductById = (id: string) => {
   const products = [
@@ -626,147 +676,106 @@ const ProductDetail: React.FC = () => {
             )}
 
             {activeTab === 'reviews' && (
-              <div className="bg-white rounded-lg p-4">
-                {/* Stars Rating Display */}
-                <div className="flex justify-center mb-4">
-                  <div className="flex space-x-1">
+              <div>
+                {/* Rating Overview Section */}
+                <div className="text-center mb-2 bg-white  p-4 pt-10 ">
+                  {/* Large Stars */}
+                  <div className="flex items-center justify-center space-x-2 mb-8">
                     {[1, 2, 3, 4, 5].map((star) => (
-                      <span key={star} className={`text-2xl ${star <= 4 ? 'text-red-500' : 'text-gray-300'}`}>
-                        ★
-                      </span>
+                      <svg
+                        key={star}
+                        className={`w-12 h-12 ${star <= 4 ? 'text-red-500' : 'text-gray-300'}`}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
                     ))}
                   </div>
+                  
+                  {/* Rating Text */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-red-500 text-lg font-medium">4 Stars</span>
+                    <span className="text-red-500 text-lg font-medium">3 Reviews</span>
+                  </div>
                 </div>
 
-                {/* Rating Summary */}
-                <div className="flex justify-between items-center border-b border-gray-300 p-2 mb-10 text-sm">
-                  <span className="text-red-500  font-extrabold">4 Stars</span>
-                  <span className="text-red-500 font-medium">3 Reviews</span>
-                </div>
-
-                {/* Reviews List */}
-                <div className="space-y-4">
-                  {/* Review 1 */}
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="flex items-start space-x-3 mb-3">
-                      <img src={IMAGES.user} alt="Adam Sandler" className="w-10 h-10 rounded-full" />
+                {/* Individual Reviews */}
+                <div className="space-y-6">
+                
+                {storeReviews.map((review) => (
+                  <div key={review.id} className="bg-[#F5F5F5] rounded-xl">
+                    {/* Upper div - Avatar, Name, Stars */}
+                    <div className="flex items-center space-x-3 p-4 pb-2">
+                      <img
+                        src={review.avatar}
+                        alt={review.author}
+                        className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                      />
                       <div className="flex-1">
-                        <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-medium text-sm">Adam Sandler</h4>
-                          <span className="text-xs text-gray-500">07-16-2025 8:55AM</span>
+                        <div className="flex justify-between items-center mb-1">
+                          <h4 className="font-semibold text-gray-900 text-base">{review.author}</h4>
+                          <span className="text-sm text-gray-500">{review.timestamp}</span>
                         </div>
-                        <div className="flex mb-2">
+                        <div className="flex items-center space-x-1">
                           {[1, 2, 3, 4, 5].map((star) => (
-                            <span key={star} className="text-red-500 text-sm">★</span>
+                            <svg
+                              key={star}
+                              className={`w-4 h-4 ${star <= review.rating ? 'text-red-500' : 'text-gray-300'}`}
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                            </svg>
                           ))}
-                        </div>
-                        <p className="text-sm text-gray-700 mb-3">
-                          Really great product. I enjoyed using it for a long time
-                        </p>
-                        <div className="flex justify-between items-center">
-                          <div className="flex items-center space-x-1">
-                            <span className="text-sm">👍</span>
-                            <span className="text-sm text-gray-600">0</span>
-                          </div>
-                          <button className="text-sm text-gray-500">▷</button>
                         </div>
                       </div>
                     </div>
-                  </div>
+                    
+                    {/* Lower div - Review text and reply */}
+                    <div className="px-4 pb-4">
+                      <p className="text-gray-800 text-base mb-4">{review.text}</p>
+                      <div className="flex items-center space-x-2">
+                        <img src='/public/backarrow.svg' alt="Reply" className="w-5 h-5" />
+                        <span className="text-sm text-gray-600">{review.replyCount}</span>
+                        <input 
+                          type="text" 
+                          placeholder="" 
+                          className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-400 ml-4" 
 
-                  {/* Review 2 */}
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="flex items-start space-x-3 mb-3">
-                      <img src={IMAGES.avatar_1} alt="Adam Sandler" className="w-10 h-10 rounded-full" />
-                      <div className="flex-1">
-                        <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-medium text-sm">Adam Sandler</h4>
-                          <span className="text-xs text-gray-500">07-16-2025 8:55AM</span>
-                        </div>
-                        <div className="flex mb-2">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <span key={star} className="text-red-500 text-sm">★</span>
-                          ))}
-                        </div>
-                        <p className="text-sm text-gray-700 mb-3">
-                          Really great product. I enjoyed using it for a long time
-                        </p>
-                        <div className="flex justify-between items-center mb-3">
-                          <div className="flex items-center space-x-1">
-                            <span className="text-sm">👍</span>
-                            <span className="text-sm text-gray-600">1</span>
-                          </div>
-                          <button className="text-sm text-gray-500">▷</button>
-                        </div>
 
-                        {/* Store Reply */}
-                        <div className="ml-4 bg-white p-3 rounded-lg border-l-2 border-blue-500">
-                          <div className="flex items-start space-x-2">
-                            <img src={IMAGES.storeImg} alt="Sasha Stores" className="w-8 h-8 rounded-full" />
-                            <div>
-                              <div className="flex items-center space-x-2 mb-1">
-                                <h5 className="font-medium text-sm">Sasha Stores</h5>
-                                <span className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded">Store</span>
-                                <span className="text-xs text-gray-500">07-16-2025 9:55AM</span>
+                        /><button><img src='/public/arrow.svg' alt="Send" className="w-5 h-5 text-gray-600" /></button>
+                        {/* {review.id === "1" && (
+                          <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                          </svg>
+                        )} */}
+                      </div>
+                      
+                      {/* Store Replies */}
+                      {review.replies && review.replies.length > 0 && (
+                        <div className="mt-4 space-y-3">
+                          {review.replies.map((reply) => (
+                            <div key={reply.id} className="flex items-start space-x-3 ml-6">
+                              <img
+                                src={reply.avatar}
+                                alt={reply.author}
+                                className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                              />
+                              <div className="flex-1">
+                                <div className="flex items-center space-x-2 mb-1">
+                                  <h5 className="font-medium text-gray-900 text-sm">{reply.author}</h5>
+                                  <span className="text-xs text-gray-500">{reply.timestamp}</span>
+                                </div>
+                                <p className="text-gray-700 text-sm">{reply.text}</p>
                               </div>
-                              <p className="text-sm text-gray-700">Thanks for the review</p>
                             </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Review 3 */}
-                  <div className="bg-gray-50 p-4 rounded-lg">
-                    <div className="flex items-start space-x-3 mb-3">
-                      <img src={IMAGES.users} alt="Chris Pine" className="w-10 h-10 rounded-full" />
-                      <div className="flex-1">
-                        <div className="flex justify-between items-start mb-2">
-                          <h4 className="font-medium text-sm">Chris Pine</h4>
-                          <span className="text-xs text-gray-500">07-16-2025 8:55AM</span>
-                        </div>
-                        <div className="flex mb-2">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <span key={star} className="text-red-500 text-sm">★</span>
                           ))}
                         </div>
-
-                        {/* Product Images in Review */}
-                        <div className="flex space-x-2 mb-3">
-                          <img src="/top1.png" alt="review image" className="w-12 h-12 rounded object-cover" />
-                          <img src="/top2.png" alt="review image" className="w-12 h-12 rounded object-cover" />
-                          <img src="/top3.png" alt="review image" className="w-12 h-12 rounded object-cover" />
-                        </div>
-
-                        <p className="text-sm text-gray-700 mb-3">
-                          Really great product. I enjoyed using it for a long time
-                        </p>
-                        <div className="flex justify-between items-center mb-3">
-                          <div className="flex items-center space-x-1">
-                            <span className="text-sm">👍</span>
-                            <span className="text-sm text-gray-600">1</span>
-                          </div>
-                          <button className="text-sm text-gray-500">▷</button>
-                        </div>
-
-                        {/* Store Reply */}
-                        <div className="ml-4 bg-white p-3 rounded-lg border-l-2 border-blue-500">
-                          <div className="flex items-start space-x-2">
-                            <img src={IMAGES.storeImg} alt="Sasha Stores" className="w-8 h-8 rounded-full" />
-                            <div>
-                              <div className="flex items-center space-x-2 mb-1">
-                                <h5 className="font-medium text-sm">Sasha Stores</h5>
-                                <span className="bg-blue-100 text-blue-600 text-xs px-2 py-1 rounded">Store</span>
-                                <span className="text-xs text-gray-500">07-16-2025 9:55AM</span>
-                              </div>
-                              <p className="text-sm text-gray-700">Thanks for the review</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      )}
                     </div>
                   </div>
+                ))}
                 </div>
               </div>
             )}
