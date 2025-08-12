@@ -104,7 +104,7 @@ const IMAGES = {
   coverScent: '/coverScent.png',
   coverLovina: '/coverLovina.png',
   star1: '/Star.svg',
-
+  reply: '/ArrowBendDoubleUpLeft.png',
   cartwithprice1: '/ShoppingCartSimple.svg',
   reveal1: '/reveal1.svg',
   reveal2: '/reveal2.svg',
@@ -119,10 +119,11 @@ const IMAGES = {
   starBlack: '/starBlack.png',
   megaphone: '/Megaphone.png',
   x: '/X.png',
-  
-  
+  paperPlaneRight: '/PaperPlaneRight.png',
   whatsappIcon: '/whats_app.png',
-  grosry: '/grosry.png',
+  grocery1: '/grocery.png',
+  adam1: '/adams.svg',
+  chris1: '/chris.svg'
 
 };
 export default IMAGES;

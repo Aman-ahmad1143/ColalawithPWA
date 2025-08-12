@@ -60,6 +60,40 @@ const generateStoreSocialFeed = (storeName: string, storeAvatar: string): Social
   ];
 };
 
+// Generate store reviews data
+const generateStoreReviews = (storeName: string, storeAvatar: string) => {
+  return [
+    {
+      id: "1",
+      author: "Adam Sandler",
+      avatar: IMAGES.adam,
+      timestamp: "07-16-25/05:33AM",
+      rating: 5,
+      text: "The store is great",
+      replyCount: 0,
+      replies: []
+    },
+    {
+      id: "2",
+      author: "Adam Sandler", 
+      avatar: IMAGES.adam,
+      timestamp: "07-16-25/05:33AM",
+      rating: 5,
+      text: "Really great product, i bought from your store",
+      replyCount: 1,
+      replies: [
+        {
+          id: "reply-1",
+          author: storeName,
+          avatar: storeAvatar,
+          timestamp: "07-16-25/05:33AM",
+          text: "Thanks for the review"
+        }
+      ]
+    }
+  ];
+};
+
 // Generate services based on store data
 const generateStoreServices = (services: string[], storeName: string, categories: string[]) => {
   return services.map((service, index) => {
@@ -261,6 +295,9 @@ const StoreDetail: React.FC = () => {
 
   // Generate social feed posts
   const storeSocialPosts = store ? generateStoreSocialFeed(store.name, store.avatar) : [];
+  
+  // Generate store reviews
+  const storeReviews = store ? generateStoreReviews(store.name, store.avatar) : [];
 
   // Initialize social posts
   React.useEffect(() => {
@@ -641,7 +678,7 @@ const StoreDetail: React.FC = () => {
           {/* Right Side - Products */}
           <div className="flex-1">
             {/* Tabs and Search */}
-            <div className=" rounded-2xl p-6 px-2 mb-6">
+            <div className=" rounded-2xl p-6 px-2 ">
               {/* Tabs */}
               <div className="flex gap-6 mb-6">
                 <button
@@ -686,105 +723,107 @@ const StoreDetail: React.FC = () => {
                 </button>
               </div>
 
-              {/* Search Bar */}
-              <div className="flex gap-3 relative">
-                <div className="flex-1 relative">
-                  <input
-                    type="text"
-                    placeholder={`Search store ${activeTab === "services" ? "services" : "products"}`}
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full  border border-[#AFAFAF]  rounded-xl p-5 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
-                  />
-                </div>
-                <button 
-                  onClick={() => setShowFilter(true)}
-                  className=" border border-[#AFAFAF] hover:bg-gray-200 transition-colors rounded-xl px-[30px] py-[18px] flex items-center justify-center"
-                >
-                  <img src={IMAGES.funnel} alt="Filter" className="w-6 h-6" />
-                </button>
-
-                {/* Filter Dropdown - positioned beneath the filter button */}
-                {showFilter && (
-                  <>
-                    {/* Backdrop to close modal when clicking outside */}
-                    <div 
-                      className="fixed inset-0 z-40" 
-                      onClick={() => setShowFilter(false)}
+              {/* Search Bar - Only show for products and services tabs */}
+              {(activeTab === "products" || activeTab === "services") && (
+                <div className="flex gap-3 relative">
+                  <div className="flex-1 relative">
+                    <input
+                      type="text"
+                      placeholder={`Search store ${activeTab === "services" ? "services" : "products"}`}
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full  border border-[#AFAFAF]  rounded-xl p-5 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
                     />
-                    {/* Filter dropdown */}
-                    <div className="absolute top-full -right-5 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50" style={{ width: '430px', height: '260px' }}>
-                      <div className="p-4 h-full flex flex-col">
-                        {/* Category Dropdown */}
-                        <div className="mb-4">
-                          <select
-                            value={filters.category}
-                            onChange={(e) => handleFilterChange("category", e.target.value)}
-                            className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
-                          >
-                            <option value="">Category</option>
-                            <option value="Electronics">Electronics</option>
-                            <option value="Fashion">Fashion</option>
-                            <option value="Beauty">Beauty</option>
-                            <option value="Home">Home</option>
-                            <option value="Sports">Sports</option>
-                            <option value="Grocery">Grocery</option>
-                          </select>
-                        </div>
+                  </div>
+                  <button 
+                    onClick={() => setShowFilter(true)}
+                    className=" border border-[#AFAFAF] hover:bg-gray-200 transition-colors rounded-xl px-[30px] py-[18px] flex items-center justify-center"
+                  >
+                    <img src={IMAGES.funnel} alt="Filter" className="w-6 h-6" />
+                  </button>
 
-                        {/* Brand Dropdown */}
-                        <div className="mb-4">
-                          <select
-                            value={filters.brand}
-                            onChange={(e) => handleFilterChange("brand", e.target.value)}
-                            className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
-                          >
-                            <option value="">Brand</option>
-                            <option value="Samsung">Samsung</option>
-                            <option value="Apple">Apple</option>
-                            <option value="Dell">Dell</option>
-                            <option value="HP">HP</option>
-                            <option value="Nike">Nike</option>
-                            <option value="Adidas">Adidas</option>
-                          </select>
-                        </div>
+                  {/* Filter Dropdown - positioned beneath the filter button */}
+                  {showFilter && (
+                    <>
+                      {/* Backdrop to close modal when clicking outside */}
+                      <div 
+                        className="fixed inset-0 z-40" 
+                        onClick={() => setShowFilter(false)}
+                      />
+                      {/* Filter dropdown */}
+                      <div className="absolute top-full -right-5 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50" style={{ width: '430px', height: '260px' }}>
+                        <div className="p-4 h-full flex flex-col">
+                          {/* Category Dropdown */}
+                          <div className="mb-4">
+                            <select
+                              value={filters.category}
+                              onChange={(e) => handleFilterChange("category", e.target.value)}
+                              className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
+                            >
+                              <option value="">Category</option>
+                              <option value="Electronics">Electronics</option>
+                              <option value="Fashion">Fashion</option>
+                              <option value="Beauty">Beauty</option>
+                              <option value="Home">Home</option>
+                              <option value="Sports">Sports</option>
+                              <option value="Grocery">Grocery</option>
+                            </select>
+                          </div>
 
-                        {/* Location Dropdown */}
-                        <div className="mb-6 flex-1">
-                          <select
-                            value={filters.location}
-                            onChange={(e) => handleFilterChange("location", e.target.value)}
-                            className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
-                          >
-                            <option value="">Location</option>
-                            <option value="Lagos">Lagos</option>
-                            <option value="Abuja">Abuja</option>
-                            <option value="Port Harcourt">Port Harcourt</option>
-                            <option value="Kano">Kano</option>
-                            <option value="Ibadan">Ibadan</option>
-                          </select>
-                        </div>
+                          {/* Brand Dropdown */}
+                          <div className="mb-4">
+                            <select
+                              value={filters.brand}
+                              onChange={(e) => handleFilterChange("brand", e.target.value)}
+                              className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
+                            >
+                              <option value="">Brand</option>
+                              <option value="Samsung">Samsung</option>
+                              <option value="Apple">Apple</option>
+                              <option value="Dell">Dell</option>
+                              <option value="HP">HP</option>
+                              <option value="Nike">Nike</option>
+                              <option value="Adidas">Adidas</option>
+                            </select>
+                          </div>
 
-                        {/* Action Buttons */}
-                        <div className="flex gap-3 mt-auto">
-                          <button
-                            onClick={handleClearFilters}
-                            className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg text-sm font-medium hover:bg-gray-300 transition-colors"
-                          >
-                            Clear
-                          </button>
-                          <button
-                            onClick={handleApplyFilters}
-                            className="flex-1 bg-[#E53E3E] text-white py-3 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors"
-                          >
-                            Apply
-                          </button>
+                          {/* Location Dropdown */}
+                          <div className="mb-6 flex-1">
+                            <select
+                              value={filters.location}
+                              onChange={(e) => handleFilterChange("location", e.target.value)}
+                              className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
+                            >
+                              <option value="">Location</option>
+                              <option value="Lagos">Lagos</option>
+                              <option value="Abuja">Abuja</option>
+                              <option value="Port Harcourt">Port Harcourt</option>
+                              <option value="Kano">Kano</option>
+                              <option value="Ibadan">Ibadan</option>
+                            </select>
+                          </div>
+
+                          {/* Action Buttons */}
+                          <div className="flex gap-3 mt-auto">
+                            <button
+                              onClick={handleClearFilters}
+                              className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg text-sm font-medium hover:bg-gray-300 transition-colors"
+                            >
+                              Clear
+                            </button>
+                            <button
+                              onClick={handleApplyFilters}
+                              className="flex-1 bg-[#E53E3E] text-white py-3 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors"
+                            >
+                              Apply
+                            </button>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </>
-                )}
-              </div>
+                    </>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Content based on active tab */}
@@ -896,9 +935,112 @@ const StoreDetail: React.FC = () => {
             )}
 
             {activeTab === "reviews" && (
-              <div className="bg-white rounded-2xl p-6">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Customer Reviews</h3>
-                <p className="text-gray-600">Reviews content coming soon...</p>
+              <div className=" rounded-2xl ">
+                {/* Review Tabs */}
+                <div className="flex gap-8 mb-8 border-b border-gray-200">
+                  <button className="pb-3 text-red-500 font-medium text-base border-b-2 border-red-500">
+                    Store Reviews
+                  </button>
+                  <button className="pb-3 text-gray-500 font-medium text-base hover:text-gray-700">
+                    Product Reviews
+                  </button>
+                </div>
+
+                {/* Rating Summary */}
+                <div className="text-center mb-8 bg-white rounded-[20px] p-4 pt-10 shadow-lg">
+                  {/* Large Stars */}
+                  <div className="flex items-center justify-center space-x-2 mb-4">
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <svg
+                        key={star}
+                        className={`w-12 h-12 ${star <= 4 ? 'text-red-500' : 'text-gray-300'}`}
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  
+                  {/* Rating Text */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-red-500 text-lg font-medium">4 Stars</span>
+                    <span className="text-red-500 text-lg font-medium">3 Reviews</span>
+                  </div>
+                </div>
+
+                {/* Review Cards */}
+                <div className="space-y-6">
+                  {storeReviews.map((review) => (
+                    <div key={review.id} className="bg-[#F5F5F5] rounded-xl">
+                      {/* Upper div - Avatar, Name, Stars */}
+                      <div className="flex items-center space-x-3 p-4 pb-2">
+                        <img
+                          src={review.avatar}
+                          alt={review.author}
+                          className="w-12 h-12 rounded-full object-cover flex-shrink-0"
+                        />
+                        <div className="flex-1">
+                          <div className="flex justify-between items-center mb-1">
+                            <h4 className="font-semibold text-gray-900 text-base">{review.author}</h4>
+                            <span className="text-sm text-gray-500">{review.timestamp}</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <svg
+                                key={star}
+                                className={`w-4 h-4 ${star <= review.rating ? 'text-red-500' : 'text-gray-300'}`}
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                              </svg>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Lower div - Review text and reply */}
+                      <div className="px-4 pb-4">
+                        <p className="text-gray-800 text-base mb-4">{review.text}</p>
+                        <div className="flex items-center space-x-2">
+                          <img src={IMAGES.reply} alt="Reply" className="w-5 h-5" />
+                          <span className="text-sm text-gray-600">{review.replyCount}</span>
+                          <input 
+                            type="text" 
+                            placeholder="" 
+                            className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-400 ml-4" 
+                          />
+                          {review.id === "1" && (
+                            <img src={IMAGES.paperPlaneRight} alt="Send" className="w-5 h-5" />
+                          )}
+                        </div>
+                        
+                        {/* Store Replies */}
+                        {review.replies && review.replies.length > 0 && (
+                          <div className="mt-4 space-y-3">
+                            {review.replies.map((reply) => (
+                              <div key={reply.id} className="flex items-start space-x-3 ml-6">
+                                <img
+                                  src={reply.avatar}
+                                  alt={reply.author}
+                                  className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+                                />
+                                <div className="flex-1">
+                                  <div className="flex items-center space-x-2 mb-1">
+                                    <h5 className="font-medium text-gray-900 text-sm">{reply.author}</h5>
+                                    <span className="text-xs text-gray-500">{reply.timestamp}</span>
+                                  </div>
+                                  <p className="text-gray-700 text-sm">{reply.text}</p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             )}
           </div>

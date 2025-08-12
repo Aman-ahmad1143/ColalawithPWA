@@ -7,7 +7,7 @@ const storeReviews = [
   {
     id: "1",
     author: "Adam Sandler",
-    avatar: IMAGES.user,
+    avatar: IMAGES.adam1,
     timestamp: "07-16-25/05:33AM",
     rating: 5,
     text: "Really great product, i enjoyed using it for a long time",
@@ -17,7 +17,7 @@ const storeReviews = [
   {
     id: "2",
     author: "Adam Sandler",
-    avatar: IMAGES.avatar_1,
+    avatar: IMAGES.adam1,
     timestamp: "07-16-25/05:33AM",
     rating: 5,
     text: "Really great product, i enjoyed using it for a long time",
@@ -26,7 +26,7 @@ const storeReviews = [
       {
         id: "r1",
         author: "Sasha Stores",
-        avatar: IMAGES.storeImg,
+        avatar: IMAGES.adam1,
         timestamp: "07-16-25/05:33AM",
         text: "Thanks for the review"
       }
@@ -35,7 +35,7 @@ const storeReviews = [
   {
     id: "3",
     author: "Chris Pine",
-    avatar: IMAGES.users,
+    avatar: IMAGES.chris1,
     timestamp: "07-16-25/05:33AM",
     rating: 5,
     text: "Really great product, i enjoyed using it for a long time",
@@ -44,7 +44,7 @@ const storeReviews = [
       {
         id: "r2",
         author: "Sasha Stores",
-        avatar: IMAGES.storeImg,
+        avatar: IMAGES.adam1,
         timestamp: "07-16-25/05:33AM",
         text: "Thanks for the review"
       }
