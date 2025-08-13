@@ -19,7 +19,10 @@ interface SocialFeedPost {
 }
 
 // Generate social feed posts for store
-const generateStoreSocialFeed = (storeName: string, storeAvatar: string): SocialFeedPost[] => {
+const generateStoreSocialFeed = (
+  storeName: string,
+  storeAvatar: string
+): SocialFeedPost[] => {
   return [
     {
       id: "1",
@@ -34,11 +37,12 @@ const generateStoreSocialFeed = (storeName: string, storeAvatar: string): Social
       isLiked: false,
     },
     {
-      id: "2", 
+      id: "2",
       author: storeName,
       avatar: storeAvatar,
       timestamp: "2h ago",
-      caption: "New arrivals in store! Check out our latest collection of premium products with amazing deals.",
+      caption:
+        "New arrivals in store! Check out our latest collection of premium products with amazing deals.",
       image: IMAGES.feedPhone || "/top2.png",
       likes: 320,
       comments: 18,
@@ -50,8 +54,9 @@ const generateStoreSocialFeed = (storeName: string, storeAvatar: string): Social
       author: storeName,
       avatar: storeAvatar,
       timestamp: "1 day ago",
-      caption: "Special weekend offer! Limited time only. Don't miss out on these incredible discounts.",
-      image: IMAGES.feedPhone || "/top3.png", 
+      caption:
+        "Special weekend offer! Limited time only. Don't miss out on these incredible discounts.",
+      image: IMAGES.feedPhone || "/top3.png",
       likes: 780,
       comments: 45,
       shares: 32,
@@ -71,11 +76,11 @@ const generateStoreReviews = (storeName: string, storeAvatar: string) => {
       rating: 5,
       text: "The store is great",
       replyCount: 0,
-      replies: []
+      replies: [],
     },
     {
       id: "2",
-      author: "Adam Sandler", 
+      author: "Adam Sandler",
       avatar: IMAGES.adam,
       timestamp: "07-16-25/05:33AM",
       rating: 5,
@@ -87,21 +92,25 @@ const generateStoreReviews = (storeName: string, storeAvatar: string) => {
           author: storeName,
           avatar: storeAvatar,
           timestamp: "07-16-25/05:33AM",
-          text: "Thanks for the review"
-        }
-      ]
-    }
+          text: "Thanks for the review",
+        },
+      ],
+    },
   ];
 };
 
 // Generate services based on store data
-const generateStoreServices = (services: string[], storeName: string, categories: string[]) => {
+const generateStoreServices = (
+  services: string[],
+  storeName: string,
+  categories: string[]
+) => {
   return services.map((service, index) => {
     // Determine service image and pricing based on service type and category
     let serviceImage = "/top1.png";
     let basePrice = 5000;
     let serviceName = service;
-    
+
     // Customize based on service name
     if (service.includes("Delivery") || service.includes("delivery")) {
       serviceImage = "/top2.png";
@@ -109,28 +118,41 @@ const generateStoreServices = (services: string[], storeName: string, categories
     } else if (service.includes("Support") || service.includes("support")) {
       serviceImage = "/top3.png";
       basePrice = 1500;
-    } else if (service.includes("Design") || service.includes("design") || service.includes("Styling")) {
+    } else if (
+      service.includes("Design") ||
+      service.includes("design") ||
+      service.includes("Styling")
+    ) {
       serviceImage = "/top4.png";
       basePrice = 15000;
-    } else if (service.includes("Installation") || service.includes("Assembly")) {
+    } else if (
+      service.includes("Installation") ||
+      service.includes("Assembly")
+    ) {
       serviceImage = "/top5.png";
       basePrice = 8000;
     } else if (service.includes("Training") || service.includes("Coaching")) {
       serviceImage = "/top6.png";
       basePrice = 10000;
     }
-    
+
     // Add category-based pricing adjustments
     if (categories.includes("Beauty") || categories.includes("Fashion")) {
       basePrice = basePrice * 1.2;
-    } else if (categories.includes("Electronics") || categories.includes("Gaming")) {
+    } else if (
+      categories.includes("Electronics") ||
+      categories.includes("Gaming")
+    ) {
       basePrice = basePrice * 1.5;
-    } else if (categories.includes("Home") || categories.includes("Furniture")) {
+    } else if (
+      categories.includes("Home") ||
+      categories.includes("Furniture")
+    ) {
       basePrice = basePrice * 1.3;
     }
-    
+
     const originalPrice = Math.round(basePrice * 1.3);
-    
+
     return {
       id: index + 1000, // Offset to avoid conflicts with products
       name: serviceName,
@@ -143,7 +165,11 @@ const generateStoreServices = (services: string[], storeName: string, categories
 };
 
 // Generate sample products based on store category
-const generateStoreProducts = (storeId: string, storeName: string, categories: string[]) => {
+const generateStoreProducts = (
+  storeId: string,
+  storeName: string,
+  categories: string[]
+) => {
   const baseProducts = [
     {
       id: 1,
@@ -192,83 +218,237 @@ const generateStoreProducts = (storeId: string, storeName: string, categories: s
   // Customize products based on categories
   if (categories.includes("Beauty") || categories.includes("Fragrances")) {
     return [
-      { ...baseProducts[0], name: "Luxury Perfume Set", salePrice: "₦45,000", originalPrice: "₦60,000" },
-      { ...baseProducts[1], name: "Skincare Bundle", salePrice: "₦25,000", originalPrice: "₦35,000" },
-      { ...baseProducts[2], name: "Makeup Kit", salePrice: "₦15,000", originalPrice: "₦20,000" },
-      { ...baseProducts[3], name: "Anti-Aging Cream", salePrice: "₦12,000", originalPrice: "₦18,000" },
-      { ...baseProducts[4], name: "Hair Care Set", salePrice: "₦8,000", originalPrice: "₦12,000" },
-      { ...baseProducts[5], name: "Body Lotion", salePrice: "₦6,000", originalPrice: "₦9,000" },
-    ].map(product => ({ ...product, store: storeName }));
+      {
+        ...baseProducts[0],
+        name: "Luxury Perfume Set",
+        salePrice: "₦45,000",
+        originalPrice: "₦60,000",
+      },
+      {
+        ...baseProducts[1],
+        name: "Skincare Bundle",
+        salePrice: "₦25,000",
+        originalPrice: "₦35,000",
+      },
+      {
+        ...baseProducts[2],
+        name: "Makeup Kit",
+        salePrice: "₦15,000",
+        originalPrice: "₦20,000",
+      },
+      {
+        ...baseProducts[3],
+        name: "Anti-Aging Cream",
+        salePrice: "₦12,000",
+        originalPrice: "₦18,000",
+      },
+      {
+        ...baseProducts[4],
+        name: "Hair Care Set",
+        salePrice: "₦8,000",
+        originalPrice: "₦12,000",
+      },
+      {
+        ...baseProducts[5],
+        name: "Body Lotion",
+        salePrice: "₦6,000",
+        originalPrice: "₦9,000",
+      },
+    ].map((product) => ({ ...product, store: storeName }));
   }
 
-  if (categories.includes("Fashion") || categories.includes("Clothing") || categories.includes("Accessories")) {
+  if (
+    categories.includes("Fashion") ||
+    categories.includes("Clothing") ||
+    categories.includes("Accessories")
+  ) {
     return [
-      { ...baseProducts[0], name: "Designer Dress", salePrice: "₦35,000", originalPrice: "₦50,000" },
-      { ...baseProducts[1], name: "Casual Shirt", salePrice: "₦8,000", originalPrice: "₦12,000" },
-      { ...baseProducts[2], name: "Leather Shoes", salePrice: "₦25,000", originalPrice: "₦35,000" },
-      { ...baseProducts[3], name: "Handbag", salePrice: "₦18,000", originalPrice: "₦25,000" },
-      { ...baseProducts[4], name: "Jeans", salePrice: "₦12,000", originalPrice: "₦18,000" },
-      { ...baseProducts[5], name: "Accessories Set", salePrice: "₦15,000", originalPrice: "₦20,000" },
-    ].map(product => ({ ...product, store: storeName }));
+      {
+        ...baseProducts[0],
+        name: "Designer Dress",
+        salePrice: "₦35,000",
+        originalPrice: "₦50,000",
+      },
+      {
+        ...baseProducts[1],
+        name: "Casual Shirt",
+        salePrice: "₦8,000",
+        originalPrice: "₦12,000",
+      },
+      {
+        ...baseProducts[2],
+        name: "Leather Shoes",
+        salePrice: "₦25,000",
+        originalPrice: "₦35,000",
+      },
+      {
+        ...baseProducts[3],
+        name: "Handbag",
+        salePrice: "₦18,000",
+        originalPrice: "₦25,000",
+      },
+      {
+        ...baseProducts[4],
+        name: "Jeans",
+        salePrice: "₦12,000",
+        originalPrice: "₦18,000",
+      },
+      {
+        ...baseProducts[5],
+        name: "Accessories Set",
+        salePrice: "₦15,000",
+        originalPrice: "₦20,000",
+      },
+    ].map((product) => ({ ...product, store: storeName }));
   }
 
   if (categories.includes("Grocery") || categories.includes("Food")) {
     return [
-      { ...baseProducts[0], name: "Organic Rice 10kg", salePrice: "₦8,000", originalPrice: "₦10,000" },
-      { ...baseProducts[1], name: "Fresh Vegetables", salePrice: "₦3,500", originalPrice: "₦4,500" },
-      { ...baseProducts[2], name: "Dairy Products", salePrice: "₦2,500", originalPrice: "₦3,200" },
-      { ...baseProducts[3], name: "Meat Package", salePrice: "₦15,000", originalPrice: "₦18,000" },
-      { ...baseProducts[4], name: "Fruits Basket", salePrice: "₦5,000", originalPrice: "₦6,500" },
-      { ...baseProducts[5], name: "Spices Set", salePrice: "₦4,000", originalPrice: "₦5,500" },
-    ].map(product => ({ ...product, store: storeName }));
+      {
+        ...baseProducts[0],
+        name: "Organic Rice 10kg",
+        salePrice: "₦8,000",
+        originalPrice: "₦10,000",
+      },
+      {
+        ...baseProducts[1],
+        name: "Fresh Vegetables",
+        salePrice: "₦3,500",
+        originalPrice: "₦4,500",
+      },
+      {
+        ...baseProducts[2],
+        name: "Dairy Products",
+        salePrice: "₦2,500",
+        originalPrice: "₦3,200",
+      },
+      {
+        ...baseProducts[3],
+        name: "Meat Package",
+        salePrice: "₦15,000",
+        originalPrice: "₦18,000",
+      },
+      {
+        ...baseProducts[4],
+        name: "Fruits Basket",
+        salePrice: "₦5,000",
+        originalPrice: "₦6,500",
+      },
+      {
+        ...baseProducts[5],
+        name: "Spices Set",
+        salePrice: "₦4,000",
+        originalPrice: "₦5,500",
+      },
+    ].map((product) => ({ ...product, store: storeName }));
   }
 
   if (categories.includes("Home") || categories.includes("Furniture")) {
     return [
-      { ...baseProducts[0], name: "Sofa Set", salePrice: "₦250,000", originalPrice: "₦320,000" },
-      { ...baseProducts[1], name: "Dining Table", salePrice: "₦80,000", originalPrice: "₦120,000" },
-      { ...baseProducts[2], name: "Bed Frame", salePrice: "₦65,000", originalPrice: "₦85,000" },
-      { ...baseProducts[3], name: "Wardrobe", salePrice: "₦90,000", originalPrice: "₦130,000" },
-      { ...baseProducts[4], name: "Office Chair", salePrice: "₦35,000", originalPrice: "₦45,000" },
-      { ...baseProducts[5], name: "Coffee Table", salePrice: "₦25,000", originalPrice: "₦35,000" },
-    ].map(product => ({ ...product, store: storeName }));
+      {
+        ...baseProducts[0],
+        name: "Sofa Set",
+        salePrice: "₦250,000",
+        originalPrice: "₦320,000",
+      },
+      {
+        ...baseProducts[1],
+        name: "Dining Table",
+        salePrice: "₦80,000",
+        originalPrice: "₦120,000",
+      },
+      {
+        ...baseProducts[2],
+        name: "Bed Frame",
+        salePrice: "₦65,000",
+        originalPrice: "₦85,000",
+      },
+      {
+        ...baseProducts[3],
+        name: "Wardrobe",
+        salePrice: "₦90,000",
+        originalPrice: "₦130,000",
+      },
+      {
+        ...baseProducts[4],
+        name: "Office Chair",
+        salePrice: "₦35,000",
+        originalPrice: "₦45,000",
+      },
+      {
+        ...baseProducts[5],
+        name: "Coffee Table",
+        salePrice: "₦25,000",
+        originalPrice: "₦35,000",
+      },
+    ].map((product) => ({ ...product, store: storeName }));
   }
 
   if (categories.includes("Sports") || categories.includes("Fitness")) {
     return [
-      { ...baseProducts[0], name: "Treadmill", salePrice: "₦180,000", originalPrice: "₦250,000" },
-      { ...baseProducts[1], name: "Dumbbells Set", salePrice: "₦25,000", originalPrice: "₦35,000" },
-      { ...baseProducts[2], name: "Football", salePrice: "₦8,000", originalPrice: "₦12,000" },
-      { ...baseProducts[3], name: "Basketball", salePrice: "₦6,000", originalPrice: "₦9,000" },
-      { ...baseProducts[4], name: "Yoga Mat", salePrice: "₦5,000", originalPrice: "₦8,000" },
-      { ...baseProducts[5], name: "Tennis Racket", salePrice: "₦15,000", originalPrice: "₦22,000" },
-    ].map(product => ({ ...product, store: storeName }));
+      {
+        ...baseProducts[0],
+        name: "Treadmill",
+        salePrice: "₦180,000",
+        originalPrice: "₦250,000",
+      },
+      {
+        ...baseProducts[1],
+        name: "Dumbbells Set",
+        salePrice: "₦25,000",
+        originalPrice: "₦35,000",
+      },
+      {
+        ...baseProducts[2],
+        name: "Football",
+        salePrice: "₦8,000",
+        originalPrice: "₦12,000",
+      },
+      {
+        ...baseProducts[3],
+        name: "Basketball",
+        salePrice: "₦6,000",
+        originalPrice: "₦9,000",
+      },
+      {
+        ...baseProducts[4],
+        name: "Yoga Mat",
+        salePrice: "₦5,000",
+        originalPrice: "₦8,000",
+      },
+      {
+        ...baseProducts[5],
+        name: "Tennis Racket",
+        salePrice: "₦15,000",
+        originalPrice: "₦22,000",
+      },
+    ].map((product) => ({ ...product, store: storeName }));
   }
 
   // Default to electronics products
-  return baseProducts.map(product => ({ ...product, store: storeName }));
+  return baseProducts.map((product) => ({ ...product, store: storeName }));
 };
 
 // Helper function to get category colors
 const getCategoryColor = (category: string) => {
   const colorMap: Record<string, string> = {
-    'Electronics': 'bg-[#0000FF33] text-[#0000FF] border-[#0000FF]',
-    'Phones': 'bg-[#FF000033] text-[#FF0000] border-[#FF0000]',
-    'Computing': 'bg-[#00FFFF33] text-[#00FFFF] border-[#00FFFF]',
-    'Fashion': 'bg-[#FF69B433] text-[#FF69B4] border-[#FF69B4]',
-    'Clothing': 'bg-[#FF69B433] text-[#FF69B4] border-[#FF69B4]',
-    'Accessories': 'bg-[#DDA0DD33] text-[#DDA0DD] border-[#DDA0DD]',
-    'Beauty': 'bg-[#FFB6C133] text-[#FFB6C1] border-[#FFB6C1]',
-    'Fragrances': 'bg-[#E6E6FA33] text-[#E6E6FA] border-[#E6E6FA]',
-    'Grocery': 'bg-[#32CD3233] text-[#32CD32] border-[#32CD32]',
-    'Food': 'bg-[#FFA50033] text-[#FFA500] border-[#FFA500]',
-    'Home': 'bg-[#DEB88733] text-[#DEB887] border-[#DEB887]',
-    'Furniture': 'bg-[#8B451333] text-[#8B4513] border-[#8B4513]',
-    'Sports': 'bg-[#00800033] text-[#008000] border-[#008000]',
-    'Fitness': 'bg-[#FF634733] text-[#FF6347] border-[#FF6347]',
-    'Gaming': 'bg-[#80008033] text-[#800080] border-[#800080]',
+    Electronics: "bg-[#0000FF33] text-[#0000FF] border-[#0000FF]",
+    Phones: "bg-[#FF000033] text-[#FF0000] border-[#FF0000]",
+    Computing: "bg-[#00FFFF33] text-[#00FFFF] border-[#00FFFF]",
+    Fashion: "bg-[#FF69B433] text-[#FF69B4] border-[#FF69B4]",
+    Clothing: "bg-[#FF69B433] text-[#FF69B4] border-[#FF69B4]",
+    Accessories: "bg-[#DDA0DD33] text-[#DDA0DD] border-[#DDA0DD]",
+    Beauty: "bg-[#FFB6C133] text-[#FFB6C1] border-[#FFB6C1]",
+    Fragrances: "bg-[#E6E6FA33] text-[#E6E6FA] border-[#E6E6FA]",
+    Grocery: "bg-[#32CD3233] text-[#32CD32] border-[#32CD32]",
+    Food: "bg-[#FFA50033] text-[#FFA500] border-[#FFA500]",
+    Home: "bg-[#DEB88733] text-[#DEB887] border-[#DEB887]",
+    Furniture: "bg-[#8B451333] text-[#8B4513] border-[#8B4513]",
+    Sports: "bg-[#00800033] text-[#008000] border-[#008000]",
+    Fitness: "bg-[#FF634733] text-[#FF6347] border-[#FF6347]",
+    Gaming: "bg-[#80008033] text-[#800080] border-[#800080]",
   };
-  return colorMap[category] || 'bg-gray-200 text-gray-700 border-gray-400';
+  return colorMap[category] || "bg-gray-200 text-gray-700 border-gray-400";
 };
 
 const StoreDetail: React.FC = () => {
@@ -280,24 +460,33 @@ const StoreDetail: React.FC = () => {
   const [filters, setFilters] = useState({
     category: "",
     brand: "",
-    location: ""
+    location: "",
   });
   const [socialPosts, setSocialPosts] = useState<SocialFeedPost[]>([]);
+  const [showStoreAddresses, setShowStoreAddresses] = useState(false);
 
   // Find the store by ID
   const store = storesData.find((s) => s.id === id);
-  
+
   // Generate products based on store data
-  const storeProducts = store ? generateStoreProducts(store.id, store.name, store.categories) : [];
-  
+  const storeProducts = store
+    ? generateStoreProducts(store.id, store.name, store.categories)
+    : [];
+
   // Generate services based on store data
-  const storeServices = store ? generateStoreServices(store.services, store.name, store.categories) : [];
+  const storeServices = store
+    ? generateStoreServices(store.services, store.name, store.categories)
+    : [];
 
   // Generate social feed posts
-  const storeSocialPosts = store ? generateStoreSocialFeed(store.name, store.avatar) : [];
-  
+  const storeSocialPosts = store
+    ? generateStoreSocialFeed(store.name, store.avatar)
+    : [];
+
   // Generate store reviews
-  const storeReviews = store ? generateStoreReviews(store.name, store.avatar) : [];
+  const storeReviews = store
+    ? generateStoreReviews(store.name, store.avatar)
+    : [];
 
   // Initialize social posts
   React.useEffect(() => {
@@ -308,16 +497,18 @@ const StoreDetail: React.FC = () => {
 
   // Handle social post like
   const handleSocialLike = (postId: string) => {
-    setSocialPosts(socialPosts.map(post => {
-      if (post.id === postId) {
-        return {
-          ...post,
-          isLiked: !post.isLiked,
-          likes: post.isLiked ? post.likes - 1 : post.likes + 1
-        };
-      }
-      return post;
-    }));
+    setSocialPosts(
+      socialPosts.map((post) => {
+        if (post.id === postId) {
+          return {
+            ...post,
+            isLiked: !post.isLiked,
+            likes: post.isLiked ? post.likes - 1 : post.likes + 1,
+          };
+        }
+        return post;
+      })
+    );
   };
 
   // Handle back navigation
@@ -326,7 +517,7 @@ const StoreDetail: React.FC = () => {
     if (window.history.length > 1) {
       navigate(-1);
     } else {
-      navigate('/stores');
+      navigate("/stores");
     }
   };
 
@@ -338,9 +529,9 @@ const StoreDetail: React.FC = () => {
 
   // Handle filter changes
   const handleFilterChange = (filterType: string, value: string) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
-      [filterType]: value
+      [filterType]: value,
     }));
   };
 
@@ -349,7 +540,7 @@ const StoreDetail: React.FC = () => {
     setFilters({
       category: "",
       brand: "",
-      location: ""
+      location: "",
     });
   };
 
@@ -399,7 +590,7 @@ const StoreDetail: React.FC = () => {
                   className="w-[430px] h-[145px] rounded-[20px] object-cover"
                 />
                 {/* Back Button */}
-                <button 
+                <button
                   onClick={handleBack}
                   className="absolute top-4 left-4  w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors"
                 >
@@ -451,9 +642,19 @@ const StoreDetail: React.FC = () => {
                     </div>
                     {/* Status */}
                     <div className="flex items-center gap-1">
-                      <div className={`w-2 h-2 rounded-full ${store.isOpen ? 'bg-green-500' : 'bg-red-500'}`}></div>
-                      <span className={`text-[10px] ${store.isOpen ? 'text-green-600' : 'text-red-600'}`}>
-                        {store.isOpen ? `Open Now - ${store.openTime} - ${store.closeTime}` : 'Closed'}
+                      <div
+                        className={`w-2 h-2 rounded-full ${
+                          store.isOpen ? "bg-green-500" : "bg-red-500"
+                        }`}
+                      ></div>
+                      <span
+                        className={`text-[10px] ${
+                          store.isOpen ? "text-green-600" : "text-red-600"
+                        }`}
+                      >
+                        {store.isOpen
+                          ? `Open Now - ${store.openTime} - ${store.closeTime}`
+                          : "Closed"}
                       </span>
                     </div>
                   </div>
@@ -470,7 +671,13 @@ const StoreDetail: React.FC = () => {
                     {store.name}
                   </h1>
                   <div className=" rounded-full flex items-center justify-center">
-                    {store.isVerified && <img src={IMAGES.verification} alt="Verified" className="w-6 h-6" />}
+                    {store.isVerified && (
+                      <img
+                        src={IMAGES.verification}
+                        alt="Verified"
+                        className="w-6 h-6"
+                      />
+                    )}
                   </div>
                 </div>
 
@@ -508,7 +715,9 @@ const StoreDetail: React.FC = () => {
                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                       />
                     </svg>
-                    <span className="text-[12px] font-medium">{store.phone}</span>
+                    <span className="text-[12px] font-medium">
+                      {store.phone}
+                    </span>
                   </div>
                   <div className="flex items-center gap-2">
                     <svg
@@ -533,7 +742,10 @@ const StoreDetail: React.FC = () => {
                     <span className="text-[12px] font-medium">
                       {store.location}{" "}
                     </span>
-                    <button className="text-[#E53E3E] text-xs font-medium underline">
+                    <button
+                      onClick={() => setShowStoreAddresses(true)}
+                      className="text-[#E53E3E] text-xs font-medium underline"
+                    >
                       View Store Addresses
                     </button>
                   </div>
@@ -555,7 +767,9 @@ const StoreDetail: React.FC = () => {
                     {store.categories.map((category, index) => (
                       <span
                         key={index}
-                        className={`px-2 py-1 text-[10px] rounded-[5px] ml-2 border-[0.5px] ${getCategoryColor(category)}`}
+                        className={`px-2 py-1 text-[10px] rounded-[5px] ml-2 border-[0.5px] ${getCategoryColor(
+                          category
+                        )}`}
                       >
                         {category}
                       </span>
@@ -570,7 +784,9 @@ const StoreDetail: React.FC = () => {
                     <img src={IMAGES.Shop} alt="Shop" className="w-6 h-6" />
                     <div>
                       <p className="text-[6px] text-gray-500">Qty Sold</p>
-                      <p className="text-sm font-normal text-gray-900">{store.qtySold}</p>
+                      <p className="text-sm font-normal text-gray-900">
+                        {store.qtySold}
+                      </p>
                     </div>
                   </div>
 
@@ -583,7 +799,9 @@ const StoreDetail: React.FC = () => {
                     />
                     <div>
                       <p className="text-[6px] text-gray-500">Followers</p>
-                      <p className="text-sm font-normal text-gray-900">{store.followers}</p>
+                      <p className="text-sm font-normal text-gray-900">
+                        {store.followers}
+                      </p>
                     </div>
                   </div>
 
@@ -621,24 +839,43 @@ const StoreDetail: React.FC = () => {
             {/* Social Links */}
             <div className="flex gap-1 border border-[#CDCDCD] p-1 rounded-[10px] mb-4 bg-white">
               <button className=" rounded-lg flex items-center justify-center">
-                <img src={IMAGES.whatsappIcon} className="w-[43px] h-[43px]" alt="" />
+                <img
+                  src={IMAGES.whatsappIcon}
+                  className="w-[43px] h-[43px]"
+                  alt=""
+                />
               </button>
               <button className=" rounded-lg flex items-center justify-center">
-                <img src={IMAGES.instagram} className="w-[43px] h-[43px]" alt="" />
+                <img
+                  src={IMAGES.instagram}
+                  className="w-[43px] h-[43px]"
+                  alt=""
+                />
               </button>
               <button className=" rounded-lg flex items-center justify-center">
                 <img src={IMAGES.x} className="w-[43px] h-[43px]" alt="" />
               </button>
               <button className=" rounded-lg flex items-center justify-center">
-                <img src={IMAGES.facebook} className="w-[43px] h-[43px]" alt="" />
+                <img
+                  src={IMAGES.facebook}
+                  className="w-[43px] h-[43px]"
+                  alt=""
+                />
               </button>
             </div>
             {/* Promotional Banner */}
             <div className="bg-[#921313] rounded-2xl px-5 py-3 text-white mb-6 relative overflow-hidden">
               <div className="flex  justify-between relative z-10">
                 <div className="flex-1">
-                  <h3 className="text-white text-[20px] font-semibold ">Shop with ease on</h3>
-                  <h2 className="text-white text-[30px] font-bold italic mb-3" style={{ fontFamily: 'cursive' }}>{store.name}</h2>
+                  <h3 className="text-white text-[20px] font-semibold ">
+                    Shop with ease on
+                  </h3>
+                  <h2
+                    className="text-white text-[30px] font-bold italic mb-3"
+                    style={{ fontFamily: "cursive" }}
+                  >
+                    {store.name}
+                  </h2>
                   <p className="text-white text-[10px] opacity-90 mb-4 max-w-xs">
                     {store.description}
                   </p>
@@ -648,7 +885,7 @@ const StoreDetail: React.FC = () => {
                 </div>
                 <div className="flex-shrink-0 ">
                   <img
-                    src={IMAGES.grosry}
+                    src={IMAGES.grocery1}
                     alt="Shopping bag with groceries"
                     className="w-42 h-42 object-contain"
                   />
@@ -659,14 +896,18 @@ const StoreDetail: React.FC = () => {
               <div className="absolute top-0 left-0 w-[267px] h-[199px] bg-[#F22C2C] rounded-full -translate-y-41 -translate-x-28"></div>
             </div>
 
-            
-
             {/* Action Buttons */}
             <div className="space-y-2">
-              <a href={`tel:${store.phone}`} className="w-full bg-[#E53E3E] text-white py-3 rounded-[15px] text-xs hover:bg-red-600 transition-colors block text-center">
+              <a
+                href={`tel:${store.phone}`}
+                className="w-full bg-[#E53E3E] text-white py-3 rounded-[15px] text-xs hover:bg-red-600 transition-colors block text-center"
+              >
                 Call
               </a>
-              <a href={`mailto:${store.email}`} className="w-full bg-black text-white py-3 rounded-[15px] text-xs hover:bg-gray-800 transition-colors block text-center">
+              <a
+                href={`mailto:${store.email}`}
+                className="w-full bg-black text-white py-3 rounded-[15px] text-xs hover:bg-gray-800 transition-colors block text-center"
+              >
                 Chat
               </a>
               <button className="w-full bg-[#008000] text-white py-3 rounded-[15px] text-xs hover:bg-green-600 transition-colors">
@@ -729,13 +970,15 @@ const StoreDetail: React.FC = () => {
                   <div className="flex-1 relative">
                     <input
                       type="text"
-                      placeholder={`Search store ${activeTab === "services" ? "services" : "products"}`}
+                      placeholder={`Search store ${
+                        activeTab === "services" ? "services" : "products"
+                      }`}
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       className="w-full  border border-[#AFAFAF]  rounded-xl p-5 text-sm focus:outline-none focus:ring-2 focus:ring-red-400"
                     />
                   </div>
-                  <button 
+                  <button
                     onClick={() => setShowFilter(true)}
                     className=" border border-[#AFAFAF] hover:bg-gray-200 transition-colors rounded-xl px-[30px] py-[18px] flex items-center justify-center"
                   >
@@ -746,18 +989,23 @@ const StoreDetail: React.FC = () => {
                   {showFilter && (
                     <>
                       {/* Backdrop to close modal when clicking outside */}
-                      <div 
-                        className="fixed inset-0 z-40" 
+                      <div
+                        className="fixed inset-0 z-40"
                         onClick={() => setShowFilter(false)}
                       />
                       {/* Filter dropdown */}
-                      <div className="absolute top-full -right-5 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50" style={{ width: '430px', height: '260px' }}>
+                      <div
+                        className="absolute top-full -right-5 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50"
+                        style={{ width: "430px", height: "260px" }}
+                      >
                         <div className="p-4 h-full flex flex-col">
                           {/* Category Dropdown */}
                           <div className="mb-4">
                             <select
                               value={filters.category}
-                              onChange={(e) => handleFilterChange("category", e.target.value)}
+                              onChange={(e) =>
+                                handleFilterChange("category", e.target.value)
+                              }
                               className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
                             >
                               <option value="">Category</option>
@@ -774,7 +1022,9 @@ const StoreDetail: React.FC = () => {
                           <div className="mb-4">
                             <select
                               value={filters.brand}
-                              onChange={(e) => handleFilterChange("brand", e.target.value)}
+                              onChange={(e) =>
+                                handleFilterChange("brand", e.target.value)
+                              }
                               className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
                             >
                               <option value="">Brand</option>
@@ -791,13 +1041,17 @@ const StoreDetail: React.FC = () => {
                           <div className="mb-6 flex-1">
                             <select
                               value={filters.location}
-                              onChange={(e) => handleFilterChange("location", e.target.value)}
+                              onChange={(e) =>
+                                handleFilterChange("location", e.target.value)
+                              }
                               className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
                             >
                               <option value="">Location</option>
                               <option value="Lagos">Lagos</option>
                               <option value="Abuja">Abuja</option>
-                              <option value="Port Harcourt">Port Harcourt</option>
+                              <option value="Port Harcourt">
+                                Port Harcourt
+                              </option>
                               <option value="Kano">Kano</option>
                               <option value="Ibadan">Ibadan</option>
                             </select>
@@ -858,18 +1112,26 @@ const StoreDetail: React.FC = () => {
                     {/* Post Header */}
                     <div className="flex items-center justify-between p-4">
                       <div className="flex items-center space-x-3">
-                        <img 
-                          src={post.avatar} 
+                        <img
+                          src={post.avatar}
                           alt={post.author}
                           className="w-10 h-10 rounded-full object-cover"
                         />
                         <div>
-                          <h3 className="font-semibold text-gray-900">{post.author}</h3>
-                          <p className="text-sm text-gray-500">Lagos, Nigeria • {post.timestamp}</p>
+                          <h3 className="font-semibold text-gray-900">
+                            {post.author}
+                          </h3>
+                          <p className="text-sm text-gray-500">
+                            Lagos, Nigeria • {post.timestamp}
+                          </p>
                         </div>
                       </div>
                       <button className="p-2 hover:bg-gray-100 rounded-full">
-                        <svg className="w-5 h-5 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                        <svg
+                          className="w-5 h-5 text-gray-600"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
                           <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
                         </svg>
                       </button>
@@ -882,8 +1144,8 @@ const StoreDetail: React.FC = () => {
 
                     {/* Post Image */}
                     <div className="relative">
-                      <img 
-                        src={post.image} 
+                      <img
+                        src={post.image}
                         alt="Post"
                         className="w-146 h-98 rounded-t-[30px] rounded-b-[10px] object-cover"
                       />
@@ -893,38 +1155,68 @@ const StoreDetail: React.FC = () => {
                     <div className="p-4">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center space-x-4">
-                          <button 
+                          <button
                             onClick={() => handleSocialLike(post.id)}
                             className="flex items-center space-x-2"
                           >
-                            <svg 
-                              className={`w-6 h-6 ${post.isLiked ? 'text-red-500 fill-current' : 'text-gray-600'}`} 
-                              fill="none" 
-                              stroke="currentColor" 
+                            <svg
+                              className={`w-6 h-6 ${
+                                post.isLiked
+                                  ? "text-red-500 fill-current"
+                                  : "text-gray-600"
+                              }`}
+                              fill="none"
+                              stroke="currentColor"
                               viewBox="0 0 24 24"
                             >
-                              <path 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round" 
-                                strokeWidth={2} 
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" 
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                               />
                             </svg>
-                            <span className="text-sm font-medium">{post.likes}</span>
-                          </button>
-                          
-                          <button className="flex items-center space-x-2">
-                            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                            </svg>
-                            <span className="text-sm font-medium">{post.comments}</span>
+                            <span className="text-sm font-medium">
+                              {post.likes}
+                            </span>
                           </button>
 
                           <button className="flex items-center space-x-2">
-                            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z" />
+                            <svg
+                              className="w-6 h-6 text-gray-600"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                              />
                             </svg>
-                            <span className="text-sm font-medium">{post.shares}</span>
+                            <span className="text-sm font-medium">
+                              {post.comments}
+                            </span>
+                          </button>
+
+                          <button className="flex items-center space-x-2">
+                            <svg
+                              className="w-6 h-6 text-gray-600"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"
+                              />
+                            </svg>
+                            <span className="text-sm font-medium">
+                              {post.shares}
+                            </span>
                           </button>
                         </div>
                       </div>
@@ -953,7 +1245,9 @@ const StoreDetail: React.FC = () => {
                     {[1, 2, 3, 4, 5].map((star) => (
                       <svg
                         key={star}
-                        className={`w-12 h-12 ${star <= 4 ? 'text-red-500' : 'text-gray-300'}`}
+                        className={`w-12 h-12 ${
+                          star <= 4 ? "text-red-500" : "text-gray-300"
+                        }`}
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -961,11 +1255,15 @@ const StoreDetail: React.FC = () => {
                       </svg>
                     ))}
                   </div>
-                  
+
                   {/* Rating Text */}
                   <div className="flex items-center justify-between">
-                    <span className="text-red-500 text-lg font-medium">4 Stars</span>
-                    <span className="text-red-500 text-lg font-medium">3 Reviews</span>
+                    <span className="text-red-500 text-lg font-medium">
+                      4 Stars
+                    </span>
+                    <span className="text-red-500 text-lg font-medium">
+                      3 Reviews
+                    </span>
                   </div>
                 </div>
 
@@ -982,14 +1280,22 @@ const StoreDetail: React.FC = () => {
                         />
                         <div className="flex-1">
                           <div className="flex justify-between items-center mb-1">
-                            <h4 className="font-semibold text-gray-900 text-base">{review.author}</h4>
-                            <span className="text-sm text-gray-500">{review.timestamp}</span>
+                            <h4 className="font-semibold text-gray-900 text-base">
+                              {review.author}
+                            </h4>
+                            <span className="text-sm text-gray-500">
+                              {review.timestamp}
+                            </span>
                           </div>
                           <div className="flex items-center space-x-1">
                             {[1, 2, 3, 4, 5].map((star) => (
                               <svg
                                 key={star}
-                                className={`w-4 h-4 ${star <= review.rating ? 'text-red-500' : 'text-gray-300'}`}
+                                className={`w-4 h-4 ${
+                                  star <= review.rating
+                                    ? "text-red-500"
+                                    : "text-gray-300"
+                                }`}
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
                               >
@@ -999,28 +1305,43 @@ const StoreDetail: React.FC = () => {
                           </div>
                         </div>
                       </div>
-                      
+
                       {/* Lower div - Review text and reply */}
                       <div className="px-4 pb-4">
-                        <p className="text-gray-800 text-base mb-4">{review.text}</p>
+                        <p className="text-gray-800 text-base mb-4">
+                          {review.text}
+                        </p>
                         <div className="flex items-center space-x-2">
-                          <img src={IMAGES.reply} alt="Reply" className="w-5 h-5" />
-                          <span className="text-sm text-gray-600">{review.replyCount}</span>
-                          <input 
-                            type="text" 
-                            placeholder="" 
-                            className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-400 ml-4" 
+                          <img
+                            src={IMAGES.reply}
+                            alt="Reply"
+                            className="w-5 h-5"
+                          />
+                          <span className="text-sm text-gray-600">
+                            {review.replyCount}
+                          </span>
+                          <input
+                            type="text"
+                            placeholder=""
+                            className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-400 ml-4"
                           />
                           {review.id === "1" && (
-                            <img src={IMAGES.paperPlaneRight} alt="Send" className="w-5 h-5" />
+                            <img
+                              src={IMAGES.paperPlaneRight}
+                              alt="Send"
+                              className="w-5 h-5"
+                            />
                           )}
                         </div>
-                        
+
                         {/* Store Replies */}
                         {review.replies && review.replies.length > 0 && (
                           <div className="mt-4 space-y-3">
                             {review.replies.map((reply) => (
-                              <div key={reply.id} className="flex items-start space-x-3 ml-6">
+                              <div
+                                key={reply.id}
+                                className="flex items-start space-x-3 ml-6"
+                              >
                                 <img
                                   src={reply.avatar}
                                   alt={reply.author}
@@ -1028,10 +1349,16 @@ const StoreDetail: React.FC = () => {
                                 />
                                 <div className="flex-1">
                                   <div className="flex items-center space-x-2 mb-1">
-                                    <h5 className="font-medium text-gray-900 text-sm">{reply.author}</h5>
-                                    <span className="text-xs text-gray-500">{reply.timestamp}</span>
+                                    <h5 className="font-medium text-gray-900 text-sm">
+                                      {reply.author}
+                                    </h5>
+                                    <span className="text-xs text-gray-500">
+                                      {reply.timestamp}
+                                    </span>
                                   </div>
-                                  <p className="text-gray-700 text-sm">{reply.text}</p>
+                                  <p className="text-gray-700 text-sm">
+                                    {reply.text}
+                                  </p>
                                 </div>
                               </div>
                             ))}
@@ -1046,6 +1373,166 @@ const StoreDetail: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Store Addresses Modal */}
+      {showStoreAddresses && (
+        <div className="fixed inset-0 backdrop-brightness-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 relative">
+              <h2 className="text-xl font-semibold text-gray-900 mx-auto">
+                Store Addresses
+              </h2>
+              <button
+                onClick={() => setShowStoreAddresses(false)}
+                className="absolute right-6 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
+              >
+                <svg
+                  className="w-5 h-5 text-gray-500"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            {/* Modal Content */}
+            <div className="p-4 space-y-6">
+              {[
+                {
+                  id: 1,
+                  label: "Address 1",
+                  isMain: true,
+                  wednesdayTime: "08:00 AM - 07:00PM",
+                  wednesdayTextColor: "text-gray-900",
+                },
+                {
+                  id: 2,
+                  label: "Address 2",
+                  isMain: false,
+                  wednesdayTime: "08:00 AM - 01:00PM",
+                  wednesdayTextColor: "text-red-500",
+                },
+              ].map((address, index) => (
+                <div
+                  key={index}
+                  className="rounded-2xl overflow-hidden shadow-sm border border-gray-200"
+                >
+                  {/* Upper Div - Address Title & Button */}
+                  <div className="bg-[#E53E3E] px-4 py-3 pb-6 flex items-center -mb-2 justify-between rounded-t-2xl">
+                    <span className="text-white font-normal text-sm">
+                      {address.label}
+                    </span>
+                    <button className="bg-white text-red-500 text-[10px] font-medium px-4 py-1 rounded-full hover:bg-gray-50 transition-colors">
+                      View on Map
+                    </button>
+                  </div>
+
+                  {/* Lower Div - All Other Data */}
+                  <div className="bg-white p-4 space-y-4 rounded-2xl -mt-3 relative">
+                    {/* Main Office Tag */}
+                    {address.isMain && (
+                      <div className="flex justify-start absolute right-3">
+                        <span className="inline-block text-xs font-medium bg-[#FF000033] text-[#FF0000] border border-[#FF0000] px-3 py-1 rounded-[5px]">
+                          Main Office
+                        </span>
+                      </div>
+                    )}
+
+                    {/* Address Info */}
+                    <div className="space-y-3">
+                      <div>
+                        <label className="text-[10px] font-normal text-[#00000080]">
+                          State
+                        </label>
+                        <p className="text-gray-900 text-sm">Lagos</p>
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-normal text-[#00000080]">
+                          Local Government
+                        </label>
+                        <p className="text-gray-900 text-sm">Ikeja</p>
+                      </div>
+                      <div>
+                        <label className="text-[10px] font-normal text-[#00000080]">
+                          Full Address
+                        </label>
+                        <p className="text-gray-900 text-sm">
+                          No 2, abcdefght street , opposite abc building, acd
+                          bus stop, ikeja
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Opening Hours */}
+                    <div className="bg-[#FFEEEE] rounded-lg px-4 py-3">
+                      <div className="flex items-center gap-2 mb-3">
+                        <svg
+                          className="w-4 h-4 text-gray-600"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                        <h3 className="font-medium text-sm text-gray-900">
+                          Opening Hours
+                        </h3>
+                      </div>
+
+                      <div className="space-y-1 text-[10px]">
+                        {[
+                          "Monday",
+                          "Tuesday",
+                          "Wednesday",
+                          "Thursday",
+                          "Friday",
+                          "Saturday",
+                        ].map((day) => (
+                          <div key={day} className="flex items-center justify-between mr-33">
+                            <span
+                              className={
+                                day === "Wednesday" && !address.isMain
+                                  ? address.wednesdayTextColor
+                                  : "text-gray-600"
+                              }
+                            >
+                              {day}
+                            </span>
+                            <span
+                              className={
+                                day === "Wednesday" && !address.isMain
+                                  ? address.wednesdayTextColor
+                                  : "text-gray-900"
+                              }
+                            >
+                              {day === "Wednesday" && !address.isMain
+                                ? address.wednesdayTime
+                                : "08:00 AM - 07:00PM"}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
