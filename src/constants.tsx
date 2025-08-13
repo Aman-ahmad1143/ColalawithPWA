@@ -123,7 +123,9 @@ const IMAGES = {
   whatsappIcon: '/whats_app.png',
   grocery1: '/grocery.png',
   adam1: '/adams.svg',
-  chris1: '/chris.svg'
+  chris1: '/chris.svg',
+  edit: '/edit.png',
+  trash: '/Trash.svg',
 
 };
 export default IMAGES;

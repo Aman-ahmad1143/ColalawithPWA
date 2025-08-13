@@ -4,10 +4,12 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 // import LoginPopup from "../User/LoginPopup";
 import LoginPopup from "../../pages//user/LoginPopup";
 import RegistrationPopup from "../../pages//user/RegistrationPopup";
+import { useCart } from "../../context/CartContext";
 import IMAGES from "../../constants";
 import "../../index.css";
 
 const Header: React.FC = () => {
+  const { getTotalItems } = useCart();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const [showLoginPopup, setShowLoginPopup] = useState(false);
@@ -419,13 +421,13 @@ const Header: React.FC = () => {
         </div>
 
         {/* Cart */}
-        <div className="relative flex items-center ml-3 gap-2 cursor-pointer">
+        <Link to="/cart" className="relative flex items-center ml-3 gap-2 cursor-pointer hover:opacity-80 transition-opacity">
           <img src={IMAGES.cart} alt="Cart Icon" className="w-[30px] h-[30px]" />
           <div className="absolute -top-2 -right-2 bg-white text-black text-xs w-8 h-4 flex items-center justify-center rounded-full">
-            0
+            {getTotalItems()}
           </div>
           <span className="text-xs mt-3">Cart</span>
-        </div>
+        </Link>
       </div>
       </div>
         

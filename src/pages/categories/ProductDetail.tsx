@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useCart } from '../../context/CartContext';
 import IMAGES from '../../constants';
 
 // Store Reviews Dataset
@@ -437,6 +438,7 @@ const getProductById = (id: string) => {
 };
 
 const ProductDetail: React.FC = () => {
+  const { addToCart, getTotalItems } = useCart();
   const { id } = useParams<{ id: string }>();
   const product = getProductById(id || '1');
   const [selectedImage, setSelectedImage] = useState(0);
@@ -447,6 +449,25 @@ const ProductDetail: React.FC = () => {
   const incrementQuantity = () => setQuantity(prev => prev + 1);
   const decrementQuantity = () => setQuantity(prev => prev > 1 ? prev - 1 : 1);
   const toggleFollow = () => setIsFollowing(prev => !prev);
+
+  const handleAddToCart = () => {
+    // Add the product with the selected quantity in one go
+    addToCart({
+      id: `${product.id}-${product.specifications.color}`, // Consistent ID for same product/color
+      name: product.name,
+      image: product.images[selectedImage],
+      originalPrice: product.originalPrice,
+      salePrice: product.salePrice,
+      color: product.specifications.color,
+      storeId: product.store.name.toLowerCase().replace(/\s+/g, '-'),
+      storeName: product.store.name
+    }, quantity);
+    
+    // Reset quantity after adding to cart
+    setQuantity(1);
+    // You can add a toast notification here
+    alert(`Added ${quantity} item(s) to cart!`);
+  };
 
 
 
@@ -484,7 +505,7 @@ const ProductDetail: React.FC = () => {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(index)}
-                  className={`w-16 h-16 rounded-lg border-2 p-1 ${
+                  className={`w-16 h-21 rounded-lg border-2 p-1 ${
                     selectedImage === index ? 'border-red-500' : 'border-gray-200'
                   }`}
                 >
@@ -546,11 +567,16 @@ const ProductDetail: React.FC = () => {
               
               <div className="flex items-center justify-between">
                 {/* Add to Cart Button */}
-                <button className="flex items-center justify-center w-12 h-12 -mt-20 ml-94 rounded-lg">
+                <button 
+                  onClick={handleAddToCart}
+                  className="flex items-center justify-center w-12 h-12 -mt-20 ml-94 rounded-lg hover:opacity-80 transition-opacity relative"
+                >
                   <img src={IMAGES.cartwithprice1} alt="cart" className="w-10 h-10" />
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                    2
-                  </span>
+                  {getTotalItems() > 0 && (
+                    <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                      {getTotalItems()}
+                    </div>
+                  )}
                 </button>
 
                 {/* Quantity Selector */}
