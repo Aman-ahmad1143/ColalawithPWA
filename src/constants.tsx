@@ -125,6 +125,7 @@ const IMAGES = {
   adam1: '/adams.svg',
   chris1: '/chris.svg',
   cross: '/cross.png',
+  cameraBig: '/CameraBig.png'
 
 };
 export default IMAGES;
