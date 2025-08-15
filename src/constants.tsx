@@ -128,7 +128,9 @@ const IMAGES = {
   trash: '/Trash.svg',
   cross: '/cross.png',
   cameraBig: '/CameraBig.png',
-  ordercart:'/ordercart.svg'
+  ordercart:'/ordercart.svg',
 
+  grosry: '/grosry.png'
+  
 };
 export default IMAGES;

@@ -885,7 +885,7 @@ const StoreDetail: React.FC = () => {
                 </div>
                 <div className="flex-shrink-0 ">
                   <img
-                    src={IMAGES.grocery1}
+                    src={IMAGES.grosry}
                     alt="Shopping bag with groceries"
                     className="w-42 h-42 object-contain"
                   />

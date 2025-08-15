@@ -15,7 +15,19 @@ import Feed from './pages/feed/Feed';
 import Chat from './pages/chat/Chat';
 import Stores from './pages/stores/Stores';
 import StoreDetail from './pages/stores/StoreDetail';
+import FollowedStoreDetail from './pages/settings/FollowedStoreDetail';
 import Settings from './pages/settings/Settings';
+import EditProfile from './pages/settings/EditProfile';
+import SavedAddresses from './pages/settings/SavedAddresses';
+import SavedItems from './pages/settings/SavedItems';
+import Orders from './pages/settings/Orders';
+import FollowedStores from './pages/settings/FollowedStores';
+import Reviews from './pages/settings/Reviews';
+import Referrals from './pages/settings/Referrals';
+import Support from './pages/settings/Support';
+import FAQs from './pages/settings/FAQs';
+import LoyaltyPoints from './pages/settings/LoyaltyPoints';
+import SellerLeaderboard from './pages/settings/SellerLeaderboard';
 import SearchPage from './pages/SearchPage';
 import Cart from './pages/cart/Cart';
 import CartCheckout from './pages/cart/CartCheckout';
@@ -45,10 +57,24 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="/stores" element={<Stores />} />
           <Route path="/stores/:id" element={<StoreDetail />} />
+          <Route path="/stores/followed-stores/:id" element={<FollowedStoreDetail />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<CartCheckout />} />
           <Route path="/order-details" element={<OrderDetails />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/settings" element={<Settings />} >
+            <Route path="edit-profile" element={<EditProfile />} />
+            <Route path="saved-addresses" element={<SavedAddresses />} />
+            <Route path="saved-items" element={<SavedItems />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="followed-stores" element={<FollowedStores />} />
+            <Route path="reviews" element={<Reviews />} />
+            <Route path="referrals" element={<Referrals />} />
+            <Route path="support" element={<Support />} />
+            <Route path="faqs" element={<FAQs />} />
+            <Route path="loyalty-points" element={<LoyaltyPoints />} />
+            <Route path="seller-leaderboard" element={<SellerLeaderboard />} />
+          </Route>
           {/* Add other routes here */}
         </Routes>
       </BrowserRouter>
