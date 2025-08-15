@@ -19,6 +19,7 @@ import Settings from './pages/settings/Settings';
 import SearchPage from './pages/SearchPage';
 import Cart from './pages/cart/Cart';
 import CartCheckout from './pages/cart/CartCheckout';
+import OrderDetails from './pages/cart/OrderDetails';
 
 
 
@@ -46,6 +47,7 @@ function App() {
           <Route path="/stores/:id" element={<StoreDetail />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<CartCheckout />} />
+          <Route path="/order-details" element={<OrderDetails />} />
           <Route path="/settings" element={<Settings />} />
           {/* Add other routes here */}
         </Routes>
