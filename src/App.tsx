@@ -15,6 +15,7 @@ import Feed from './pages/feed/Feed';
 import Chat from './pages/chat/Chat';
 import Stores from './pages/stores/Stores';
 import StoreDetail from './pages/stores/StoreDetail';
+import FollowedStoreDetail from './pages/settings/FollowedStoreDetail';
 import Settings from './pages/settings/Settings';
 import EditProfile from './pages/settings/EditProfile';
 import SavedAddresses from './pages/settings/SavedAddresses';
@@ -55,6 +56,7 @@ function App() {
           <Route path="/chat" element={<Chat />} />
           <Route path="/stores" element={<Stores />} />
           <Route path="/stores/:id" element={<StoreDetail />} />
+          <Route path="/stores/followed-stores/:id" element={<FollowedStoreDetail />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<CartCheckout />} />
           <Route path="/settings" element={<Settings />} >
