@@ -1,50 +1,65 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Colala PWA
 
-Currently, two official plugins are available:
+A modern Progressive Web App (PWA) e-commerce and services platform built with **React 19**, **TypeScript**, **Vite**, and **Tailwind CSS**. The app features a rich UI, offline support, and a modular architecture for buyers to browse products, services, and stores.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **PWA**: Installable, offline-ready, and supports service workers via `vite-plugin-pwa`.
+- **Routing**: Client-side navigation with `react-router-dom`.
+- **State Management**: Context API for cart and global state.
+- **Product & Service Listings**: Browse categories, top products, and services.
+- **Cart & Checkout**: Add to cart, grouped by store, and checkout flow.
+- **Search**: Text and image-based product search with recent search history.
+- **User Authentication**: Login and registration popups (cookie-based session).
+- **Responsive UI**: Built with Tailwind CSS for mobile and desktop.
+- **ESLint & TypeScript**: Strict linting and type safety.
+- **Assets**: Rich set of SVG and PNG assets for categories, products, and UI.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Project Structure
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+src/
+  App.tsx                # Main app with routes
+  PWABadge.tsx           # PWA install/update badge
+  context/CartContext.tsx
+  components/ProductCard.tsx
+  pages/
+   home/HomePage.tsx
+   categories/Categories.tsx
+   services/Services.tsx
+   cart/Cart.tsx
+   SearchPage.tsx
+   ... (other feature pages)
+  constants.tsx          # Image and icon constants
+  assets/                # Static assets
+public/                  # Images and icons
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Scripts
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- `npm run dev` – Start development server
+- `npm run build` – Build for production
+- `npm run preview` – Preview production build
+- `npm run lint` – Lint code with ESLint
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+## PWA Configuration
+
+- Uses `vite-plugin-pwa` for service worker, manifest, and offline support.
+- Custom badge for install/update prompts.
+
+## Getting Started
+
+1. **Install dependencies**:  
+  `npm install`
+2. **Run locally**:  
+  `npm run dev`
+3. **Build for production**:  
+  `npm run build`
+
+## Tech Stack
+
+- React 19, TypeScript, Vite
+- Tailwind CSS, PostCSS
+- ESLint, vite-plugin-pwa
+- js-cookie, react-router-dom
