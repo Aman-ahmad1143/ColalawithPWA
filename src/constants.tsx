@@ -105,7 +105,7 @@ const IMAGES = {
   coverLovina: '/coverLovina.png',
   star1: '/Star.svg',
   reply: '/ArrowBendDoubleUpLeft.png',
-  cartwithprice1: '/ShoppingCartSimple.svg',
+  
   reveal1: '/reveal1.svg',
   reveal2: '/reveal2.svg',
   reveal3: '/reveal3.svg',
@@ -130,7 +130,9 @@ const IMAGES = {
   cameraBig: '/CameraBig.png',
   ordercart:'/ordercart.svg',
 
-  grosry: '/grosry.png'
   
+
+  shopping: '/Shopping.svg',
+
 };
 export default IMAGES;

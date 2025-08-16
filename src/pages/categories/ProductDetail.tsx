@@ -569,9 +569,9 @@ const ProductDetail: React.FC = () => {
                 {/* Add to Cart Button */}
                 <button 
                   onClick={handleAddToCart}
-                  className="flex items-center justify-center w-12 h-12 -mt-20 ml-94 rounded-lg hover:opacity-80 transition-opacity relative"
+                  className="flex items-center justify-center w-12 h-12 border border-[#CACACA] rounded-2xl -mt-20 ml-94  hover:opacity-80 transition-opacity relative"
                 >
-                  <img src={IMAGES.cartwithprice1} alt="cart" className="w-10 h-10" />
+                  <img src={IMAGES.shopping} alt="cart" className="w-6 h-6" />
                   {getTotalItems() > 0 && (
                     <div className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                       {getTotalItems()}

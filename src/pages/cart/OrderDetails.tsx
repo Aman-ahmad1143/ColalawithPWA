@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import IMAGES from '../../constants';
+import OrderStore from './OrderStore';
+import OrderTracker from './OrderTracker';
+import FullOrderDetail from './FullOrderDetail';
 
 interface Order {
   id: string;
@@ -16,7 +19,7 @@ interface OrderItem {
   image: string;
 }
 
-interface OrderStore {
+interface OrderStoreType {
   id: string;
   name: string;
   items: OrderItem[];
@@ -25,6 +28,36 @@ interface OrderStore {
 const OrderDetails: React.FC = () => {
   const [selectedOrderIndex, setSelectedOrderIndex] = useState(0);
   const [activeStatus, setActiveStatus] = useState('Order Placed');
+  const [showTracker, setShowTracker] = useState(false);
+  const [showFullOrderDetail, setShowFullOrderDetail] = useState(false);
+  const [selectedStore, setSelectedStore] = useState<OrderStoreType | null>(null);
+  const [fullOrderData, setFullOrderData] = useState<any>(null);
+
+  // Handle track order button click
+  const handleTrackOrder = (store: OrderStoreType) => {
+    setSelectedStore(store);
+    setShowTracker(true);
+    setShowFullOrderDetail(false);
+  };
+
+  // Handle back from tracker
+  const handleBackFromTracker = () => {
+    setShowTracker(false);
+    setSelectedStore(null);
+  };
+
+  // Handle show full order detail
+  const handleShowFullOrderDetail = (orderData: any) => {
+    setFullOrderData(orderData);
+    setShowTracker(false);
+    setShowFullOrderDetail(true);
+  };
+
+  // Handle back from full order detail
+  const handleBackFromFullOrderDetail = () => {
+    setShowFullOrderDetail(false);
+    setShowTracker(true);
+  };
 
   // Sample order data matching the image
   const orders: Order[] = [
@@ -36,7 +69,7 @@ const OrderDetails: React.FC = () => {
   ];
 
   // Multiple order stores data
-  const allOrderStores: OrderStore[][] = [
+  const allOrderStores: OrderStoreType[][] = [
     // Order 1 stores
     [
       {
@@ -163,7 +196,7 @@ const OrderDetails: React.FC = () => {
   const currentOrderStores = allOrderStores[selectedOrderIndex] || allOrderStores[0];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#F9F9F9]">
       <div className="max-w-7xl mx-auto p-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Side - Order List */}
@@ -197,94 +230,27 @@ const OrderDetails: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Side - Order Details */}
-          <div className="lg:col-span-2">
-            {/* Status Tabs moved below */}
-            <div className="flex space-x-2 mb-0.5 mt-14">
-              <button 
-                className={`px-3 py-3 rounded-lg font-medium text-[10px] ${
-                  activeStatus === 'Order Placed' 
-                    ? 'bg-[#E53E3E] text-white' 
-                    : 'bg-[#EDEDED] text-gray-600 hover:bg-gray-300'
-                }`}
-                onClick={() => setActiveStatus('Order Placed')}
-              >
-                Order Placed
-              </button>
-              <button 
-                className={`px-3 py-3 rounded-lg font-medium text-[10px] ${
-                  activeStatus === 'Out for Delivery' 
-                    ? 'bg-[#E53E3E] text-white' 
-                    : 'bg-[#EDEDED] text-gray-600 hover:bg-gray-300'
-                }`}
-                onClick={() => setActiveStatus('Out for Delivery')}
-              >
-                Out for delivery
-              </button>
-              <button 
-                className={`px-3 py-3 rounded-lg font-medium text-[10px] ${
-                  activeStatus === 'Delivered' 
-                    ? 'bg-[#E53E3E] text-white' 
-                    : 'bg-[#EDEDED] text-gray-600 hover:bg-gray-300'
-                }`}
-                onClick={() => setActiveStatus('Delivered')}
-              >
-                Delivered
-              </button>
-              <button 
-                className={`px-3 py-3 rounded-lg font-medium text-[10px] ${
-                  activeStatus === 'Completed' 
-                    ? 'bg-[#E53E3E] text-white' 
-                    : 'bg-[#EDEDED] text-gray-600 hover:bg-gray-300'
-                }`}
-                onClick={() => setActiveStatus('Completed')}
-              >
-                Completed
-              </button>
-            </div>
-
-            {/* Order Stores moved further below - REDUCED HEIGHT */}
-            <div className="space-y-6 mt-5">
-              {currentOrderStores.map((store) => (
-                <div key={store.id} className="overflow-hidden">
-                  {/* Store Header - Reduced padding */}
-                  <div className="bg-[#E53E3E] text-white px-4 py-3 pb-4 flex items-center justify-between rounded-2xl">
-                    <span className="font-medium text-sm">{store.name}</span>
-                  </div>
-                  
-                  {/* Store Items Container - REDUCED HEIGHT */}
-                  <div className="ml-0.5 bg-white rounded-2xl relative -mt-2 h-[320px]">
-                    <div className="p-1 space-y-8">
-                      {store.items.map((item) => (
-                        <div key={item.id} className="flex items-center mb-1 bg-[#F9F9F9] p-4 rounded-2xl space-x-2">
-                          <img 
-                            src={item.image} 
-                            alt={item.name}
-                            className="w-20 h-20 rounded-xl object-cover border border-gray-200"
-                          />
-                          <div className="flex-1">
-                            <h4 className="font-semibold text-black text-[12px] mb-1">{item.name}</h4>
-                            <p className="text-[#E53E3E] font-bold text-[12px] text-base mb-2">{item.price}</p>
-                            <p className="text-[#E53E3E] text-xs font-medium">Qty: {item.quantity}</p>
-                          </div>
-                          <button className="bg-[#E53E3E] text-white px-4 py-2 rounded-2xl  mt-10 font-sm text-xs hover:bg-red-600 transition-colors">
-                            Track Order
-                          </button>
-                        </div>
-                      ))}
-
-                      {/* Open Chat Button */}
-                      <div className="mt-4">
-                        <button className="w-full py-3 px-2 bg-white border border-[#CACACA] rounded-2xl text-gray-700 font-medium text--[12px] hover:bg-gray-100 transition-colors">
-                          Open Chat
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Right Side - Conditional Rendering */}
+          {showFullOrderDetail && fullOrderData ? (
+            <FullOrderDetail
+              onBack={handleBackFromFullOrderDetail}
+              orderData={fullOrderData}
+            />
+          ) : showTracker && selectedStore ? (
+            <OrderTracker 
+              onBack={handleBackFromTracker}
+              storeName={selectedStore.name}
+              storeData={selectedStore}
+              onShowFullOrderDetail={handleShowFullOrderDetail}
+            />
+          ) : (
+            <OrderStore 
+              activeStatus={activeStatus}
+              setActiveStatus={setActiveStatus}
+              currentOrderStores={currentOrderStores}
+              onTrackOrder={handleTrackOrder}
+            />
+          )}
         </div>
       </div>
     </div>
