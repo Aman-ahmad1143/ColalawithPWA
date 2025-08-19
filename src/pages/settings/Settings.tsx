@@ -53,43 +53,43 @@ const Settings: React.FC = () => {
 
             <div className="flex flex-col gap-2">
               <button onClick={() => navigate('/settings/orders')} className="flex items-center bg-[#E53E3E] rounded-2xl px-0 shadow-sm relative text-left w-full">
-                <span className={`flex items-center justify-center w-13 ${isActive('orders') ? 'h-17' : 'h-13'} bg-[#E53E3E] rounded-l-xl`}>
+                <span className={`flex items-center justify-center w-13 ${isActive('orders') ? 'h-18' : 'h-13'} bg-[#E53E3E] rounded-l-xl`}>
                   <img src={IMAGES.cart} alt="My Orders" className="w-7 h-7" />
                 </span>
                 <div className="pl-4 bg-white hover:bg-[#e0dfdf] w-full py-5 border border-[#F2F2F2] rounded-2xl font-semibold">My Order</div>
               </button>
               <button onClick={() => navigate('/settings/saved-items')} className="flex items-center bg-[#E53EE2] rounded-2xl px-0 shadow-sm relative text-left">
-                <span className={`flex items-center justify-center ${isActive('saved-items') ? 'w-17 h-17' : 'w-14 h-14'} rounded-l-xl`}>
+                <span className={`flex items-center justify-center ${isActive('saved-items') ? 'w-17 h-18' : 'w-14 h-14'} rounded-l-xl`}>
                   <img src={IMAGES.heart} alt="Saved Items" className="w-7 h-7" />
                 </span>
                 <div className="pl-4 bg-white hover:bg-[#e0dfdf] w-full py-5 border border-[#F2F2F2] rounded-2xl font-semibold">Saved Items</div>
               </button>
               <button onClick={() => navigate('/settings/followed-stores')} className="flex items-center bg-[#62e53e] rounded-2xl px-0 shadow-sm relative text-left w-full">
-                <span className={`flex items-center justify-center ${isActive('followed-stores') ? 'w-17 h-17' : 'w-14 h-14'} rounded-l-xl`}>
+                <span className={`flex items-center justify-center ${isActive('followed-stores') ? 'w-17 h-18' : 'w-14 h-14'} rounded-l-xl`}>
                   <img src={IMAGES.user} alt="Followed Stores" className="w-7 h-7" />
                 </span>
                 <div className="pl-4 bg-white hover:bg-[#e0dfdf] w-full py-5 border border-[#F2F2F2] rounded-2xl font-semibold">Followed Stores</div>
               </button>
               <button onClick={() => navigate('/settings/reviews')} className="flex items-center bg-[#4c3ee5] rounded-2xl px-0 shadow-sm relative text-left w-full">
-                <span className={`flex items-center justify-center ${isActive('reviews') ? 'w-17 h-17' : 'w-14 h-14'} rounded-l-xl`}>
+                <span className={`flex items-center justify-center ${isActive('reviews') ? 'w-17 h-18' : 'w-14 h-14'} rounded-l-xl`}>
                   <img src={IMAGES.star} alt="Reviews" className="w-7 h-7" />
                 </span>
                 <div className="pl-4 bg-white hover:bg-[#e0dfdf] w-full py-5 border border-[#F2F2F2] rounded-2xl font-semibold">Reviews</div>
               </button>
               <button onClick={() => navigate('/settings/referrals')} className="flex items-center bg-[#4c3ee5] rounded-2xl px-0 shadow-sm relative text-left w-full">
-                <span className={`flex items-center justify-center ${isActive('referrals') ? 'w-17 h-17' : 'w-14 h-14'} rounded-l-xl`}>
+                <span className={`flex items-center justify-center ${isActive('referrals') ? 'w-17 h-18' : 'w-14 h-14'} rounded-l-xl`}>
                   <img src={IMAGES.users} alt="Referrals" className="w-7 h-7" />
                 </span>
                 <div className="pl-4 bg-white hover:bg-[#e0dfdf] w-full py-5 border border-[#F2F2F2] rounded-2xl font-semibold">Referrals</div>
               </button>
               <button onClick={() => navigate('/settings/support')} className="flex items-center bg-[#E5863E] rounded-2xl px-0 shadow-sm relative text-left w-full">
-                <span className={`flex items-center justify-center ${isActive('support') ? 'w-17 h-17' : 'w-14 h-14'} rounded-l-xl`}>
+                <span className={`flex items-center justify-center ${isActive('support') ? 'w-17 h-18' : 'w-14 h-14'} rounded-l-xl`}>
                   <img src={IMAGES.headset} alt="Support" className="w-7 h-7" />
                 </span>
                 <div className="pl-4 bg-white hover:bg-[#e0dfdf] w-full py-5 border border-[#F2F2F2] rounded-2xl font-semibold">Support</div>
               </button>
               <button onClick={() => navigate('/settings/faqs')} className="flex items-center bg-[#3EC9E5] rounded-2xl px-0 shadow-sm relative text-left w-full">
-                <span className={`flex items-center justify-center ${isActive('faqs') ? 'w-17 h-17' : 'w-14 h-14'} rounded-l-xl`}>
+                <span className={`flex items-center justify-center ${isActive('faqs') ? 'w-17 h-18' : 'w-14 h-14'} rounded-l-xl`}>
                   <img src={IMAGES.question} alt="FAQs" className="w-7 h-7" />
                 </span>
                 <div className="pl-4 bg-white hover:bg-[#e0dfdf] w-full py-5 border border-[#F2F2F2] rounded-2xl font-semibold">FAQs</div>

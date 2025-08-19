@@ -32,7 +32,7 @@ const Header: React.FC = () => {
     if (path === "/feed") return "feed";
     if (path === "/chat") return "chat";
     if (path === "/stores") return "stores";
-    if (path === "/settings") return "settings";
+    if (path.startsWith("/settings")) return "settings";
     return "";
   };
 
