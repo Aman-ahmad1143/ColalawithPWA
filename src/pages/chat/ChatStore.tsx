@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { storesData, formatRating } from "./storesData";
+import { chatStoresData, formatChatRating, ChatStore as ChatStoreType } from "./chatStoreData";
 import IMAGES from "../../constants";
 import ProductCard from "../../components/ProductCard";
 
-// Social Feed Post Interface
-interface SocialFeedPost {
+// Social Feed Post Interface for Chat Store
+interface ChatSocialFeedPost {
   id: string;
   author: string;
   avatar: string;
@@ -18,11 +18,11 @@ interface SocialFeedPost {
   isLiked: boolean;
 }
 
-// Generate social feed posts for store
-const generateStoreSocialFeed = (
+// Generate social feed posts for chat store
+const generateChatStoreSocialFeed = (
   storeName: string,
   storeAvatar: string
-): SocialFeedPost[] => {
+): ChatSocialFeedPost[] => {
   return [
     {
       id: "1",
@@ -65,8 +65,8 @@ const generateStoreSocialFeed = (
   ];
 };
 
-// Generate store reviews data
-const generateStoreReviews = (storeName: string, storeAvatar: string) => {
+// Generate chat store reviews data
+const generateChatStoreReviews = (storeName: string, storeAvatar: string) => {
   return [
     {
       id: "1",
@@ -99,74 +99,8 @@ const generateStoreReviews = (storeName: string, storeAvatar: string) => {
   ];
 };
 
-// Generate services based on store data
-const generateStoreServices = (
-  services: string[],
-  storeName: string,
-  categories: string[]
-) => {
-  return services.map((service, index) => {
-    // Determine service image and pricing based on service type and category
-    let serviceImage = "/top1.png";
-    let basePrice = 5000;
-    let serviceName = service;
-
-    // Customize based on service name
-    if (service.includes("Delivery") || service.includes("delivery")) {
-      serviceImage = "/top2.png";
-      basePrice = 2000;
-    } else if (service.includes("Support") || service.includes("support")) {
-      serviceImage = "/top3.png";
-      basePrice = 1500;
-    } else if (
-      service.includes("Design") ||
-      service.includes("design") ||
-      service.includes("Styling")
-    ) {
-      serviceImage = "/top4.png";
-      basePrice = 15000;
-    } else if (
-      service.includes("Installation") ||
-      service.includes("Assembly")
-    ) {
-      serviceImage = "/top5.png";
-      basePrice = 8000;
-    } else if (service.includes("Training") || service.includes("Coaching")) {
-      serviceImage = "/top6.png";
-      basePrice = 10000;
-    }
-
-    // Add category-based pricing adjustments
-    if (categories.includes("Beauty") || categories.includes("Fashion")) {
-      basePrice = basePrice * 1.2;
-    } else if (
-      categories.includes("Electronics") ||
-      categories.includes("Gaming")
-    ) {
-      basePrice = basePrice * 1.5;
-    } else if (
-      categories.includes("Home") ||
-      categories.includes("Furniture")
-    ) {
-      basePrice = basePrice * 1.3;
-    }
-
-    const originalPrice = Math.round(basePrice * 1.3);
-
-    return {
-      id: index + 1000, // Offset to avoid conflicts with products
-      name: serviceName,
-      salePrice: `₦${basePrice.toLocaleString()}`,
-      originalPrice: `₦${originalPrice.toLocaleString()}`,
-      image: serviceImage,
-      store: storeName,
-    };
-  });
-};
-
-// Generate sample products based on store category
-const generateStoreProducts = (
-  storeId: string,
+// Generate sample products based on chat store category
+const generateChatStoreProducts = (
   storeName: string,
   categories: string[]
 ) => {
@@ -302,190 +236,85 @@ const generateStoreProducts = (
     ].map((product) => ({ ...product, store: storeName }));
   }
 
-  if (categories.includes("Grocery") || categories.includes("Food")) {
-    return [
-      {
-        ...baseProducts[0],
-        name: "Organic Rice 10kg",
-        salePrice: "₦8,000",
-        originalPrice: "₦10,000",
-      },
-      {
-        ...baseProducts[1],
-        name: "Fresh Vegetables",
-        salePrice: "₦3,500",
-        originalPrice: "₦4,500",
-      },
-      {
-        ...baseProducts[2],
-        name: "Dairy Products",
-        salePrice: "₦2,500",
-        originalPrice: "₦3,200",
-      },
-      {
-        ...baseProducts[3],
-        name: "Meat Package",
-        salePrice: "₦15,000",
-        originalPrice: "₦18,000",
-      },
-      {
-        ...baseProducts[4],
-        name: "Fruits Basket",
-        salePrice: "₦5,000",
-        originalPrice: "₦6,500",
-      },
-      {
-        ...baseProducts[5],
-        name: "Spices Set",
-        salePrice: "₦4,000",
-        originalPrice: "₦5,500",
-      },
-    ].map((product) => ({ ...product, store: storeName }));
-  }
-
-  if (categories.includes("Home") || categories.includes("Furniture")) {
-    return [
-      {
-        ...baseProducts[0],
-        name: "Sofa Set",
-        salePrice: "₦250,000",
-        originalPrice: "₦320,000",
-      },
-      {
-        ...baseProducts[1],
-        name: "Dining Table",
-        salePrice: "₦80,000",
-        originalPrice: "₦120,000",
-      },
-      {
-        ...baseProducts[2],
-        name: "Bed Frame",
-        salePrice: "₦65,000",
-        originalPrice: "₦85,000",
-      },
-      {
-        ...baseProducts[3],
-        name: "Wardrobe",
-        salePrice: "₦90,000",
-        originalPrice: "₦130,000",
-      },
-      {
-        ...baseProducts[4],
-        name: "Office Chair",
-        salePrice: "₦35,000",
-        originalPrice: "₦45,000",
-      },
-      {
-        ...baseProducts[5],
-        name: "Coffee Table",
-        salePrice: "₦25,000",
-        originalPrice: "₦35,000",
-      },
-    ].map((product) => ({ ...product, store: storeName }));
-  }
-
-  if (categories.includes("Sports") || categories.includes("Fitness")) {
-    return [
-      {
-        ...baseProducts[0],
-        name: "Treadmill",
-        salePrice: "₦180,000",
-        originalPrice: "₦250,000",
-      },
-      {
-        ...baseProducts[1],
-        name: "Dumbbells Set",
-        salePrice: "₦25,000",
-        originalPrice: "₦35,000",
-      },
-      {
-        ...baseProducts[2],
-        name: "Football",
-        salePrice: "₦8,000",
-        originalPrice: "₦12,000",
-      },
-      {
-        ...baseProducts[3],
-        name: "Basketball",
-        salePrice: "₦6,000",
-        originalPrice: "₦9,000",
-      },
-      {
-        ...baseProducts[4],
-        name: "Yoga Mat",
-        salePrice: "₦5,000",
-        originalPrice: "₦8,000",
-      },
-      {
-        ...baseProducts[5],
-        name: "Tennis Racket",
-        salePrice: "₦15,000",
-        originalPrice: "₦22,000",
-      },
-    ].map((product) => ({ ...product, store: storeName }));
-  }
-
   // Default to electronics products
   return baseProducts.map((product) => ({ ...product, store: storeName }));
 };
 
+// Generate services based on chat store data
+const generateChatStoreServices = (
+  services: string[],
+  storeName: string
+) => {
+  return services.map((service, index) => {
+    let serviceImage = "/top1.png";
+    let basePrice = 5000;
+
+    if (service.includes("Delivery") || service.includes("delivery")) {
+      serviceImage = "/top2.png";
+      basePrice = 2000;
+    } else if (service.includes("Support") || service.includes("support")) {
+      serviceImage = "/top3.png";
+      basePrice = 1500;
+    }
+
+    const originalPrice = Math.round(basePrice * 1.3);
+
+    return {
+      id: index + 1000,
+      name: service,
+      salePrice: `₦${basePrice.toLocaleString()}`,
+      originalPrice: `₦${originalPrice.toLocaleString()}`,
+      image: serviceImage,
+      store: storeName,
+    };
+  });
+};
+
 // Helper function to get category colors
-const getCategoryColor = (category: string) => {
+const getChatCategoryColor = (category: string) => {
   const colorMap: Record<string, string> = {
     Electronics: "bg-[#0000FF33] text-[#0000FF] border-[#0000FF]",
     Phones: "bg-[#FF000033] text-[#FF0000] border-[#FF0000]",
     Computing: "bg-[#00FFFF33] text-[#00FFFF] border-[#00FFFF]",
     Fashion: "bg-[#FF69B433] text-[#FF69B4] border-[#FF69B4]",
-    Clothing: "bg-[#FF69B433] text-[#FF69B4] border-[#FF69B4]",
-    Accessories: "bg-[#DDA0DD33] text-[#DDA0DD] border-[#DDA0DD]",
     Beauty: "bg-[#FFB6C133] text-[#FFB6C1] border-[#FFB6C1]",
     Fragrances: "bg-[#E6E6FA33] text-[#E6E6FA] border-[#E6E6FA]",
     Grocery: "bg-[#32CD3233] text-[#32CD32] border-[#32CD32]",
     Food: "bg-[#FFA50033] text-[#FFA500] border-[#FFA500]",
     Home: "bg-[#DEB88733] text-[#DEB887] border-[#DEB887]",
-    Furniture: "bg-[#8B451333] text-[#8B4513] border-[#8B4513]",
-    Sports: "bg-[#00800033] text-[#008000] border-[#008000]",
-    Fitness: "bg-[#FF634733] text-[#FF6347] border-[#FF6347]",
-    Gaming: "bg-[#80008033] text-[#800080] border-[#800080]",
+    Accessories: "bg-[#DDA0DD33] text-[#DDA0DD] border-[#DDA0DD]",
   };
   return colorMap[category] || "bg-gray-200 text-gray-700 border-gray-400";
 };
 
-const StoreDetail: React.FC = () => {
+const ChatStore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("products");
   const [searchQuery, setSearchQuery] = useState("");
-  const [showFilter, setShowFilter] = useState(false);
-  const [filters, setFilters] = useState({
-    category: "",
-    brand: "",
-    location: "",
-  });
-  const [socialPosts, setSocialPosts] = useState<SocialFeedPost[]>([]);
-  const [showStoreAddresses, setShowStoreAddresses] = useState(false);
+  const [socialPosts, setSocialPosts] = useState<ChatSocialFeedPost[]>([]);
 
   // Find the store by ID
-  const store = storesData.find((s) => s.id === id);
+  const store = chatStoresData.find((s) => s.id === id);
 
   // Generate products based on store data
   const storeProducts = store
-    ? generateStoreProducts(store.id, store.name, store.categories)
+    ? generateChatStoreProducts(store.name, store.categories)
     : [];
 
   // Generate services based on store data
   const storeServices = store
-    ? generateStoreServices(store.services, store.name, store.categories)
+    ? generateChatStoreServices(store.services, store.name)
     : [];
 
   // Generate social feed posts
   const storeSocialPosts = store
-    ? generateStoreSocialFeed(store.name, store.avatar)
+    ? generateChatStoreSocialFeed(store.name, store.avatar)
     : [];
 
   // Generate store reviews
   const storeReviews = store
-    ? generateStoreReviews(store.name, store.avatar)
+    ? generateChatStoreReviews(store.name, store.avatar)
     : [];
 
   // Initialize social posts
@@ -511,43 +340,14 @@ const StoreDetail: React.FC = () => {
     );
   };
 
-  // Handle back navigation
+  // Handle back navigation - always go back to chat
   const handleBack = () => {
-    // Try to go back in history, fallback to stores page
-    if (window.history.length > 1) {
-      navigate(-1);
-    } else {
-      navigate("/stores");
-    }
+    navigate("/chat");
   };
 
   // Handle add to cart
   const handleAddToCart = (productId: number) => {
     console.log(`Added product ${productId} to cart from ${store?.name}`);
-    // Add your cart logic here
-  };
-
-  // Handle filter changes
-  const handleFilterChange = (filterType: string, value: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      [filterType]: value,
-    }));
-  };
-
-  // Clear all filters
-  const handleClearFilters = () => {
-    setFilters({
-      category: "",
-      brand: "",
-      location: "",
-    });
-  };
-
-  // Apply filters (you can add filtering logic here)
-  const handleApplyFilters = () => {
-    console.log("Applying filters:", filters);
-    setShowFilter(false);
   };
 
   if (!store) {
@@ -568,10 +368,10 @@ const StoreDetail: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-[1080px] mx-auto pt-6">
-        {/* Breadcrumb */}
+        {/* Breadcrumb - Shows "Chat / Store Name" */}
         <div className="px-4 py-4">
           <div className="flex items-center text-[25px] text-gray-500 mb-2">
-            <span>Stores</span>
+            <span>Chat</span>
             <span className="mx-2">/</span>
             <span className="text-gray-900 font-medium">{store.name}</span>
           </div>
@@ -605,22 +405,6 @@ const StoreDetail: React.FC = () => {
                       strokeLinejoin="round"
                       strokeWidth={2}
                       d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-                {/* Share Button */}
-                <button className="absolute top-4 right-4 w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors">
-                  <svg
-                    className="w-5 h-5 text-gray-700"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"
                     />
                   </svg>
                 </button>
@@ -659,7 +443,7 @@ const StoreDetail: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Follow Button (Right side) */}
+                  {/* Follow Button */}
                   <button className="bg-[#E53E3E] text-white px-8 py-2 rounded-[10px] text-[10px] font-medium hover:bg-red-600 transition-colors">
                     Follow
                   </button>
@@ -740,14 +524,8 @@ const StoreDetail: React.FC = () => {
                       />
                     </svg>
                     <span className="text-[12px] font-medium">
-                      {store.location}{" "}
+                      {store.location}
                     </span>
-                    <button
-                      onClick={() => setShowStoreAddresses(true)}
-                      className="text-[#E53E3E] text-xs font-medium underline"
-                    >
-                      View Store Addresses
-                    </button>
                   </div>
                   <div className="mb-4 flex items-center gap-2">
                     <svg
@@ -760,14 +538,14 @@ const StoreDetail: React.FC = () => {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         strokeWidth={1}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                        d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
                       />
                     </svg>
                     <span className="text-sm text-gray-600">Category </span>
                     {store.categories.map((category, index) => (
                       <span
                         key={index}
-                        className={`px-2 py-1 text-[10px] rounded-[5px] ml-2 border-[0.5px] ${getCategoryColor(
+                        className={`px-2 py-1 text-[10px] rounded-[5px] ml-2 border-[0.5px] ${getChatCategoryColor(
                           category
                         )}`}
                       >
@@ -815,7 +593,7 @@ const StoreDetail: React.FC = () => {
                     <div>
                       <p className="text-[6px] text-gray-500">Ratings</p>
                       <p className="text-sm font-normal text-gray-900">
-                        {formatRating(store.rating)}
+                        {formatChatRating(store.rating)}
                       </p>
                     </div>
                   </div>
@@ -836,6 +614,7 @@ const StoreDetail: React.FC = () => {
                 </div>
               </div>
             </div>
+
             {/* Social Links */}
             <div className="flex gap-1 border border-[#CDCDCD] p-1 rounded-[10px] mb-4 bg-white">
               <button className=" rounded-lg flex items-center justify-center">
@@ -863,6 +642,7 @@ const StoreDetail: React.FC = () => {
                 />
               </button>
             </div>
+
             {/* Promotional Banner */}
             <div className="bg-[#921313] rounded-2xl px-5 py-3 text-white mb-6 relative overflow-hidden">
               <div className="flex  justify-between relative z-10">
@@ -886,7 +666,7 @@ const StoreDetail: React.FC = () => {
                 <div className="flex-shrink-0 ">
                   <img
                     src={IMAGES.grocery1}
-                    alt="Shopping bag with groceries"
+                    alt="Shopping bag"
                     className="w-42 h-42 object-contain"
                   />
                 </div>
@@ -964,9 +744,9 @@ const StoreDetail: React.FC = () => {
                 </button>
               </div>
 
-              {/* Search Bar - Only show for products and services tabs */}
+              {/* Search Bar */}
               {(activeTab === "products" || activeTab === "services") && (
-                <div className="flex gap-3 relative">
+                <div className="flex gap-3 relative mb-6">
                   <div className="flex-1 relative">
                     <input
                       type="text"
@@ -979,103 +759,11 @@ const StoreDetail: React.FC = () => {
                     />
                   </div>
                   <button
-                    onClick={() => setShowFilter(true)}
+                    onClick={() => {/* Filter functionality can be added later */}}
                     className=" border border-[#AFAFAF] hover:bg-gray-200 transition-colors rounded-xl px-[30px] py-[18px] flex items-center justify-center"
                   >
                     <img src={IMAGES.funnel} alt="Filter" className="w-6 h-6" />
                   </button>
-
-                  {/* Filter Dropdown - positioned beneath the filter button */}
-                  {showFilter && (
-                    <>
-                      {/* Backdrop to close modal when clicking outside */}
-                      <div
-                        className="fixed inset-0 z-40"
-                        onClick={() => setShowFilter(false)}
-                      />
-                      {/* Filter dropdown */}
-                      <div
-                        className="absolute top-full -right-5 mt-2 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50"
-                        style={{ width: "430px", height: "260px" }}
-                      >
-                        <div className="p-4 h-full flex flex-col">
-                          {/* Category Dropdown */}
-                          <div className="mb-4">
-                            <select
-                              value={filters.category}
-                              onChange={(e) =>
-                                handleFilterChange("category", e.target.value)
-                              }
-                              className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
-                            >
-                              <option value="">Category</option>
-                              <option value="Electronics">Electronics</option>
-                              <option value="Fashion">Fashion</option>
-                              <option value="Beauty">Beauty</option>
-                              <option value="Home">Home</option>
-                              <option value="Sports">Sports</option>
-                              <option value="Grocery">Grocery</option>
-                            </select>
-                          </div>
-
-                          {/* Brand Dropdown */}
-                          <div className="mb-4">
-                            <select
-                              value={filters.brand}
-                              onChange={(e) =>
-                                handleFilterChange("brand", e.target.value)
-                              }
-                              className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
-                            >
-                              <option value="">Brand</option>
-                              <option value="Samsung">Samsung</option>
-                              <option value="Apple">Apple</option>
-                              <option value="Dell">Dell</option>
-                              <option value="HP">HP</option>
-                              <option value="Nike">Nike</option>
-                              <option value="Adidas">Adidas</option>
-                            </select>
-                          </div>
-
-                          {/* Location Dropdown */}
-                          <div className="mb-6 flex-1">
-                            <select
-                              value={filters.location}
-                              onChange={(e) =>
-                                handleFilterChange("location", e.target.value)
-                              }
-                              className="w-full border border-[#AFAFAF] rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-400 bg-gray-100"
-                            >
-                              <option value="">Location</option>
-                              <option value="Lagos">Lagos</option>
-                              <option value="Abuja">Abuja</option>
-                              <option value="Port Harcourt">
-                                Port Harcourt
-                              </option>
-                              <option value="Kano">Kano</option>
-                              <option value="Ibadan">Ibadan</option>
-                            </select>
-                          </div>
-
-                          {/* Action Buttons */}
-                          <div className="flex gap-3 mt-auto">
-                            <button
-                              onClick={handleClearFilters}
-                              className="flex-1 bg-gray-200 text-gray-700 py-3 rounded-lg text-sm font-medium hover:bg-gray-300 transition-colors"
-                            >
-                              Clear
-                            </button>
-                            <button
-                              onClick={handleApplyFilters}
-                              className="flex-1 bg-[#E53E3E] text-white py-3 rounded-lg text-sm font-medium hover:bg-red-600 transition-colors"
-                            >
-                              Apply
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </>
-                  )}
                 </div>
               )}
             </div>
@@ -1109,7 +797,6 @@ const StoreDetail: React.FC = () => {
               <div className="space-y-6">
                 {socialPosts.map((post) => (
                   <div key={post.id} className=" rounded-2xl overflow-hidden">
-                    {/* Post Header */}
                     <div className="flex items-center justify-between p-4">
                       <div className="flex items-center space-x-3">
                         <img
@@ -1126,23 +813,12 @@ const StoreDetail: React.FC = () => {
                           </p>
                         </div>
                       </div>
-                      <button className="p-2 hover:bg-gray-100 rounded-full">
-                        <svg
-                          className="w-5 h-5 text-gray-600"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-                        </svg>
-                      </button>
                     </div>
 
-                    {/* Post Caption */}
                     <div className="px-4 pb-3">
                       <p className="text-gray-800">{post.caption}</p>
                     </div>
 
-                    {/* Post Image */}
                     <div className="relative">
                       <img
                         src={post.image}
@@ -1151,7 +827,6 @@ const StoreDetail: React.FC = () => {
                       />
                     </div>
 
-                    {/* Post Actions */}
                     <div className="p-4">
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center space-x-4">
@@ -1228,7 +903,6 @@ const StoreDetail: React.FC = () => {
 
             {activeTab === "reviews" && (
               <div className=" rounded-2xl ">
-                {/* Review Tabs */}
                 <div className="flex gap-8 mb-8 border-b border-gray-200">
                   <button className="pb-3 text-red-500 font-medium text-base border-b-2 border-red-500">
                     Store Reviews
@@ -1238,9 +912,7 @@ const StoreDetail: React.FC = () => {
                   </button>
                 </div>
 
-                {/* Rating Summary */}
                 <div className="text-center mb-8 bg-white rounded-[20px] p-4 pt-10 shadow-lg">
-                  {/* Large Stars */}
                   <div className="flex items-center justify-center space-x-2 mb-4">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <svg
@@ -1256,7 +928,6 @@ const StoreDetail: React.FC = () => {
                     ))}
                   </div>
 
-                  {/* Rating Text */}
                   <div className="flex items-center justify-between">
                     <span className="text-red-500 text-lg font-medium">
                       4 Stars
@@ -1267,11 +938,9 @@ const StoreDetail: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Review Cards */}
                 <div className="space-y-6">
                   {storeReviews.map((review) => (
                     <div key={review.id} className="bg-[#F5F5F5] rounded-xl">
-                      {/* Upper div - Avatar, Name, Stars */}
                       <div className="flex items-center space-x-3 p-4 pb-2">
                         <img
                           src={review.avatar}
@@ -1306,7 +975,6 @@ const StoreDetail: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* Lower div - Review text and reply */}
                       <div className="px-4 pb-4">
                         <p className="text-gray-800 text-base mb-4">
                           {review.text}
@@ -1325,16 +993,8 @@ const StoreDetail: React.FC = () => {
                             placeholder=""
                             className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-red-400 ml-4"
                           />
-                          {review.id === "1" && (
-                            <img
-                              src={IMAGES.paperPlaneRight}
-                              alt="Send"
-                              className="w-5 h-5"
-                            />
-                          )}
                         </div>
 
-                        {/* Store Replies */}
                         {review.replies && review.replies.length > 0 && (
                           <div className="mt-4 space-y-3">
                             {review.replies.map((reply) => (
@@ -1373,168 +1033,8 @@ const StoreDetail: React.FC = () => {
           </div>
         </div>
       </div>
-
-      {/* Store Addresses Modal */}
-      {showStoreAddresses && (
-        <div className="fixed inset-0 backdrop-brightness-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-            {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 relative">
-              <h2 className="text-xl font-semibold text-gray-900 mx-auto">
-                Store Addresses
-              </h2>
-              <button
-                onClick={() => setShowStoreAddresses(false)}
-                className="absolute right-6 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors"
-              >
-                <svg
-                  className="w-5 h-5 text-gray-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
-            </div>
-
-            {/* Modal Content */}
-            <div className="p-4 space-y-6">
-              {[
-                {
-                  id: 1,
-                  label: "Address 1",
-                  isMain: true,
-                  wednesdayTime: "08:00 AM - 07:00PM",
-                  wednesdayTextColor: "text-gray-900",
-                },
-                {
-                  id: 2,
-                  label: "Address 2",
-                  isMain: false,
-                  wednesdayTime: "08:00 AM - 01:00PM",
-                  wednesdayTextColor: "text-red-500",
-                },
-              ].map((address, index) => (
-                <div
-                  key={index}
-                  className="rounded-2xl overflow-hidden shadow-sm border border-gray-200"
-                >
-                  {/* Upper Div - Address Title & Button */}
-                  <div className="bg-[#E53E3E] px-4 py-3 pb-6 flex items-center -mb-2 justify-between rounded-t-2xl">
-                    <span className="text-white font-normal text-sm">
-                      {address.label}
-                    </span>
-                    <button className="bg-white text-red-500 text-[10px] font-medium px-4 py-1 rounded-full hover:bg-gray-50 transition-colors">
-                      View on Map
-                    </button>
-                  </div>
-
-                  {/* Lower Div - All Other Data */}
-                  <div className="bg-white p-4 space-y-4 rounded-2xl -mt-3 relative">
-                    {/* Main Office Tag */}
-                    {address.isMain && (
-                      <div className="flex justify-start absolute right-3">
-                        <span className="inline-block text-xs font-medium bg-[#FF000033] text-[#FF0000] border border-[#FF0000] px-3 py-1 rounded-[5px]">
-                          Main Office
-                        </span>
-                      </div>
-                    )}
-
-                    {/* Address Info */}
-                    <div className="space-y-3">
-                      <div>
-                        <label className="text-[10px] font-normal text-[#00000080]">
-                          State
-                        </label>
-                        <p className="text-gray-900 text-sm">Lagos</p>
-                      </div>
-                      <div>
-                        <label className="text-[10px] font-normal text-[#00000080]">
-                          Local Government
-                        </label>
-                        <p className="text-gray-900 text-sm">Ikeja</p>
-                      </div>
-                      <div>
-                        <label className="text-[10px] font-normal text-[#00000080]">
-                          Full Address
-                        </label>
-                        <p className="text-gray-900 text-sm">
-                          No 2, abcdefght street , opposite abc building, acd
-                          bus stop, ikeja
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Opening Hours */}
-                    <div className="bg-[#FFEEEE] rounded-lg px-4 py-3">
-                      <div className="flex items-center gap-2 mb-3">
-                        <svg
-                          className="w-4 h-4 text-gray-600"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                        <h3 className="font-medium text-sm text-gray-900">
-                          Opening Hours
-                        </h3>
-                      </div>
-
-                      <div className="space-y-1 text-[10px]">
-                        {[
-                          "Monday",
-                          "Tuesday",
-                          "Wednesday",
-                          "Thursday",
-                          "Friday",
-                          "Saturday",
-                        ].map((day) => (
-                          <div key={day} className="flex items-center justify-between mr-33">
-                            <span
-                              className={
-                                day === "Wednesday" && !address.isMain
-                                  ? address.wednesdayTextColor
-                                  : "text-gray-600"
-                              }
-                            >
-                              {day}
-                            </span>
-                            <span
-                              className={
-                                day === "Wednesday" && !address.isMain
-                                  ? address.wednesdayTextColor
-                                  : "text-gray-900"
-                              }
-                            >
-                              {day === "Wednesday" && !address.isMain
-                                ? address.wednesdayTime
-                                : "08:00 AM - 07:00PM"}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
-export default StoreDetail;
+export default ChatStore;
