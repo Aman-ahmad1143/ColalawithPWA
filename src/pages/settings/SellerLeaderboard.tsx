@@ -274,6 +274,7 @@ const SellerLeaderboard: React.FC = () => {
         {showHowItWorksPopup && (
           <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-brightness-50">
             <div className="bg-[#F9F9F9] rounded-3xl w-[400px] max-w-full p-6 shadow-2xl relative">
+              
               {/* Close Button */}
               <button 
                 onClick={() => setShowHowItWorksPopup(false)}

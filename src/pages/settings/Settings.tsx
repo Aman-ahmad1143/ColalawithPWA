@@ -98,13 +98,13 @@ const Settings: React.FC = () => {
 
             <div className="mt-4">
               <div className="text-sm text-gray-900 mb-2">Others</div>
-              <button onClick={() => navigate('/settings/loyalty-points')} className="flex items-center bg-white hover:bg-[#e0dfdf] rounded-xl px-4 pl-2 py-3 shadow-sm mb-2 relative w-full text-left">
+              <button onClick={() => navigate('/settings/loyalty-points')} className={`flex items-center bg-white hover:bg-[#e0dfdf] rounded-xl px-4 pl-2 py-3 shadow-sm mb-2 relative w-full text-left ${isActive('loyalty-points') ? 'border-2 border-[#E53E3E]' : 'border border-gray-100'}`}>
                 <span className="flex items-center justify-center w-13 h-9 rounded-l-xl">
                   <img src={IMAGES.sealPercent} alt="Loyalty Points" className="w-7 h-7" />
                 </span>
                 <div>Loyalty Points</div>
               </button>
-              <button onClick={() => navigate('/settings/seller-leaderboard')} className="flex items-center bg-white hover:bg-[#e0dfdf] rounded-xl px-4 pl-2 py-3 shadow-sm mb-2 relative w-full text-left">
+              <button onClick={() => navigate('/settings/seller-leaderboard')} className={`flex items-center bg-white hover:bg-[#e0dfdf] rounded-xl px-4 pl-2 py-3 shadow-sm mb-2 relative w-full text-left ${isActive('seller-leaderboard') ? 'border-2 border-[#E53E3E]' : 'border border-gray-100'}`}>
                 <span className="flex items-center justify-center w-13 h-9 rounded-l-xl">
                   <img src={IMAGES.ranking} alt="Seller Leaderboard" className="w-7 h-7" />
                 </span>
