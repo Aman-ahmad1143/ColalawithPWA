@@ -132,8 +132,10 @@ const IMAGES = {
   plus: '/Plus.png',
   minus: '/Minus.png',
   faqsImage: '/FAQs.png',
-
-  
+  first: '/first.png',
+  second: '/second.png',
+  third: '/third.png',
+  questionMark: '/QuestionMark.png',
 
   shopping: '/Shopping.svg',
 
