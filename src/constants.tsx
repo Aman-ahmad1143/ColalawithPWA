@@ -129,8 +129,13 @@ const IMAGES = {
   cross: '/cross.png',
   cameraBig: '/CameraBig.png',
   ordercart:'/ordercart.svg',
-
-  
+  plus: '/Plus.png',
+  minus: '/Minus.png',
+  faqsImage: '/FAQs.png',
+  first: '/first.png',
+  second: '/second.png',
+  third: '/third.png',
+  questionMark: '/QuestionMark.png',
 
   shopping: '/Shopping.svg',
 
