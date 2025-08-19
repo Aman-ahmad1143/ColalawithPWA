@@ -13,6 +13,7 @@ import ProductDetail from './pages/categories/ProductDetail';
 import Home from './pages/home/HomePage';
 import Feed from './pages/feed/Feed';
 import Chat from './pages/chat/Chat';
+import ChatStore from './pages/chat/ChatStore';
 import Stores from './pages/stores/Stores';
 import StoreDetail from './pages/stores/StoreDetail';
 import FollowedStoreDetail from './pages/settings/FollowedStoreDetail';
@@ -55,6 +56,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/chat" element={<Chat />} />
+          <Route path="/chat/:id" element={<ChatStore />} />
           <Route path="/stores" element={<Stores />} />
           <Route path="/stores/:id" element={<StoreDetail />} />
           <Route path="/stores/followed-stores/:id" element={<FollowedStoreDetail />} />
