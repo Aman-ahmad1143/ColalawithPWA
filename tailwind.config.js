@@ -6,6 +6,10 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'sans': ['Manrope', 'sans-serif'],
+        'oleo': ['Oleo Script', 'cursive'],
+      },
       colors: {
         primary: '#E53E3E',
       },

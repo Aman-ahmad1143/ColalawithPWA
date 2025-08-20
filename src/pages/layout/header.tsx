@@ -107,7 +107,7 @@ const Header: React.FC = () => {
                   
 
                   {/* Title */}
-                  <div className="mb-4">
+                  <div className="mb-4 pop_up">
                     <h3 className="text-lg font-semibold text-gray-800 mb-1">Search by Image</h3>
                     <p className="text-xs text-gray-600">Find products by uploading an image</p>
                   </div>

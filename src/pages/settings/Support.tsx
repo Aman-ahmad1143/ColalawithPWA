@@ -376,7 +376,7 @@ const Support: React.FC = () => {
               </button>
 
               {/* Header */}
-              <div className="text-center mb-6">
+              <div className="text-center mb-6 pop_up">
                 <h2 className="text-xl font-bold text-gray-900 mb-2">Support Form</h2>
               </div>
 

@@ -41,7 +41,7 @@ const ProductReview: React.FC<ProductReviewProps> = ({
     <div className="fixed inset-0 backdrop-brightness-50 bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl p-6 max-w-md w-[430px] mx-4 relative">
         {/* Header */}
-        <div className="flex items-center justify-center mb-6 relative">
+        <div className="flex items-center justify-center mb-6 relative pop_up">
           <h2 className="text-[20px] font-bold text-black font-OleoScript">My review</h2>
           <button 
             onClick={onClose}

@@ -1379,7 +1379,7 @@ const StoreDetail: React.FC = () => {
         <div className="fixed inset-0 backdrop-brightness-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-3xl max-w-md w-full max-h-[90vh] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
             {/* Modal Header */}
-            <div className="flex items-center justify-between p-6 border-b border-gray-200 relative">
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 relative pop_up">
               <h2 className="text-xl font-semibold text-gray-900 mx-auto">
                 Store Addresses
               </h2>
