@@ -96,6 +96,9 @@ colala-pwa/
 │   │   └── 📁 layout/         # Layout components
 │   ├── 📄 constants.tsx        # Image and icon constants
 │   └── 📄 main.tsx            # Application entry point
+├── 📄 API_INTEGRATION_GUIDE.md # Backend API integration documentation
+├── 📄 BACKEND_INTEGRATION_CHECKLIST.md # Backend development checklist
+├── 📄 FRONTEND_COMMENTS_GUIDE.md # Code commenting strategy
 ├── 📄 vite.config.ts          # Vite configuration
 ├── 📄 tailwind.config.js      # Tailwind CSS configuration
 ├── 📄 pwa-assets.config.ts    # PWA assets configuration
@@ -302,6 +305,40 @@ For support and questions:
 - 📧 **Email**: [support@colala.com](mailto:support@colala.com)
 - 💬 **GitHub Issues**: [Create an issue](https://github.com/Abdul-Ahad-503/ColalawithPWA/issues)
 - 📱 **In-app Support**: Use the support chat feature
+
+## 🔗 Backend Integration
+
+This project includes comprehensive documentation for backend developers:
+
+### 📋 Integration Documentation
+- **[API Integration Guide](API_INTEGRATION_GUIDE.md)** - Complete API specifications, endpoints, and data models
+- **[Backend Integration Checklist](BACKEND_INTEGRATION_CHECKLIST.md)** - Step-by-step checklist for backend implementation
+- **[Frontend Comments Guide](FRONTEND_COMMENTS_GUIDE.md)** - Examples of strategic code comments for API integration
+
+### 🎯 For Backend Developers
+The frontend is designed with clear API integration points and includes:
+- **Detailed endpoint specifications** with request/response formats
+- **Data model definitions** for all entities
+- **Authentication flow** with cookie-based sessions
+- **Real-time features** using WebSocket/SSE
+- **File upload requirements** and validation rules
+- **Error handling** patterns and expected responses
+
+### 🚀 Quick Integration Start
+1. Review the **API Integration Guide** for complete specifications
+2. Follow the **Backend Integration Checklist** for implementation
+3. Reference **Frontend Comments Guide** for code-level integration points
+4. Test endpoints against the frontend development server at `http://localhost:5173`
+
+### 📊 API Coverage
+The documentation covers **80+ endpoints** across:
+- Authentication & User Management
+- Product Catalog & Search
+- Shopping Cart & Orders
+- Store Management & Reviews
+- Chat & Support Systems
+- Loyalty Programs & Referrals
+- File Uploads & Real-time Features
 
 ---
 
