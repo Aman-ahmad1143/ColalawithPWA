@@ -33,6 +33,8 @@ import SearchPage from './pages/SearchPage';
 import Cart from './pages/cart/Cart';
 import CartCheckout from './pages/cart/CartCheckout';
 import OrderDetails from './pages/cart/OrderDetails';
+import LoginPage from './pages/user/LoginPage';
+import RegistrationPage from './pages/user/RegistrationPage';
 
 
 
@@ -63,6 +65,8 @@ function App() {
           <Route path="/cart" element={<Cart />} />
           <Route path="/cart/checkout" element={<CartCheckout />} />
           <Route path="/order-details" element={<OrderDetails />} />
+          <Route path="/auth/login" element={<LoginPage />} />
+          <Route path="/auth/register" element={<RegistrationPage />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/settings" element={<Settings />} >
             <Route path="edit-profile" element={<EditProfile />} />
