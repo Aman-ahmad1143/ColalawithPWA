@@ -1,6 +1,6 @@
 @import "tailwindcss";
 *{
-  font: 'Manrope', sans-serif;
+  font-family: 'Manrope', sans-serif;
 }
 
 .root{
@@ -32,4 +32,23 @@
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.pop_up::before {
+  content: '';
+  display: block;
+  
+  width: 118px;
+  height: 8px;
+  margin: -20px auto 10px auto; /* center & space below */
+  background-color:#D9D9D9; /* adjust color as needed */
+  border-radius: 10px; /* for full rounding */
+}
+
+.pop_up h2{
+  font-family: 'Oleo Script', cursive;
+  
+  font-weight: 400;
+  text-align: center;
+  margin: 0;
 }

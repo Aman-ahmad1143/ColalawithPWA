@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import IMAGES from '../../constants';
-
+import '../../index.css'
 const SellerLeaderboard: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'Today' | 'Weekly' | 'Monthly' | 'All Time'>('Today');
   const [showHowItWorksPopup, setShowHowItWorksPopup] = useState(false);
@@ -284,8 +284,8 @@ const SellerLeaderboard: React.FC = () => {
               </button>
 
               {/* Header */}
-              <div className="text-center mb-6">
-                <h2 className="text-xl font-bold text-gray-900 mb-2">How it works</h2>
+              <div className="text-center mb-6 pop_up">
+                <h2 className="text-xl font-bold  text-gray-900 mb-2">How it works</h2>
               </div>
 
               {/* FAQ Content */}

@@ -436,7 +436,7 @@ const CartCheckout: React.FC = () => {
           <div className="fixed inset-0  backdrop-brightness-50 bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white rounded-2xl p-8 max-w-md w-[389px] h-[287px] mx-4 text-center">
               {/* Success Icon */}
-              <div className="w-16 h-16 bg-[#00800033] rounded-full flex items-center justify-center mx-auto mb-7">
+              <div className="w-16 h-16 bg-[#00800033] rounded-full flex items-center justify-center mx-auto mb-7 pop_up">
                 <div className="w-8 h-8  rounded-full flex items-center justify-center">
                  <img src="/public/tick.svg" alt="Success" />
                 </div>

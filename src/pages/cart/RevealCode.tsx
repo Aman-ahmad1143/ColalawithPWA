@@ -13,7 +13,7 @@ const RevealCode: React.FC<RevealCodeProps> = ({ isOpen, onClose, onRevealCode }
     <div className="fixed inset-0  backdrop-brightness-50   flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl p-8 max-w-md w-[389px] h-[245px] mx-4 shadow-2xl">
         {/* Warning Icon */}
-        <div className="flex justify-center mb-6">
+        <div className="flex justify-center mb-6 pop_up">
           <div className="flex items-center justify-center w-12 h-12 bg-[#FF000033] rounded-full">
             <div className="flex items-center justify-center w-16 h-16  rounded-full">
               <span><img src="/public/Vector.svg" alt="Alert Icon" /></span>

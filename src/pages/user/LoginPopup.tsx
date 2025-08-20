@@ -29,8 +29,10 @@ const LoginPopup: React.FC<LoginPopupProps> = ({ open, onClose, onSwitchToRegist
         {/* Right Side Form */}
         <div className="w-1/2 p-4 flex flex-col items-center relative">
           <button onClick={onClose} className="absolute top-4 right-4 text-2xl text-gray-400 hover:text-gray-700"><img src={IMAGES. xCircle} alt="X" className="w-8 h-8 mr-2 cursor-pointer" /></button>
-          <h2 className="text-2xl font-bold text-[#E53E3E] mt-10 mb-2">Login</h2>
-          <p className="text-gray-500 mb-6">Login to you account</p>
+          <div className="pop_up">
+            <h2 className="text-2xl font-bold text-[#E53E3E] mt-10 mb-2">Login</h2>
+            <p className="text-gray-500 mb-6">Login to you account</p>
+          </div>
           <form className="w-full flex flex-col gap-4" onSubmit={handleLogin}>
             <div className="flex items-center bg-[#F7F7F7] rounded-xl px-4 py-3 border border-[#E5E5E5]">
               <img src={IMAGES.sms} alt="email" className="w-5 h-5 mr-2 opacity-70" />

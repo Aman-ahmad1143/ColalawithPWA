@@ -14,7 +14,7 @@ const CodeDisplay: React.FC<CodeDisplayProps> = ({ isOpen, onClose, onCopyCode, 
     <div className="fixed inset-0 backdrop-brightness-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-2xl p-8 max-w-md w-[389px] h-[245px] mx-4 shadow-2xl">
         {/* Header Text */}
-        <div className="text-center mb-6">
+        <div className="text-center mb-6 pop_up">
           <p className="text-gray-800 text-[12px] font-medium">
             Dear customer your code is
           </p>
