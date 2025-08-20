@@ -276,8 +276,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Team
 
-- **Developer**: Abdul Ahad
-- **GitHub**: [@Abdul-Ahad-503](https://github.com/Abdul-Ahad-503)
+- **Lead Developer**: Abdul Ahad - [@Abdul-Ahad-503](https://github.com/Abdul-Ahad-503)
+- **Developer**: Aman Ahmed - [@Aman-ahmad1143](https://github.com/Aman-ahmad1143)
 
 ## 🚀 Deployment
 
